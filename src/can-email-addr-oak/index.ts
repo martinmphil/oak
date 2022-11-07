@@ -1,8 +1,6 @@
 export async function main(event: any) {
-  console.log("event 👉", event);
-
+  // console.log("event 👉", event);
   return {
-    body: JSON.stringify({ message: "Successful lambda invocation" }),
-    statusCode: 200,
+    body: "Successful lambda invocation with oak-stack",
   };
 }

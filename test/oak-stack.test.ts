@@ -11,6 +11,10 @@ describe("oak stack", () => {
     template.templateMatches(Match.anyValue());
   });
 
+  it("reproduces snapshot", () => {
+    expect(template.toJSON()).toMatchSnapshot();
+  });
+
   it("has correct number of lambdas and log groups", () => {
     template.resourceCountIs("AWS::Lambda::Function", 1);
     template.resourceCountIs("AWS::Logs::LogGroup", 1);

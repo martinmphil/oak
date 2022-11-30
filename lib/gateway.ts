@@ -7,6 +7,7 @@ import {
   HttpMethod,
 } from "@aws-cdk/aws-apigatewayv2-alpha";
 import { HttpLambdaIntegration } from "@aws-cdk/aws-apigatewayv2-integrations-alpha";
+import { HttpUserPoolAuthorizer } from "@aws-cdk/aws-apigatewayv2-authorizers-alpha";
 import { LambdasOak } from "./lambdas";
 import { CognitoOak } from "./cognito";
 
@@ -15,8 +16,13 @@ export class gateway extends Construct {
     super(scope, id);
 
     const cognitoOak = new CognitoOak(this, "cognitoOak");
+    const canAuthOak = new HttpUserPoolAuthorizer(
+      "defaultAuthorizer",
+      cognitoOak.userPool
+    );
 
     const gateway = new HttpApi(this, "gatewayOak", {
+      defaultAuthorizer: canAuthOak,
       corsPreflight: {
         allowHeaders: ["Authorization"],
         allowOrigins: [

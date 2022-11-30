@@ -2,7 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import { Template, Match } from "aws-cdk-lib/assertions";
 import * as Oak from "../lib/oak-stack";
 
-describe("api construct", () => {
+describe("gateway construct", () => {
   const app = new cdk.App();
   const stack = new Oak.OakStack(app, "apiTestStack");
   const template = Template.fromStack(stack);
@@ -37,6 +37,12 @@ describe("api construct", () => {
       CorsConfiguration: {
         AllowMethods: ["GET", "PUT"],
       },
+    });
+  });
+
+  it("authorizes all routes", () => {
+    template.allResourcesProperties("AWS::ApiGatewayV2::Route", {
+      AuthorizationType: "JWT",
     });
   });
 

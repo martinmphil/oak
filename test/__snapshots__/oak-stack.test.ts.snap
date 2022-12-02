@@ -1,0 +1,717 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`oak stack reproduces snapshot 1`] = `
+{
+  "Outputs": {
+    "gatewayOakcognitoOakcognitosigninurl75289082": {
+      "Description": "cognito sign in url",
+      "Export": {
+        "Name": "signInUrl",
+      },
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E",
+            },
+            ".auth.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".amazoncognito.com/login?client_id=",
+            {
+              "Ref": "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F",
+            },
+            "&response_type=token&redirect_uri=https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "gatewayOak06BB8375": {
+      "Properties": {
+        "CorsConfiguration": {
+          "AllowHeaders": [
+            "Authorization",
+          ],
+          "AllowMethods": [
+            "GET",
+            "PUT",
+          ],
+          "AllowOrigins": [
+            "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+            "http://localhost:6100",
+          ],
+        },
+        "Name": "gatewayOak",
+        "ProtocolType": "HTTP",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "gatewayOakDefaultStageAC9747FA": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "AutoDeploy": true,
+        "StageName": "$default",
+      },
+      "Type": "AWS::ApiGatewayV2::Stage",
+    },
+    "gatewayOakGETcanemailaddr8F36960C": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
+        },
+        "RouteKey": "GET /can-email-addr",
+        "Target": {
+          "Fn::Join": [
+            "",
+            [
+              "integrations/",
+              {
+                "Ref": "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakPermissionA20A0C53": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "gatewayOak06BB8375",
+              },
+              "/*/*/can-email-addr",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "gatewayOakGETcatalog73BF8983": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
+        },
+        "RouteKey": "GET /catalog",
+        "Target": {
+          "Fn::Join": [
+            "",
+            [
+              "integrations/",
+              {
+                "Ref": "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakcatalogOakE557AEF7",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "gatewayOakGETcatalogcatalogIntegrationOakPermission99613844": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakcatalogOakE557AEF7",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "gatewayOak06BB8375",
+              },
+              "/*/*/catalog",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "gatewayOakPUTexamexamId8138167D": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": {
+          "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
+        },
+        "RouteKey": "PUT /exam/{examId}",
+        "Target": {
+          "Fn::Join": [
+            "",
+            [
+              "integrations/",
+              {
+                "Ref": "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakexamOak001D88B9",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "gatewayOakPUTexamexamIdexamIntegrationOakPermission5B09E9FF": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakexamOak001D88B9",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              {
+                "Ref": "gatewayOak06BB8375",
+              },
+              "/*/*/exam/{examId}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "gatewayOakcognitoOakuserPoolOakA903F123": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "AccountRecoverySetting": {
+          "RecoveryMechanisms": [
+            {
+              "Name": "verified_email",
+              "Priority": 1,
+            },
+          ],
+        },
+        "AdminCreateUserConfig": {
+          "AllowAdminCreateUserOnly": false,
+        },
+        "AutoVerifiedAttributes": [
+          "email",
+        ],
+        "EmailVerificationMessage": "The verification code to your new account is {####}",
+        "EmailVerificationSubject": "Verify your new account",
+        "SmsVerificationMessage": "The verification code to your new account is {####}",
+        "UserPoolName": "canOak",
+        "UsernameAttributes": [
+          "email",
+        ],
+        "UsernameConfiguration": {
+          "CaseSensitive": false,
+        },
+        "VerificationMessageTemplate": {
+          "DefaultEmailOption": "CONFIRM_WITH_CODE",
+          "EmailMessage": "The verification code to your new account is {####}",
+          "EmailSubject": "Verify your new account",
+          "SmsMessage": "The verification code to your new account is {####}",
+        },
+      },
+      "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "gatewayOakcognitoOakuserPoolOakUserPoolAuthorizerClientAB855BE1": {
+      "Properties": {
+        "AllowedOAuthFlows": [
+          "implicit",
+          "code",
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthScopes": [
+          "profile",
+          "phone",
+          "email",
+          "openid",
+          "aws.cognito.signin.user.admin",
+        ],
+        "CallbackURLs": [
+          "https://example.com",
+        ],
+        "SupportedIdentityProviders": [
+          "COGNITO",
+        ],
+        "UserPoolId": {
+          "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolClient",
+    },
+    "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E": {
+      "Properties": {
+        "Domain": "greenstem-oak",
+        "UserPoolId": {
+          "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolDomain",
+    },
+    "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F": {
+      "Properties": {
+        "AccessTokenValidity": 1200,
+        "AllowedOAuthFlows": [
+          "implicit",
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthScopes": [
+          "profile",
+          "phone",
+          "email",
+          "openid",
+          "aws.cognito.signin.user.admin",
+        ],
+        "CallbackURLs": [
+          "http://localhost:6100/can",
+          "https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
+          "https://www.greenstem.uk/can",
+        ],
+        "IdTokenValidity": 1200,
+        "LogoutURLs": [
+          "http://localhost:6100/logout.html",
+          "https://main.d3dq4xzxmmo3wf.amplifyapp.com/logout.html",
+          "https://www.greenstem.uk/logout.html",
+        ],
+        "PreventUserExistenceErrors": "ENABLED",
+        "SupportedIdentityProviders": [
+          "COGNITO",
+        ],
+        "TokenValidityUnits": {
+          "AccessToken": "minutes",
+          "IdToken": "minutes",
+        },
+        "UserPoolId": {
+          "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolClient",
+    },
+    "gatewayOakdefaultAuthorizer68D08ECC": {
+      "Properties": {
+        "ApiId": {
+          "Ref": "gatewayOak06BB8375",
+        },
+        "AuthorizerType": "JWT",
+        "IdentitySource": [
+          "$request.header.Authorization",
+        ],
+        "JwtConfiguration": {
+          "Audience": [
+            {
+              "Ref": "gatewayOakcognitoOakuserPoolOakUserPoolAuthorizerClientAB855BE1",
+            },
+          ],
+          "Issuer": {
+            "Fn::Join": [
+              "",
+              [
+                "https://cognito-idp.",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ".amazonaws.com/",
+                {
+                  "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
+                },
+              ],
+            ],
+          },
+        },
+        "Name": "defaultAuthorizer",
+      },
+      "Type": "AWS::ApiGatewayV2::Authorizer",
+    },
+    "gatewayOaklambdasOakcanEmailAddrOakAE20BE13": {
+      "DependsOn": [
+        "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0",
+      ],
+      "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "12604afe833d6e79ed7267d5c4e9aee6ff92ac20f62a5be061cc4873b882e6e9.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "gatewayOaklambdasOakcatalogOakE557AEF7": {
+      "DependsOn": [
+        "gatewayOaklambdasOakcatalogOakServiceRole9446A921",
+      ],
+      "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "56a7143abf9ad31ca633fe4ca6bcf86e9dd5c66cb7058e750a2fc08622764298.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakcatalogOakServiceRole9446A921",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "gatewayOaklambdasOakcatalogOakServiceRole9446A921": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "gatewayOaklambdasOakexamOak001D88B9": {
+      "DependsOn": [
+        "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE",
+      ],
+      "Properties": {
+        "Architectures": [
+          "arm64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "18589ccb2d191dff88fe08791732daf5adc809638d86adb568711de7593f3596.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs16.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "gatewayOaklogGroupCanEmailAddrOak7E2ABB6B": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "gatewayOaklogGroupCatalogOakF8B39880": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "gatewayOaklambdasOakcatalogOakE557AEF7",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "gatewayOaklogGroupExamOak0290CB9D": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "gatewayOaklambdasOakexamOak001D88B9",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

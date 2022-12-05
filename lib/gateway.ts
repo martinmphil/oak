@@ -18,7 +18,8 @@ export class gateway extends Construct {
     const cognitoOak = new CognitoOak(this, "cognitoOak");
     const canAuthOak = new HttpUserPoolAuthorizer(
       "defaultAuthorizer",
-      cognitoOak.userPool
+      cognitoOak.userPool,
+      { userPoolClients: [cognitoOak.userPoolClient] }
     );
 
     const gateway = new HttpApi(this, "gatewayOak", {

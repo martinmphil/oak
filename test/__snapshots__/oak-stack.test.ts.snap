@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`oak stack reproduces snapshot 1`] = `
-{
-  "Outputs": {
-    "gatewayOakcognitoOakcognitosigninurl75289082": {
+Object {
+  "Outputs": Object {
+    "gatewayOakcognitoOakcognitosigninurl75289082": Object {
       "Description": "cognito sign in url",
-      "Export": {
+      "Export": Object {
         "Name": "signInUrl",
       },
-      "Value": {
-        "Fn::Join": [
+      "Value": Object {
+        "Fn::Join": Array [
           "",
-          [
+          Array [
             "https://",
-            {
+            Object {
               "Ref": "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E",
             },
             ".auth.",
-            {
+            Object {
               "Ref": "AWS::Region",
             },
             ".amazoncognito.com/login?client_id=",
-            {
+            Object {
               "Ref": "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F",
             },
             "&response_type=token&redirect_uri=https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
@@ -30,25 +30,25 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
     },
   },
-  "Parameters": {
-    "BootstrapVersion": {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": {
-    "gatewayOak06BB8375": {
-      "Properties": {
-        "CorsConfiguration": {
-          "AllowHeaders": [
+  "Resources": Object {
+    "gatewayOak06BB8375": Object {
+      "Properties": Object {
+        "CorsConfiguration": Object {
+          "AllowHeaders": Array [
             "Authorization",
           ],
-          "AllowMethods": [
+          "AllowMethods": Array [
             "GET",
             "PUT",
           ],
-          "AllowOrigins": [
+          "AllowOrigins": Array [
             "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
             "http://localhost:6100",
           ],
@@ -58,9 +58,9 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Api",
     },
-    "gatewayOakDefaultStageAC9747FA": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakDefaultStageAC9747FA": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "AutoDeploy": true,
@@ -68,22 +68,22 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Stage",
     },
-    "gatewayOakGETcanemailaddr8F36960C": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakGETcanemailaddr8F36960C": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "AuthorizationType": "JWT",
-        "AuthorizerId": {
+        "AuthorizerId": Object {
           "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
         },
         "RouteKey": "GET /can-email-addr",
-        "Target": {
-          "Fn::Join": [
+        "Target": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "integrations/",
-              {
+              Object {
                 "Ref": "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC",
               },
             ],
@@ -92,14 +92,14 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": {
-          "Fn::GetAtt": [
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
             "Arn",
           ],
@@ -108,34 +108,34 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakPermissionA20A0C53": {
-      "Properties": {
+    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakPermissionA20A0C53": Object {
+      "Properties": Object {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
             "Arn",
           ],
         },
         "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
+        "SourceArn": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "arn:",
-              {
+              Object {
                 "Ref": "AWS::Partition",
               },
               ":execute-api:",
-              {
+              Object {
                 "Ref": "AWS::Region",
               },
               ":",
-              {
+              Object {
                 "Ref": "AWS::AccountId",
               },
               ":",
-              {
+              Object {
                 "Ref": "gatewayOak06BB8375",
               },
               "/*/*/can-email-addr",
@@ -145,22 +145,22 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "gatewayOakGETcatalog73BF8983": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakGETcatalog73BF8983": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "AuthorizationType": "JWT",
-        "AuthorizerId": {
+        "AuthorizerId": Object {
           "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
         },
         "RouteKey": "GET /catalog",
-        "Target": {
-          "Fn::Join": [
+        "Target": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "integrations/",
-              {
+              Object {
                 "Ref": "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A",
               },
             ],
@@ -169,14 +169,14 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": {
-          "Fn::GetAtt": [
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakcatalogOakE557AEF7",
             "Arn",
           ],
@@ -185,34 +185,34 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "gatewayOakGETcatalogcatalogIntegrationOakPermission99613844": {
-      "Properties": {
+    "gatewayOakGETcatalogcatalogIntegrationOakPermission99613844": Object {
+      "Properties": Object {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakcatalogOakE557AEF7",
             "Arn",
           ],
         },
         "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
+        "SourceArn": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "arn:",
-              {
+              Object {
                 "Ref": "AWS::Partition",
               },
               ":execute-api:",
-              {
+              Object {
                 "Ref": "AWS::Region",
               },
               ":",
-              {
+              Object {
                 "Ref": "AWS::AccountId",
               },
               ":",
-              {
+              Object {
                 "Ref": "gatewayOak06BB8375",
               },
               "/*/*/catalog",
@@ -222,22 +222,22 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "gatewayOakPUTexamexamId8138167D": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakPUTexamexamId8138167D": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "AuthorizationType": "JWT",
-        "AuthorizerId": {
+        "AuthorizerId": Object {
           "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
         },
         "RouteKey": "PUT /exam/{examId}",
-        "Target": {
-          "Fn::Join": [
+        "Target": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "integrations/",
-              {
+              Object {
                 "Ref": "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D",
               },
             ],
@@ -246,14 +246,14 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": {
-          "Fn::GetAtt": [
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakexamOak001D88B9",
             "Arn",
           ],
@@ -262,34 +262,34 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "gatewayOakPUTexamexamIdexamIntegrationOakPermission5B09E9FF": {
-      "Properties": {
+    "gatewayOakPUTexamexamIdexamIntegrationOakPermission5B09E9FF": Object {
+      "Properties": Object {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakexamOak001D88B9",
             "Arn",
           ],
         },
         "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
+        "SourceArn": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "arn:",
-              {
+              Object {
                 "Ref": "AWS::Partition",
               },
               ":execute-api:",
-              {
+              Object {
                 "Ref": "AWS::Region",
               },
               ":",
-              {
+              Object {
                 "Ref": "AWS::AccountId",
               },
               ":",
-              {
+              Object {
                 "Ref": "gatewayOak06BB8375",
               },
               "/*/*/exam/{examId}",
@@ -299,34 +299,34 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "gatewayOakcognitoOakuserPoolOakA903F123": {
+    "gatewayOakcognitoOakuserPoolOakA903F123": Object {
       "DeletionPolicy": "Delete",
-      "Properties": {
-        "AccountRecoverySetting": {
-          "RecoveryMechanisms": [
-            {
+      "Properties": Object {
+        "AccountRecoverySetting": Object {
+          "RecoveryMechanisms": Array [
+            Object {
               "Name": "verified_email",
               "Priority": 1,
             },
           ],
         },
-        "AdminCreateUserConfig": {
+        "AdminCreateUserConfig": Object {
           "AllowAdminCreateUserOnly": false,
         },
-        "AutoVerifiedAttributes": [
+        "AutoVerifiedAttributes": Array [
           "email",
         ],
         "EmailVerificationMessage": "The verification code to your new account is {####}",
         "EmailVerificationSubject": "Verify your new account",
         "SmsVerificationMessage": "The verification code to your new account is {####}",
         "UserPoolName": "canOak",
-        "UsernameAttributes": [
+        "UsernameAttributes": Array [
           "email",
         ],
-        "UsernameConfiguration": {
+        "UsernameConfiguration": Object {
           "CaseSensitive": false,
         },
-        "VerificationMessageTemplate": {
+        "VerificationMessageTemplate": Object {
           "DefaultEmailOption": "CONFIRM_WITH_CODE",
           "EmailMessage": "The verification code to your new account is {####}",
           "EmailSubject": "Verify your new account",
@@ -336,105 +336,79 @@ exports[`oak stack reproduces snapshot 1`] = `
       "Type": "AWS::Cognito::UserPool",
       "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOakcognitoOakuserPoolOakUserPoolAuthorizerClientAB855BE1": {
-      "Properties": {
-        "AllowedOAuthFlows": [
-          "implicit",
-          "code",
-        ],
-        "AllowedOAuthFlowsUserPoolClient": true,
-        "AllowedOAuthScopes": [
-          "profile",
-          "phone",
-          "email",
-          "openid",
-          "aws.cognito.signin.user.admin",
-        ],
-        "CallbackURLs": [
-          "https://example.com",
-        ],
-        "SupportedIdentityProviders": [
-          "COGNITO",
-        ],
-        "UserPoolId": {
-          "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
-        },
-      },
-      "Type": "AWS::Cognito::UserPoolClient",
-    },
-    "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E": {
-      "Properties": {
+    "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E": Object {
+      "Properties": Object {
         "Domain": "greenstem-oak",
-        "UserPoolId": {
+        "UserPoolId": Object {
           "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
         },
       },
       "Type": "AWS::Cognito::UserPoolDomain",
     },
-    "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F": {
-      "Properties": {
+    "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F": Object {
+      "Properties": Object {
         "AccessTokenValidity": 1200,
-        "AllowedOAuthFlows": [
+        "AllowedOAuthFlows": Array [
           "implicit",
         ],
         "AllowedOAuthFlowsUserPoolClient": true,
-        "AllowedOAuthScopes": [
+        "AllowedOAuthScopes": Array [
           "profile",
           "phone",
           "email",
           "openid",
           "aws.cognito.signin.user.admin",
         ],
-        "CallbackURLs": [
+        "CallbackURLs": Array [
           "http://localhost:6100/can",
           "https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
           "https://www.greenstem.uk/can",
         ],
         "IdTokenValidity": 1200,
-        "LogoutURLs": [
+        "LogoutURLs": Array [
           "http://localhost:6100/logout.html",
           "https://main.d3dq4xzxmmo3wf.amplifyapp.com/logout.html",
           "https://www.greenstem.uk/logout.html",
         ],
         "PreventUserExistenceErrors": "ENABLED",
-        "SupportedIdentityProviders": [
+        "SupportedIdentityProviders": Array [
           "COGNITO",
         ],
-        "TokenValidityUnits": {
+        "TokenValidityUnits": Object {
           "AccessToken": "minutes",
           "IdToken": "minutes",
         },
-        "UserPoolId": {
+        "UserPoolId": Object {
           "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
         },
       },
       "Type": "AWS::Cognito::UserPoolClient",
     },
-    "gatewayOakdefaultAuthorizer68D08ECC": {
-      "Properties": {
-        "ApiId": {
+    "gatewayOakdefaultAuthorizer68D08ECC": Object {
+      "Properties": Object {
+        "ApiId": Object {
           "Ref": "gatewayOak06BB8375",
         },
         "AuthorizerType": "JWT",
-        "IdentitySource": [
+        "IdentitySource": Array [
           "$request.header.Authorization",
         ],
-        "JwtConfiguration": {
-          "Audience": [
-            {
-              "Ref": "gatewayOakcognitoOakuserPoolOakUserPoolAuthorizerClientAB855BE1",
+        "JwtConfiguration": Object {
+          "Audience": Array [
+            Object {
+              "Ref": "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F",
             },
           ],
-          "Issuer": {
-            "Fn::Join": [
+          "Issuer": Object {
+            "Fn::Join": Array [
               "",
-              [
+              Array [
                 "https://cognito-idp.",
-                {
+                Object {
                   "Ref": "AWS::Region",
                 },
                 ".amazonaws.com/",
-                {
+                Object {
                   "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
                 },
               ],
@@ -445,28 +419,28 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::ApiGatewayV2::Authorizer",
     },
-    "gatewayOaklambdasOakcanEmailAddrOakAE20BE13": {
-      "DependsOn": [
+    "gatewayOaklambdasOakcanEmailAddrOakAE20BE13": Object {
+      "DependsOn": Array [
         "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0",
       ],
-      "Properties": {
-        "Architectures": [
+      "Properties": Object {
+        "Architectures": Array [
           "arm64",
         ],
-        "Code": {
-          "S3Bucket": {
+        "Code": Object {
+          "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
           "S3Key": "12604afe833d6e79ed7267d5c4e9aee6ff92ac20f62a5be061cc4873b882e6e9.zip",
         },
-        "Environment": {
-          "Variables": {
+        "Environment": Object {
+          "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": {
-          "Fn::GetAtt": [
+        "Role": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0",
             "Arn",
           ],
@@ -475,27 +449,27 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+    "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": {
+              "Principal": Object {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
               "",
-              [
+              Array [
                 "arn:",
-                {
+                Object {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -506,28 +480,28 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "gatewayOaklambdasOakcatalogOakE557AEF7": {
-      "DependsOn": [
+    "gatewayOaklambdasOakcatalogOakE557AEF7": Object {
+      "DependsOn": Array [
         "gatewayOaklambdasOakcatalogOakServiceRole9446A921",
       ],
-      "Properties": {
-        "Architectures": [
+      "Properties": Object {
+        "Architectures": Array [
           "arm64",
         ],
-        "Code": {
-          "S3Bucket": {
+        "Code": Object {
+          "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
           "S3Key": "56a7143abf9ad31ca633fe4ca6bcf86e9dd5c66cb7058e750a2fc08622764298.zip",
         },
-        "Environment": {
-          "Variables": {
+        "Environment": Object {
+          "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": {
-          "Fn::GetAtt": [
+        "Role": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakcatalogOakServiceRole9446A921",
             "Arn",
           ],
@@ -536,27 +510,27 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "gatewayOaklambdasOakcatalogOakServiceRole9446A921": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+    "gatewayOaklambdasOakcatalogOakServiceRole9446A921": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": {
+              "Principal": Object {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
               "",
-              [
+              Array [
                 "arn:",
-                {
+                Object {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -567,28 +541,28 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "gatewayOaklambdasOakexamOak001D88B9": {
-      "DependsOn": [
+    "gatewayOaklambdasOakexamOak001D88B9": Object {
+      "DependsOn": Array [
         "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE",
       ],
-      "Properties": {
-        "Architectures": [
+      "Properties": Object {
+        "Architectures": Array [
           "arm64",
         ],
-        "Code": {
-          "S3Bucket": {
+        "Code": Object {
+          "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
           "S3Key": "18589ccb2d191dff88fe08791732daf5adc809638d86adb568711de7593f3596.zip",
         },
-        "Environment": {
-          "Variables": {
+        "Environment": Object {
+          "Variables": Object {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
           },
         },
         "Handler": "index.handler",
-        "Role": {
-          "Fn::GetAtt": [
+        "Role": Object {
+          "Fn::GetAtt": Array [
             "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE",
             "Arn",
           ],
@@ -597,27 +571,27 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
+    "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": {
+              "Principal": Object {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
               "",
-              [
+              Array [
                 "arn:",
-                {
+                Object {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -628,15 +602,15 @@ exports[`oak stack reproduces snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "gatewayOaklogGroupCanEmailAddrOak7E2ABB6B": {
+    "gatewayOaklogGroupCanEmailAddrOak7E2ABB6B": Object {
       "DeletionPolicy": "Delete",
-      "Properties": {
-        "LogGroupName": {
-          "Fn::Join": [
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "/aws/lambda/",
-              {
+              Object {
                 "Ref": "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
               },
             ],
@@ -647,15 +621,15 @@ exports[`oak stack reproduces snapshot 1`] = `
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOaklogGroupCatalogOakF8B39880": {
+    "gatewayOaklogGroupCatalogOakF8B39880": Object {
       "DeletionPolicy": "Delete",
-      "Properties": {
-        "LogGroupName": {
-          "Fn::Join": [
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "/aws/lambda/",
-              {
+              Object {
                 "Ref": "gatewayOaklambdasOakcatalogOakE557AEF7",
               },
             ],
@@ -666,15 +640,15 @@ exports[`oak stack reproduces snapshot 1`] = `
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOaklogGroupExamOak0290CB9D": {
+    "gatewayOaklogGroupExamOak0290CB9D": Object {
       "DeletionPolicy": "Delete",
-      "Properties": {
-        "LogGroupName": {
-          "Fn::Join": [
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
             "",
-            [
+            Array [
               "/aws/lambda/",
-              {
+              Object {
                 "Ref": "gatewayOaklambdasOakexamOak001D88B9",
               },
             ],
@@ -686,22 +660,22 @@ exports[`oak stack reproduces snapshot 1`] = `
       "UpdateReplacePolicy": "Delete",
     },
   },
-  "Rules": {
-    "CheckBootstrapVersion": {
-      "Assertions": [
-        {
-          "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  {
+                  Object {
                     "Ref": "BootstrapVersion",
                   },
                 ],

@@ -7,12 +7,12 @@ describe("oak stack", () => {
   const stack = new Oak.OakStack(app, "MyTestStack");
   const template = Template.fromStack(stack);
 
-  it("synthesises a cloud-formation template", () => {
-    template.templateMatches(Match.anyValue());
-  });
-
   it("reproduces snapshot", () => {
     expect(template.toJSON()).toMatchSnapshot();
+  });
+
+  it("synthesises a cloud-formation template", () => {
+    template.templateMatches(Match.anyValue());
   });
 
   it("has correct number of lambdas and log groups", () => {
@@ -24,5 +24,9 @@ describe("oak stack", () => {
     template.allResources("AWS::Logs::LogGroup", {
       DeletionPolicy: "Delete",
     });
+  });
+
+  it("has one user pool client", () => {
+    template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
   });
 });

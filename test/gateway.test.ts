@@ -46,5 +46,19 @@ describe("gateway construct", () => {
     });
   });
 
+  it("authorizes via correct user pool client", () => {
+    template.hasResourceProperties("AWS::ApiGatewayV2::Authorizer", {
+      JwtConfiguration: {
+        Audience: [
+          {
+            Ref: Match.stringLikeRegexp(
+              "^gatewayOakcognitoOakuserPoolOakuserPoolClientOak"
+            ),
+          },
+        ],
+      },
+    });
+  });
+
   //
 });

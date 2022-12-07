@@ -15,14 +15,14 @@ export class gateway extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const cognitoOak = new CognitoOak(this, "cognitoOak");
+    const cognitoOak = new CognitoOak(this, "CognitoOak");
     const canAuthOak = new HttpUserPoolAuthorizer(
       "defaultAuthorizer",
       cognitoOak.userPool,
       { userPoolClients: [cognitoOak.userPoolClient] }
     );
 
-    const gateway = new HttpApi(this, "gatewayOak", {
+    const gateway = new HttpApi(this, "GatewayOak", {
       defaultAuthorizer: canAuthOak,
       corsPreflight: {
         allowHeaders: ["Authorization"],
@@ -34,13 +34,13 @@ export class gateway extends Construct {
       },
     });
 
-    const lambdasOak = new LambdasOak(this, "lambdasOak");
+    const lambdasOak = new LambdasOak(this, "LambdasOak");
 
     const canEmailAddrIntegration = new HttpLambdaIntegration(
-      "canEmailAddrIntegrationOak",
+      "CanEmailAddrIntegrationOak",
       lambdasOak.canEmailAddr
     );
-    new logs.LogGroup(this, "logGroupCanEmailAddrOak", {
+    new logs.LogGroup(this, "LogGroupCanEmailAddrOak", {
       logGroupName: `/aws/lambda/${lambdasOak.canEmailAddr.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
@@ -51,10 +51,10 @@ export class gateway extends Construct {
     });
 
     const catalogIntegration = new HttpLambdaIntegration(
-      "catalogIntegrationOak",
+      "CatalogIntegrationOak",
       lambdasOak.catalog
     );
-    new logs.LogGroup(this, "logGroupCatalogOak", {
+    new logs.LogGroup(this, "LogGroupCatalogOak", {
       logGroupName: `/aws/lambda/${lambdasOak.catalog.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
@@ -65,10 +65,10 @@ export class gateway extends Construct {
     });
 
     const examIntegration = new HttpLambdaIntegration(
-      "examIntegrationOak",
+      "ExamIntegrationOak",
       lambdasOak.exam
     );
-    new logs.LogGroup(this, "logGroupExamOak", {
+    new logs.LogGroup(this, "LogGroupExamOak", {
       logGroupName: `/aws/lambda/${lambdasOak.exam.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });

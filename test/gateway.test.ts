@@ -9,7 +9,7 @@ describe("gateway construct", () => {
 
   it("exists as an AWS API Gateway version2", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
-      Name: "gatewayOak",
+      Name: "GatewayOak",
     });
   });
 
@@ -52,7 +52,7 @@ describe("gateway construct", () => {
         Audience: [
           {
             Ref: Match.stringLikeRegexp(
-              "^gatewayOakcognitoOakuserPoolOakuserPoolClientOak"
+              "^GatewayOakCognitoOakUserPoolOakUserPoolClientOak"
             ),
           },
         ],

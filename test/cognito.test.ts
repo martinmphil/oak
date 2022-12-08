@@ -1,5 +1,5 @@
 import * as cdk from "aws-cdk-lib";
-import { Template, Match, Capture } from "aws-cdk-lib/assertions";
+import { Template, Match } from "aws-cdk-lib/assertions";
 import * as Oak from "../lib/oak-stack";
 
 const app = new cdk.App();
@@ -53,12 +53,29 @@ describe("cognito construct user pool", () => {
     });
   });
 
+  it("has a relaxed password policy", () => {
+    template.hasResourceProperties("AWS::Cognito::UserPool", {
+      Policies: {
+        PasswordPolicy: {
+          RequireLowercase: false,
+          RequireUppercase: false,
+          RequireNumbers: false,
+          RequireSymbols: false,
+        },
+      },
+    });
+  });
+
   //
 });
 
 describe("cognito construct client app", () => {
   it("has a user pool client app", () => {
     template.hasResourceProperties("AWS::Cognito::UserPoolClient", {});
+  });
+
+  it("has one user pool client app", () => {
+    template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
   });
 
   it("has implicit OAuth flow", () => {
@@ -109,7 +126,7 @@ describe("cognito-construct user-pool-domain", () => {
     template.hasResourceProperties("AWS::Cognito::UserPoolDomain", {
       Domain: "greenstem-oak",
       UserPoolId: {
-        Ref: Match.stringLikeRegexp("cognitoOakuserPoolOak"),
+        Ref: Match.stringLikeRegexp("CognitoOakUserPoolOak"),
       },
     });
   });

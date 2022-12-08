@@ -9,19 +9,25 @@ export class CognitoOak extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const userPool = new UserPool(this, "userPoolOak", {
+    const userPool = new UserPool(this, "UserPoolOak", {
       userPoolName: "canOak",
       selfSignUpEnabled: true,
+      passwordPolicy: {
+        requireLowercase: false,
+        requireUppercase: false,
+        requireDigits: false,
+        requireSymbols: false,
+      },
       signInAliases: { email: true },
       signInCaseSensitive: false,
       accountRecovery: AccountRecovery.EMAIL_ONLY,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
-    const domain = userPool.addDomain("cognitoDomainOak", {
+    const domain = userPool.addDomain("CognitoDomainOak", {
       cognitoDomain: { domainPrefix: "greenstem-oak" },
     });
 
-    const userPoolClient = userPool.addClient("userPoolClientOak", {
+    const userPoolClient = userPool.addClient("UserPoolClientOak", {
       oAuth: {
         flows: {
           implicitCodeGrant: true,
@@ -48,7 +54,7 @@ export class CognitoOak extends Construct {
     const signInUrl = domain.signInUrl(userPoolClient, {
       redirectUri: "https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
     });
-    new cdk.CfnOutput(this, "cognito sign in url", {
+    new cdk.CfnOutput(this, "cognito sign-in url", {
       value: signInUrl,
       description: "cognito sign in url",
       exportName: "signInUrl",

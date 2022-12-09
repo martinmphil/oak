@@ -3,7 +3,7 @@
 exports[`oak stack reproduces snapshot 1`] = `
 Object {
   "Outputs": Object {
-    "gatewayOakcognitoOakcognitosigninurl75289082": Object {
+    "GatewayOakCognitoOakcognitosigninurl2E914FBE": Object {
       "Description": "cognito sign in url",
       "Export": Object {
         "Name": "signInUrl",
@@ -14,7 +14,7 @@ Object {
           Array [
             "https://",
             Object {
-              "Ref": "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E",
+              "Ref": "GatewayOakCognitoOakUserPoolOakCognitoDomainOakF2187020",
             },
             ".auth.",
             Object {
@@ -22,7 +22,7 @@ Object {
             },
             ".amazoncognito.com/login?client_id=",
             Object {
-              "Ref": "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F",
+              "Ref": "GatewayOakCognitoOakUserPoolOakUserPoolClientOak44A94B7E",
             },
             "&response_type=token&redirect_uri=https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
           ],
@@ -38,268 +38,38 @@ Object {
     },
   },
   "Resources": Object {
-    "gatewayOak06BB8375": Object {
+    "DatabaseOakTableOak1FEE3FAA": Object {
+      "DeletionPolicy": "Delete",
       "Properties": Object {
-        "CorsConfiguration": Object {
-          "AllowHeaders": Array [
-            "Authorization",
-          ],
-          "AllowMethods": Array [
-            "GET",
-            "PUT",
-          ],
-          "AllowOrigins": Array [
-            "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-            "http://localhost:6100",
-          ],
-        },
-        "Name": "gatewayOak",
-        "ProtocolType": "HTTP",
-      },
-      "Type": "AWS::ApiGatewayV2::Api",
-    },
-    "gatewayOakDefaultStageAC9747FA": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "AutoDeploy": true,
-        "StageName": "$default",
-      },
-      "Type": "AWS::ApiGatewayV2::Stage",
-    },
-    "gatewayOakGETcanemailaddr8F36960C": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "AuthorizationType": "JWT",
-        "AuthorizerId": Object {
-          "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
-        },
-        "RouteKey": "GET /can-email-addr",
-        "Target": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "integrations/",
-              Object {
-                "Ref": "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC",
-              },
-            ],
-          ],
+        "AttributeDefinitions": Array [
+          Object {
+            "AttributeName": "pk",
+            "AttributeType": "S",
+          },
+          Object {
+            "AttributeName": "sk",
+            "AttributeType": "S",
+          },
+        ],
+        "KeySchema": Array [
+          Object {
+            "AttributeName": "pk",
+            "KeyType": "HASH",
+          },
+          Object {
+            "AttributeName": "sk",
+            "KeyType": "RANGE",
+          },
+        ],
+        "ProvisionedThroughput": Object {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5,
         },
       },
-      "Type": "AWS::ApiGatewayV2::Route",
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakFA56D3DC": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": Object {
-          "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
-            "Arn",
-          ],
-        },
-        "PayloadFormatVersion": "2.0",
-      },
-      "Type": "AWS::ApiGatewayV2::Integration",
-    },
-    "gatewayOakGETcanemailaddrcanEmailAddrIntegrationOakPermissionA20A0C53": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "gatewayOak06BB8375",
-              },
-              "/*/*/can-email-addr",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "gatewayOakGETcatalog73BF8983": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "AuthorizationType": "JWT",
-        "AuthorizerId": Object {
-          "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
-        },
-        "RouteKey": "GET /catalog",
-        "Target": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "integrations/",
-              Object {
-                "Ref": "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A",
-              },
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::ApiGatewayV2::Route",
-    },
-    "gatewayOakGETcatalogcatalogIntegrationOakDFA3957A": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": Object {
-          "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakcatalogOakE557AEF7",
-            "Arn",
-          ],
-        },
-        "PayloadFormatVersion": "2.0",
-      },
-      "Type": "AWS::ApiGatewayV2::Integration",
-    },
-    "gatewayOakGETcatalogcatalogIntegrationOakPermission99613844": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakcatalogOakE557AEF7",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "gatewayOak06BB8375",
-              },
-              "/*/*/catalog",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "gatewayOakPUTexamexamId8138167D": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "AuthorizationType": "JWT",
-        "AuthorizerId": Object {
-          "Ref": "gatewayOakdefaultAuthorizer68D08ECC",
-        },
-        "RouteKey": "PUT /exam/{examId}",
-        "Target": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "integrations/",
-              Object {
-                "Ref": "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D",
-              },
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::ApiGatewayV2::Route",
-    },
-    "gatewayOakPUTexamexamIdexamIntegrationOakE083A95D": Object {
-      "Properties": Object {
-        "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
-        },
-        "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": Object {
-          "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakexamOak001D88B9",
-            "Arn",
-          ],
-        },
-        "PayloadFormatVersion": "2.0",
-      },
-      "Type": "AWS::ApiGatewayV2::Integration",
-    },
-    "gatewayOakPUTexamexamIdexamIntegrationOakPermission5B09E9FF": Object {
-      "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakexamOak001D88B9",
-            "Arn",
-          ],
-        },
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
-            "",
-            Array [
-              "arn:",
-              Object {
-                "Ref": "AWS::Partition",
-              },
-              ":execute-api:",
-              Object {
-                "Ref": "AWS::Region",
-              },
-              ":",
-              Object {
-                "Ref": "AWS::AccountId",
-              },
-              ":",
-              Object {
-                "Ref": "gatewayOak06BB8375",
-              },
-              "/*/*/exam/{examId}",
-            ],
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "gatewayOakcognitoOakuserPoolOakA903F123": Object {
+    "GatewayOakCognitoOakUserPoolOakA55CC282": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "AccountRecoverySetting": Object {
@@ -318,6 +88,15 @@ Object {
         ],
         "EmailVerificationMessage": "The verification code to your new account is {####}",
         "EmailVerificationSubject": "Verify your new account",
+        "Policies": Object {
+          "PasswordPolicy": Object {
+            "MinimumLength": 8,
+            "RequireLowercase": false,
+            "RequireNumbers": false,
+            "RequireSymbols": false,
+            "RequireUppercase": false,
+          },
+        },
         "SmsVerificationMessage": "The verification code to your new account is {####}",
         "UserPoolName": "canOak",
         "UsernameAttributes": Array [
@@ -336,16 +115,16 @@ Object {
       "Type": "AWS::Cognito::UserPool",
       "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOakcognitoOakuserPoolOakcognitoDomainOak86ED713E": Object {
+    "GatewayOakCognitoOakUserPoolOakCognitoDomainOakF2187020": Object {
       "Properties": Object {
         "Domain": "greenstem-oak",
         "UserPoolId": Object {
-          "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
+          "Ref": "GatewayOakCognitoOakUserPoolOakA55CC282",
         },
       },
       "Type": "AWS::Cognito::UserPoolDomain",
     },
-    "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F": Object {
+    "GatewayOakCognitoOakUserPoolOakUserPoolClientOak44A94B7E": Object {
       "Properties": Object {
         "AccessTokenValidity": 1200,
         "AllowedOAuthFlows": Array [
@@ -379,49 +158,198 @@ Object {
           "IdToken": "minutes",
         },
         "UserPoolId": Object {
-          "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
+          "Ref": "GatewayOakCognitoOakUserPoolOakA55CC282",
         },
       },
       "Type": "AWS::Cognito::UserPoolClient",
     },
-    "gatewayOakdefaultAuthorizer68D08ECC": Object {
+    "GatewayOakDefaultStageD11DF7A7": Object {
       "Properties": Object {
         "ApiId": Object {
-          "Ref": "gatewayOak06BB8375",
+          "Ref": "GatewayOakF33261A6",
         },
-        "AuthorizerType": "JWT",
-        "IdentitySource": Array [
-          "$request.header.Authorization",
-        ],
-        "JwtConfiguration": Object {
-          "Audience": Array [
-            Object {
-              "Ref": "gatewayOakcognitoOakuserPoolOakuserPoolClientOak3246527F",
-            },
-          ],
-          "Issuer": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "https://cognito-idp.",
-                Object {
-                  "Ref": "AWS::Region",
-                },
-                ".amazonaws.com/",
-                Object {
-                  "Ref": "gatewayOakcognitoOakuserPoolOakA903F123",
-                },
-              ],
-            ],
-          },
-        },
-        "Name": "defaultAuthorizer",
+        "AutoDeploy": true,
+        "StageName": "$default",
       },
-      "Type": "AWS::ApiGatewayV2::Authorizer",
+      "Type": "AWS::ApiGatewayV2::Stage",
     },
-    "gatewayOaklambdasOakcanEmailAddrOakAE20BE13": Object {
+    "GatewayOakF33261A6": Object {
+      "Properties": Object {
+        "CorsConfiguration": Object {
+          "AllowHeaders": Array [
+            "Authorization",
+          ],
+          "AllowMethods": Array [
+            "GET",
+            "PUT",
+          ],
+          "AllowOrigins": Array [
+            "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+            "http://localhost:6100",
+          ],
+        },
+        "Name": "GatewayOak",
+        "ProtocolType": "HTTP",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "GatewayOakGETcanemailaddr0937DB92": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": Object {
+          "Ref": "GatewayOakdefaultAuthorizer37125998",
+        },
+        "RouteKey": "GET /can-email-addr",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GatewayOakGETcanemailaddrCanEmailAddrIntegrationOak3CB55A6C",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GatewayOakGETcanemailaddrCanEmailAddrIntegrationOak3CB55A6C": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "GatewayOakLambdasOakcanEmailAddrOak66F866D4",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GatewayOakGETcanemailaddrCanEmailAddrIntegrationOakPermission3E95DB7D": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GatewayOakLambdasOakcanEmailAddrOak66F866D4",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GatewayOakF33261A6",
+              },
+              "/*/*/can-email-addr",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayOakGETcatalogA586C6FE": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": Object {
+          "Ref": "GatewayOakdefaultAuthorizer37125998",
+        },
+        "RouteKey": "GET /catalog",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GatewayOakGETcatalogCatalogIntegrationOak71DAABED",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GatewayOakGETcatalogCatalogIntegrationOak71DAABED": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "GatewayOakLambdasOakcatalogOakB5A9DC5A",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GatewayOakGETcatalogCatalogIntegrationOakPermissionC1E5A9AD": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GatewayOakLambdasOakcatalogOakB5A9DC5A",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GatewayOakF33261A6",
+              },
+              "/*/*/catalog",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayOakLambdasOakcanEmailAddrOak66F866D4": Object {
       "DependsOn": Array [
-        "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0",
+        "GatewayOakLambdasOakcanEmailAddrOakServiceRole416883D5",
       ],
       "Properties": Object {
         "Architectures": Array [
@@ -441,7 +369,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0",
+            "GatewayOakLambdasOakcanEmailAddrOakServiceRole416883D5",
             "Arn",
           ],
         },
@@ -449,7 +377,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "gatewayOaklambdasOakcanEmailAddrOakServiceRole933E50B0": Object {
+    "GatewayOakLambdasOakcanEmailAddrOakServiceRole416883D5": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -480,9 +408,9 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "gatewayOaklambdasOakcatalogOakE557AEF7": Object {
+    "GatewayOakLambdasOakcatalogOakB5A9DC5A": Object {
       "DependsOn": Array [
-        "gatewayOaklambdasOakcatalogOakServiceRole9446A921",
+        "GatewayOakLambdasOakcatalogOakServiceRoleA1239FDF",
       ],
       "Properties": Object {
         "Architectures": Array [
@@ -502,7 +430,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakcatalogOakServiceRole9446A921",
+            "GatewayOakLambdasOakcatalogOakServiceRoleA1239FDF",
             "Arn",
           ],
         },
@@ -510,7 +438,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "gatewayOaklambdasOakcatalogOakServiceRole9446A921": Object {
+    "GatewayOakLambdasOakcatalogOakServiceRoleA1239FDF": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -541,9 +469,9 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "gatewayOaklambdasOakexamOak001D88B9": Object {
+    "GatewayOakLambdasOakexamOak5C55EBD6": Object {
       "DependsOn": Array [
-        "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE",
+        "GatewayOakLambdasOakexamOakServiceRole1C7DDD50",
       ],
       "Properties": Object {
         "Architectures": Array [
@@ -563,7 +491,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE",
+            "GatewayOakLambdasOakexamOakServiceRole1C7DDD50",
             "Arn",
           ],
         },
@@ -571,7 +499,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "gatewayOaklambdasOakexamOakServiceRole0A6E9BEE": Object {
+    "GatewayOakLambdasOakexamOakServiceRole1C7DDD50": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -602,7 +530,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "gatewayOaklogGroupCanEmailAddrOak7E2ABB6B": Object {
+    "GatewayOakLogGroupCanEmailAddrOakCABEEF7D": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "LogGroupName": Object {
@@ -611,7 +539,7 @@ Object {
             Array [
               "/aws/lambda/",
               Object {
-                "Ref": "gatewayOaklambdasOakcanEmailAddrOakAE20BE13",
+                "Ref": "GatewayOakLambdasOakcanEmailAddrOak66F866D4",
               },
             ],
           ],
@@ -621,7 +549,7 @@ Object {
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOaklogGroupCatalogOakF8B39880": Object {
+    "GatewayOakLogGroupCatalogOak76CEB3C5": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "LogGroupName": Object {
@@ -630,7 +558,7 @@ Object {
             Array [
               "/aws/lambda/",
               Object {
-                "Ref": "gatewayOaklambdasOakcatalogOakE557AEF7",
+                "Ref": "GatewayOakLambdasOakcatalogOakB5A9DC5A",
               },
             ],
           ],
@@ -640,7 +568,7 @@ Object {
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Delete",
     },
-    "gatewayOaklogGroupExamOak0290CB9D": Object {
+    "GatewayOakLogGroupExamOakF8497159": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "LogGroupName": Object {
@@ -649,7 +577,7 @@ Object {
             Array [
               "/aws/lambda/",
               Object {
-                "Ref": "gatewayOaklambdasOakexamOak001D88B9",
+                "Ref": "GatewayOakLambdasOakexamOak5C55EBD6",
               },
             ],
           ],
@@ -658,6 +586,118 @@ Object {
       },
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Delete",
+    },
+    "GatewayOakPUTexamexamId5C4E1265": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": Object {
+          "Ref": "GatewayOakdefaultAuthorizer37125998",
+        },
+        "RouteKey": "PUT /exam/{examId}",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GatewayOakPUTexamexamIdExamIntegrationOak8AA734D8",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GatewayOakPUTexamexamIdExamIntegrationOak8AA734D8": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "GatewayOakLambdasOakexamOak5C55EBD6",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GatewayOakPUTexamexamIdExamIntegrationOakPermissionD151DD6A": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "GatewayOakLambdasOakexamOak5C55EBD6",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GatewayOakF33261A6",
+              },
+              "/*/*/exam/{examId}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayOakdefaultAuthorizer37125998": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakF33261A6",
+        },
+        "AuthorizerType": "JWT",
+        "IdentitySource": Array [
+          "$request.header.Authorization",
+        ],
+        "JwtConfiguration": Object {
+          "Audience": Array [
+            Object {
+              "Ref": "GatewayOakCognitoOakUserPoolOakUserPoolClientOak44A94B7E",
+            },
+          ],
+          "Issuer": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "https://cognito-idp.",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ".amazonaws.com/",
+                Object {
+                  "Ref": "GatewayOakCognitoOakUserPoolOakA55CC282",
+                },
+              ],
+            ],
+          },
+        },
+        "Name": "defaultAuthorizer",
+      },
+      "Type": "AWS::ApiGatewayV2::Authorizer",
     },
   },
   "Rules": Object {

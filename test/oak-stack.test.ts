@@ -14,19 +14,4 @@ describe("oak stack", () => {
   it("synthesises a cloud-formation template", () => {
     template.templateMatches(Match.anyValue());
   });
-
-  it("has correct number of lambdas and log groups", () => {
-    template.resourceCountIs("AWS::Lambda::Function", 3);
-    template.resourceCountIs("AWS::Logs::LogGroup", 3);
-  });
-
-  it("deletes all log groups on destroy", () => {
-    template.allResources("AWS::Logs::LogGroup", {
-      DeletionPolicy: "Delete",
-    });
-  });
-
-  it("has one user pool client", () => {
-    template.resourceCountIs("AWS::Cognito::UserPoolClient", 1);
-  });
 });

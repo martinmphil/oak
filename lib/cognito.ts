@@ -54,7 +54,7 @@ export class CognitoOak extends Construct {
     const signInUrl = domain.signInUrl(userPoolClient, {
       redirectUri: "https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
     });
-    new cdk.CfnOutput(this, "cognito sign-in url", {
+    new cdk.CfnOutput(this, "CognitoSignInUrl", {
       value: signInUrl,
       description: "cognito sign in url",
       exportName: "signInUrl",

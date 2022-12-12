@@ -8,7 +8,7 @@ describe("oak lambda functions", () => {
   const template = Template.fromStack(stack);
 
   it("has correct number of lambdas and log groups", () => {
-    template.resourceCountIs("AWS::Lambda::Function", 3);
+    template.resourceCountIs("AWS::Lambda::Function", 4);
     template.resourceCountIs("AWS::Logs::LogGroup", 3);
   });
 

@@ -15,6 +15,26 @@ export class DatabaseOak extends Construct {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
+    new cdk.custom_resources.AwsCustomResource(this, "dynamoSeedData", {
+      onCreate: {
+        service: "DynamoDB",
+        action: "putItem",
+        parameters: {
+          TableName: table.tableName,
+          Item: {
+            pk: { S: "My partiion key" },
+            sk: { S: "My sort key" },
+          },
+        },
+        physicalResourceId: cdk.custom_resources.PhysicalResourceId.of(
+          Date.now().toString()
+        ),
+      },
+      policy: cdk.custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
+        resources: [table.tableArn],
+      }),
+    });
+
     // console.log("table name 👉", table.tableName);
     // console.log("table arn 👉", table.tableArn);
 

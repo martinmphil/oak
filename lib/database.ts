@@ -1,6 +1,7 @@
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
+import { seedArr } from "./seed";
 
 export class DatabaseOak extends Construct {
   // public readonly
@@ -15,28 +16,27 @@ export class DatabaseOak extends Construct {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
+    const requestItemsArr = seedArr.map((x) => {
+      return { PutRequest: { Item: x } };
+    });
+    const parameters = {
+      RequestItems: {
+        [table.tableName]: requestItemsArr,
+      },
+    };
     new cdk.custom_resources.AwsCustomResource(this, "dynamoSeedData", {
       onCreate: {
         service: "DynamoDB",
-        action: "putItem",
-        parameters: {
-          TableName: table.tableName,
-          Item: {
-            pk: { S: "My partiion key" },
-            sk: { S: "My sort key" },
-          },
-        },
+        action: "batchWriteItem",
+        parameters,
         physicalResourceId: cdk.custom_resources.PhysicalResourceId.of(
-          Date.now().toString()
+          `${table.tableName} seeded}`
         ),
       },
       policy: cdk.custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
         resources: [table.tableArn],
       }),
     });
-
-    // console.log("table name 👉", table.tableName);
-    // console.log("table arn 👉", table.tableArn);
 
     //
   }

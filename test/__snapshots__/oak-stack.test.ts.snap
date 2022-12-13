@@ -3,7 +3,7 @@
 exports[`oak stack reproduces snapshot 1`] = `
 Object {
   "Outputs": Object {
-    "GatewayOakCognitoOakcognitosigninurl2E914FBE": Object {
+    "GatewayOakCognitoOakCognitoSignInUrlA7197B8E": Object {
       "Description": "cognito sign in url",
       "Export": Object {
         "Name": "signInUrl",
@@ -38,6 +38,60 @@ Object {
     },
   },
   "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "e845402ce43b66fc6f20df4a239f20f8662eb6c7f920b94cf6542dd0e64ce0f7.zip",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
     "DatabaseOakTableOak1FEE3FAA": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
@@ -68,6 +122,65 @@ Object {
       },
       "Type": "AWS::DynamoDB::Table",
       "UpdateReplacePolicy": "Delete",
+    },
+    "DatabaseOakdynamoSeedDataB522F3B3": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "DatabaseOakdynamoSeedDataCustomResourcePolicy3D6AA58C",
+      ],
+      "Properties": Object {
+        "Create": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"DynamoDB\\",\\"action\\":\\"batchWriteItem\\",\\"parameters\\":{\\"RequestItems\\":{\\"",
+              Object {
+                "Ref": "DatabaseOakTableOak1FEE3FAA",
+              },
+              "\\":[{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"standardCatalog\\"},\\"sk\\":{\\"S\\":\\"standardCatalog\\"},\\"entityType\\":{\\"S\\":\\"catalog\\"},\\"obj\\":{\\"M\\":{\\"catalog\\":{\\"L\\":[{\\"S\\":\\"exam1\\"},{\\"S\\":\\"exam2\\"}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"exam1\\"},\\"sk\\":{\\"S\\":\\"exam1\\"},\\"entityType\\":{\\"S\\":\\"examData\\"},\\"obj\\":{\\"M\\":{\\"name\\":{\\"S\\":\\"Sustainable energy\\"},\\"qList\\":{\\"L\\":[{\\"S\\":\\"qText1\\"},{\\"S\\":\\"qText101\\"},{\\"S\\":\\"qText102\\"},{\\"S\\":\\"qText99\\"}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"exam2\\"},\\"sk\\":{\\"S\\":\\"exam2\\"},\\"entityType\\":{\\"S\\":\\"examData\\"},\\"obj\\":{\\"M\\":{\\"name\\":{\\"S\\":\\"Basic science\\"},\\"qList\\":{\\"L\\":[{\\"S\\":\\"qText1\\"},{\\"S\\":\\"qText201\\"},{\\"S\\":\\"qText202\\"},{\\"S\\":\\"qText99\\"}]}}}}}}]}},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "DatabaseOakTableOak1FEE3FAA",
+              },
+              " seeded}\\"}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DatabaseOakdynamoSeedDataCustomResourcePolicy3D6AA58C": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:BatchWriteItem",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "DatabaseOakTableOak1FEE3FAA",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DatabaseOakdynamoSeedDataCustomResourcePolicy3D6AA58C",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "GatewayOakCognitoOakUserPoolOakA55CC282": Object {
       "DeletionPolicy": "Delete",

@@ -17,5 +17,15 @@ describe("dynamoDb database", () => {
     });
   });
 
+  it("runs a custom resource when created to seed database", () => {
+    template.hasResourceProperties("Custom::AWS", {
+      Create: {
+        "Fn::Join": Match.arrayWith([
+          Match.arrayWith([Match.stringLikeRegexp("batchWriteItem")]),
+        ]),
+      },
+    });
+  });
+
   //
 });

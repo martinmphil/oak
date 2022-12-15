@@ -211,7 +211,6 @@ Object {
           },
         },
         "SmsVerificationMessage": "The verification code to your new account is {####}",
-        "UserPoolName": "canOak",
         "UsernameAttributes": Array [
           "email",
         ],
@@ -306,7 +305,7 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Api",
     },
-    "GatewayOakGETcanemailaddr0937DB92": Object {
+    "GatewayOakGETcandidateemail95C81B50": Object {
       "Properties": Object {
         "ApiId": Object {
           "Ref": "GatewayOakF33261A6",
@@ -315,14 +314,14 @@ Object {
         "AuthorizerId": Object {
           "Ref": "GatewayOakdefaultAuthorizer37125998",
         },
-        "RouteKey": "GET /can-email-addr",
+        "RouteKey": "GET /candidate-email",
         "Target": Object {
           "Fn::Join": Array [
             "",
             Array [
               "integrations/",
               Object {
-                "Ref": "GatewayOakGETcanemailaddrCanEmailAddrIntegrationOak3CB55A6C",
+                "Ref": "GatewayOakGETcandidateemailCandidateEmailIntegrationOak995EF089",
               },
             ],
           ],
@@ -330,7 +329,7 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "GatewayOakGETcanemailaddrCanEmailAddrIntegrationOak3CB55A6C": Object {
+    "GatewayOakGETcandidateemailCandidateEmailIntegrationOak995EF089": Object {
       "Properties": Object {
         "ApiId": Object {
           "Ref": "GatewayOakF33261A6",
@@ -338,7 +337,7 @@ Object {
         "IntegrationType": "AWS_PROXY",
         "IntegrationUri": Object {
           "Fn::GetAtt": Array [
-            "GatewayOakLambdasOakcanEmailAddrOak66F866D4",
+            "GatewayOakLambdasOakcandidateEmailOakB10FAA83",
             "Arn",
           ],
         },
@@ -346,12 +345,12 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "GatewayOakGETcanemailaddrCanEmailAddrIntegrationOakPermission3E95DB7D": Object {
+    "GatewayOakGETcandidateemailCandidateEmailIntegrationOakPermissionCFC06881": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
           "Fn::GetAtt": Array [
-            "GatewayOakLambdasOakcanEmailAddrOak66F866D4",
+            "GatewayOakLambdasOakcandidateEmailOakB10FAA83",
             "Arn",
           ],
         },
@@ -376,7 +375,7 @@ Object {
               Object {
                 "Ref": "GatewayOakF33261A6",
               },
-              "/*/*/can-email-addr",
+              "/*/*/candidate-email",
             ],
           ],
         },
@@ -460,9 +459,9 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "GatewayOakLambdasOakcanEmailAddrOak66F866D4": Object {
+    "GatewayOakLambdasOakcandidateEmailOakB10FAA83": Object {
       "DependsOn": Array [
-        "GatewayOakLambdasOakcanEmailAddrOakServiceRole416883D5",
+        "GatewayOakLambdasOakcandidateEmailOakServiceRole49D37DD1",
       ],
       "Properties": Object {
         "Architectures": Array [
@@ -472,7 +471,7 @@ Object {
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "12604afe833d6e79ed7267d5c4e9aee6ff92ac20f62a5be061cc4873b882e6e9.zip",
+          "S3Key": "d0384fd7c0a96de8a8ef4ced08dd5afda440429b4cb9b5e93330670794a1c373.zip",
         },
         "Environment": Object {
           "Variables": Object {
@@ -482,7 +481,7 @@ Object {
         "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "GatewayOakLambdasOakcanEmailAddrOakServiceRole416883D5",
+            "GatewayOakLambdasOakcandidateEmailOakServiceRole49D37DD1",
             "Arn",
           ],
         },
@@ -490,7 +489,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "GatewayOakLambdasOakcanEmailAddrOakServiceRole416883D5": Object {
+    "GatewayOakLambdasOakcandidateEmailOakServiceRole49D37DD1": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -643,7 +642,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "GatewayOakLogGroupCanEmailAddrOakCABEEF7D": Object {
+    "GatewayOakLogGroupCandidateEmailOak29928669": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "LogGroupName": Object {
@@ -652,7 +651,7 @@ Object {
             Array [
               "/aws/lambda/",
               Object {
-                "Ref": "GatewayOakLambdasOakcanEmailAddrOak66F866D4",
+                "Ref": "GatewayOakLambdasOakcandidateEmailOakB10FAA83",
               },
             ],
           ],

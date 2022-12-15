@@ -36,18 +36,18 @@ export class gateway extends Construct {
 
     const lambdasOak = new LambdasOak(this, "LambdasOak");
 
-    const canEmailAddrIntegration = new HttpLambdaIntegration(
-      "CanEmailAddrIntegrationOak",
-      lambdasOak.canEmailAddr
+    const candidateEmailIntegration = new HttpLambdaIntegration(
+      "CandidateEmailIntegrationOak",
+      lambdasOak.candidateEmail
     );
-    new logs.LogGroup(this, "LogGroupCanEmailAddrOak", {
-      logGroupName: `/aws/lambda/${lambdasOak.canEmailAddr.functionName}`,
+    new logs.LogGroup(this, "LogGroupCandidateEmailOak", {
+      logGroupName: `/aws/lambda/${lambdasOak.candidateEmail.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     gateway.addRoutes({
-      integration: canEmailAddrIntegration,
+      integration: candidateEmailIntegration,
       methods: [HttpMethod.GET],
-      path: "/can-email-addr",
+      path: "/candidate-email",
     });
 
     const catalogIntegration = new HttpLambdaIntegration(

@@ -18,10 +18,12 @@ describe("oak lambda functions", () => {
     });
   });
 
-  it("integrates can-email-addr function", () => {
+  it("integrates candidate-email function", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Integration", {
       IntegrationUri: {
-        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("canEmailAddr")]),
+        "Fn::GetAtt": Match.arrayWith([
+          Match.stringLikeRegexp("candidateEmail"),
+        ]),
       },
     });
   });

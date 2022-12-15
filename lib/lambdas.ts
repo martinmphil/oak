@@ -10,16 +10,16 @@ const commonProps = {
 };
 
 export class LambdasOak extends Construct {
-  public readonly canEmailAddr: NodejsFunction;
+  public readonly candidateEmail: NodejsFunction;
   public readonly catalog: NodejsFunction;
   public readonly exam: NodejsFunction;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    this.canEmailAddr = new NodejsFunction(this, "canEmailAddrOak", {
+    this.candidateEmail = new NodejsFunction(this, "candidateEmailOak", {
       ...commonProps,
-      entry: path.join(__dirname, `/handlers/can-email-addr/index.ts`),
+      entry: path.join(__dirname, `/handlers/candidate-email/index.ts`),
     });
 
     this.catalog = new NodejsFunction(this, "catalogOak", {

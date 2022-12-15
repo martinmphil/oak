@@ -6,6 +6,6 @@ export async function handler(
 ): Promise<APIGatewayProxyResultV2> {
   // console.log("event 👉", event);
   return {
-    body: "You successfully invoked lambda can-email-addr from oak stack. ",
+    body: "You successfully invoked lambda candidate-email function from oak stack. ",
   };
 }

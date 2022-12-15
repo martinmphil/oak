@@ -10,7 +10,6 @@ export class CognitoOak extends Construct {
     super(scope, id);
 
     const userPool = new UserPool(this, "UserPoolOak", {
-      userPoolName: "canOak",
       selfSignUpEnabled: true,
       passwordPolicy: {
         requireLowercase: false,

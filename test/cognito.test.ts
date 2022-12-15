@@ -6,17 +6,15 @@ const app = new cdk.App();
 const stack = new Oak.OakStack(app, "apiTestStack");
 const template = Template.fromStack(stack);
 
-describe("cognito construct user pool", () => {
+describe("cognito user pool", () => {
   it("DELETES on destroy command", () => {
     template.hasResource("AWS::Cognito::UserPool", {
       DeletionPolicy: "Delete",
     });
   });
 
-  it("has a user pool called canOak", () => {
-    template.hasResourceProperties("AWS::Cognito::UserPool", {
-      UserPoolName: "canOak",
-    });
+  it("exists", () => {
+    template.hasResource("AWS::Cognito::UserPool", {});
   });
 
   it("allows users to self register", () => {

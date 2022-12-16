@@ -12,8 +12,9 @@ export class DatabaseOak extends Construct {
     const table = new dynamodb.Table(this, "TableOak", {
       partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
       sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
-      // pointInTimeRecovery: true,
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      // pointInTimeRecovery: true,
     });
 
     const requestItemsArr = seedArr.map((x) => {

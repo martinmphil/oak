@@ -27,5 +27,11 @@ describe("dynamoDb database", () => {
     });
   });
 
+  it("bills per request", () => {
+    template.hasResourceProperties("AWS::DynamoDB::Table", {
+      BillingMode: "PAY_PER_REQUEST",
+    });
+  });
+
   //
 });

@@ -24,9 +24,9 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.109",
     "@types/jest": "^27.5.2",
-    "@types/node": "18.11.12",
+    "@types/node": "18.11.17",
     "@types/prettier": "2.7.1",
-    "aws-cdk": "2.54.0",
+    "aws-cdk": "2.55.1",
     "esbuild": "^0.15.18",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
@@ -34,11 +34,11 @@
     "typescript": "~4.9.4"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "^2.54.0-alpha.0",
-    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.54.0-alpha.0",
-    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.54.0-alpha.0",
-    "aws-cdk-lib": "^2.54.0",
-    "constructs": "^10.1.185",
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.55.1-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.55.1-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.55.1-alpha.0",
+    "aws-cdk-lib": "^2.55.1",
+    "constructs": "^10.1.195",
     "source-map-support": "^0.5.21"
   }
 }

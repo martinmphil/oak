@@ -3,7 +3,7 @@ import { Template, Match } from "aws-cdk-lib/assertions";
 import * as Oak from "../lib/oak-stack";
 
 const app = new cdk.App();
-const stack = new Oak.OakStack(app, "apiTestStack");
+const stack = new Oak.OakStack(app, "OakTestStack");
 const template = Template.fromStack(stack);
 
 describe("dynamoDb database", () => {

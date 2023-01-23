@@ -8,7 +8,7 @@ import {
 } from "@aws-cdk/aws-apigatewayv2-alpha";
 import { HttpLambdaIntegration } from "@aws-cdk/aws-apigatewayv2-integrations-alpha";
 import { HttpUserPoolAuthorizer } from "@aws-cdk/aws-apigatewayv2-authorizers-alpha";
-import { LambdasOak } from "./lambdas";
+import { LambdaOak } from "./lambda";
 import { CognitoOak } from "./cognito";
 
 export class gateway extends Construct {
@@ -34,14 +34,14 @@ export class gateway extends Construct {
       },
     });
 
-    const lambdasOak = new LambdasOak(this, "LambdasOak");
+    const lambdaOak = new LambdaOak(this, "LambdaOak");
 
     const candidateEmailIntegration = new HttpLambdaIntegration(
       "CandidateEmailIntegrationOak",
-      lambdasOak.candidateEmail
+      lambdaOak.candidateEmail
     );
     new logs.LogGroup(this, "LogGroupCandidateEmailOak", {
-      logGroupName: `/aws/lambda/${lambdasOak.candidateEmail.functionName}`,
+      logGroupName: `/aws/lambda/${lambdaOak.candidateEmail.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     gateway.addRoutes({
@@ -52,10 +52,10 @@ export class gateway extends Construct {
 
     const catalogIntegration = new HttpLambdaIntegration(
       "CatalogIntegrationOak",
-      lambdasOak.catalog
+      lambdaOak.catalog
     );
     new logs.LogGroup(this, "LogGroupCatalogOak", {
-      logGroupName: `/aws/lambda/${lambdasOak.catalog.functionName}`,
+      logGroupName: `/aws/lambda/${lambdaOak.catalog.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     gateway.addRoutes({
@@ -66,10 +66,10 @@ export class gateway extends Construct {
 
     const examIntegration = new HttpLambdaIntegration(
       "ExamIntegrationOak",
-      lambdasOak.exam
+      lambdaOak.exam
     );
     new logs.LogGroup(this, "LogGroupExamOak", {
-      logGroupName: `/aws/lambda/${lambdasOak.exam.functionName}`,
+      logGroupName: `/aws/lambda/${lambdaOak.exam.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     gateway.addRoutes({

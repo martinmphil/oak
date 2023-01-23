@@ -4,7 +4,7 @@ import * as Oak from "../lib/oak-stack";
 
 describe("gateway construct", () => {
   const app = new cdk.App();
-  const stack = new Oak.OakStack(app, "apiTestStack");
+  const stack = new Oak.OakStack(app, "OakTestStack");
   const template = Template.fromStack(stack);
 
   it("exists as an AWS API Gateway version2", () => {

@@ -1,10 +1,12 @@
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cdk from "aws-cdk-lib";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { Construct } from "constructs";
 import { seedArr } from "./seed";
 
 export class DatabaseOak extends Construct {
-  // public readonly
+  public readonly tableNameOak;
+  public readonly grantRead;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -25,7 +27,9 @@ export class DatabaseOak extends Construct {
         [table.tableName]: requestItemsArr,
       },
     };
-    new cdk.custom_resources.AwsCustomResource(this, "dynamoSeedData", {
+    new cdk.custom_resources.AwsCustomResource(this, "DynamoSeedData", {
+      logRetention: RetentionDays.FIVE_DAYS,
+      installLatestAwsSdk: true,
       onCreate: {
         service: "DynamoDB",
         action: "batchWriteItem",
@@ -38,6 +42,12 @@ export class DatabaseOak extends Construct {
         resources: [table.tableArn],
       }),
     });
+    this.tableNameOak = table.tableName;
+
+    function grantRead(x: cdk.aws_iam.IGrantable) {
+      return table.grantReadData(x);
+    }
+    this.grantRead = grantRead;
 
     //
   }

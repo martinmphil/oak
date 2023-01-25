@@ -1,11 +1,25 @@
 // from @types
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context } from "aws-lambda";
+
+import { getItem } from "../utils";
 
 export async function handler(
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> {
-  // console.log("event 👉", event);
+
+  const happyDbResult = await getItem(
+    "standardCatalog",
+    "standardCatalog"
+  ).then((x: any) => x);
+
+  const dbItem = JSON.stringify(happyDbResult);
+
   return {
-    body: "You successfully invoked the catalog lambda from oak stack. ",
+    body: `
+You successfully invoked the catalog lambda from oak stack. 
+With datbase name ${process.env.DATABASE_NAME_OAK}, 
+and datbase item ${dbItem}} 
+and catalog ${happyDbResult?.obj.catalog[0]}. 
+    `,
   };
 }

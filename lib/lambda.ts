@@ -5,7 +5,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import { DatabaseOak } from "./database";
 
 const commonProps = {
-  bundling: { externalModules: ["aws-sdk"] },
+  bundling: { externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"] },
   runtime: lambda.Runtime.NODEJS_18_X,
   architecture: lambda.Architecture.ARM_64,
 };

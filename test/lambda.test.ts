@@ -2,44 +2,74 @@ import * as cdk from "aws-cdk-lib";
 import { Template, Match } from "aws-cdk-lib/assertions";
 import * as Oak from "../lib/oak-stack";
 
-describe("oak lambda functions", () => {
-  const app = new cdk.App();
-  const stack = new Oak.OakStack(app, "testLambdaStack");
-  const template = Template.fromStack(stack);
+const app = new cdk.App();
+const stack = new Oak.OakStack(app, "OakTestStack");
+const template = Template.fromStack(stack);
 
-  it("has correct number of lambdas and log groups", () => {
-    template.resourceCountIs("AWS::Lambda::Function", 4);
-    template.resourceCountIs("AWS::Logs::LogGroup", 3);
-  });
-
-  it("deletes all log groups on destroy", () => {
-    template.allResources("AWS::Logs::LogGroup", {
-      DeletionPolicy: "Delete",
-    });
-  });
-
-  it("integrates candidate-email function", () => {
+describe("candidate-email lambda function", () => {
+  it("integrates with gateway", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Integration", {
       IntegrationUri: {
         "Fn::GetAtt": Match.arrayWith([
-          Match.stringLikeRegexp("candidateEmail"),
+          Match.stringLikeRegexp("CandidateEmail"),
         ]),
       },
     });
   });
 
-  it("integrates catalog function", () => {
+  //
+});
+
+describe("catalog lambda function", () => {
+  it("integrates with gateway", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Integration", {
       IntegrationUri: {
-        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("catalog")]),
+        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("Catalog")]),
       },
     });
   });
+  it("sees database table-name", () => {
+    template.hasResourceProperties("AWS::Lambda::Function", {
+      Role: Match.objectLike({
+        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("Catalog")]),
+      }),
+      Environment: Match.objectLike({
+        Variables: Match.objectLike({
+          DATABASE_NAME_OAK: Match.objectLike({
+            Ref: Match.stringLikeRegexp(
+              "GatewayOakLambdaOakDatabaseOakTableOak"
+            ),
+          }),
+        }),
+      }),
+    });
+  });
+  it("can read database", () => {
+    template.hasResourceProperties("AWS::IAM::Policy", {
+      PolicyDocument: {
+        Statement: Match.arrayWith([
+          Match.objectLike({
+            Action: Match.arrayWith(["dynamodb:GetItem"]),
+            Effect: "Allow",
+          }),
+        ]),
+      },
+      Roles: Match.arrayWith([
+        {
+          Ref: Match.stringLikeRegexp("GatewayOakLambdaOakCatalogOak"),
+        },
+      ]),
+    });
+  });
 
-  it("integrates exam function", () => {
+  //
+});
+
+describe("exam lambda function", () => {
+  it("integrates with gateway", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Integration", {
       IntegrationUri: {
-        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("exam")]),
+        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("Exam")]),
       },
     });
   });

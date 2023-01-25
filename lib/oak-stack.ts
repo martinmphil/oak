@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { DatabaseOak } from "./database";
+// import { DatabaseOak } from "./database";
 import { gateway } from "./gateway";
 
 export class OakStack extends cdk.Stack {
@@ -9,6 +9,6 @@ export class OakStack extends cdk.Stack {
 
     const gatewayOak = new gateway(this, "GatewayOak");
 
-    const database = new DatabaseOak(this, "DatabaseOak");
+    // const database = new DatabaseOak(this, "DatabaseOak");
   }
 }

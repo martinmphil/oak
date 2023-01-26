@@ -10,7 +10,7 @@ export async function handler(
   const happyDbResult = await getItem(
     "standardCatalog",
     "standardCatalog"
-  ).then((x: any) => x);
+  )
 
   const dbItem = JSON.stringify(happyDbResult);
 

@@ -1,30 +1,32 @@
-import { Construct } from "constructs"
-import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs"
-import * as path from "path"
-import * as lambda from "aws-cdk-lib/aws-lambda"
-import { DatabaseOak } from "./database"
+import * as path from "path";
+import { Construct } from "constructs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { Runtime, Architecture } from "aws-cdk-lib/aws-lambda";
+import { DatabaseOak } from "./database";
 
 const commonProps = {
-  bundling: { externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"] },
-  runtime: lambda.Runtime.NODEJS_18_X,
-  architecture: lambda.Architecture.ARM_64,
-}
+  bundling: {
+    externalModules: ["@aws-sdk/client-dynamodb", "@aws-sdk/lib-dynamodb"],
+  },
+  runtime: Runtime.NODEJS_18_X,
+  architecture: Architecture.ARM_64,
+};
 
 export class LambdaOak extends Construct {
-  public readonly candidateEmail: NodejsFunction
-  public readonly catalog: NodejsFunction
-  public readonly exam: NodejsFunction
+  public readonly candidateEmail: NodejsFunction;
+  public readonly catalog: NodejsFunction;
+  public readonly exam: NodejsFunction;
 
   constructor(scope: Construct, id: string) {
-    super(scope, id)
+    super(scope, id);
 
-    const database = new DatabaseOak(this, "DatabaseOak")
+    const database = new DatabaseOak(this, "DatabaseOak");
 
     const candidateEmail = new NodejsFunction(this, "CandidateEmailOak", {
       ...commonProps,
       entry: path.join(__dirname, `/handlers/candidate-email/index.ts`),
-    })
-    this.candidateEmail = candidateEmail
+    });
+    this.candidateEmail = candidateEmail;
 
     const catalog = new NodejsFunction(this, "CatalogOak", {
       ...commonProps,
@@ -32,9 +34,9 @@ export class LambdaOak extends Construct {
       environment: {
         DATABASE_NAME_OAK: database.tableNameOak,
       },
-    })
-    database.grantRead(catalog)
-    this.catalog = catalog
+    });
+    database.grantRead(catalog);
+    this.catalog = catalog;
 
     const exam = new NodejsFunction(this, "ExamOak", {
       ...commonProps,
@@ -42,9 +44,9 @@ export class LambdaOak extends Construct {
       environment: {
         DATABASE_NAME_OAK: database.tableNameOak,
       },
-    })
-    database.grantWrite(exam)
-    this.exam = exam
+    });
+    database.grantWrite(exam);
+    this.exam = exam;
 
     //
   }

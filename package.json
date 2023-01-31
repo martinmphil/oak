@@ -28,19 +28,20 @@
     "@types/jest": "^27.5.2",
     "@types/node": "18.11.18",
     "@types/prettier": "2.7.1",
-    "aws-cdk": "2.62.1",
-    "esbuild": "^0.17.4",
+    "aws-cdk": "2.62.2",
+    "aws-sdk-client-mock": "^2.0.1",
+    "esbuild": "^0.17.5",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
     "typescript": "~4.9.4"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "^2.62.1-alpha.0",
-    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.62.1-alpha.0",
-    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.62.1-alpha.0",
-    "aws-cdk-lib": "^2.62.1",
-    "constructs": "^10.1.232",
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.62.2-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.62.2-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.62.2-alpha.0",
+    "aws-cdk-lib": "^2.62.2",
+    "constructs": "^10.1.235",
     "source-map-support": "^0.5.21"
   }
 }

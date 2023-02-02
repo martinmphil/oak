@@ -1,16 +1,16 @@
 // from @types
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Context } from "aws-lambda";
+import {
+  APIGatewayProxyEventV2,
+  APIGatewayProxyResultV2,
+  Context,
+} from "aws-lambda";
 
-import { getItem } from "../utils";
+import { getItem } from "../lambda_utils";
 
 export async function handler(
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> {
-
-  const happyDbResult = await getItem(
-    "standardCatalog",
-    "standardCatalog"
-  )
+  const happyDbResult = await getItem("standardCatalog", "standardCatalog");
 
   const dbItem = JSON.stringify(happyDbResult);
 

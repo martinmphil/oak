@@ -1,14 +1,14 @@
 // from @types
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 
-import { putItem } from "../utils";
+import { putItem } from "../lambda_utils";
 
 export async function handler(
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> {
-
-  const happyDbResult = await putItem('testPk', 'testSk', { newAttribut: 'testValue' })
-    .then((x: any) => x);
+  const happyDbResult = await putItem("testPk", "testSk", {
+    newAttribute: "testValue",
+  });
 
   const dbItem = JSON.stringify(happyDbResult);
 

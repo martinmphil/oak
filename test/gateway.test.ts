@@ -52,7 +52,7 @@ describe("gateway construct", () => {
         Audience: [
           {
             Ref: Match.stringLikeRegexp(
-              "^GatewayOakCognitoOakUserPoolOakUserPoolClientOak"
+              "^CognitoOakUserPoolOakUserPoolClientOak"
             ),
           },
         ],

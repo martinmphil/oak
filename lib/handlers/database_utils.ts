@@ -5,6 +5,12 @@ import {
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
 
+interface IItem {
+  pk: string;
+  sk: string;
+  [key: string]: string | number;
+}
+
 const client = new DynamoDBClient({ region: "eu-west-1" });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
 
@@ -41,18 +47,15 @@ export async function getItem(pk: string, sk: string) {
   return itemObj;
 }
 
-export async function putItem(pk: string, sk: string, payload: any) {
-  let Item = payload;
-  Item.pk = pk;
-  Item.sk = sk;
+export async function putItem(Item: IItem) {
   const putParams = {
     TableName,
     Item,
   };
-  const data = await ddbDocClient
+  const responce = await ddbDocClient
     .send(new PutCommand(putParams))
     .catch((err) => {
       throw new Error(`Database failed to put data ${putParams}. Error ${err}`);
     });
-  return data;
+  return responce;
 }

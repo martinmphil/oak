@@ -4,7 +4,7 @@ import {
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
-import { getItem, putItem } from "../../lib/handlers/lambda_utils";
+import { getItem, putItem } from "../../lib/handlers/database_utils";
 
 describe("lambda utils", () => {
   const originalEnv = process.env;
@@ -50,7 +50,9 @@ describe("lambda utils", () => {
         },
       });
 
-    const response = await putItem("dummyPk", "dummySk", {
+    const response = await putItem({
+      pk: "dummyPk",
+      sk: "dummySk",
       newAttribute: "dummyValue",
     });
     expect(response["$metadata"]).toHaveProperty("httpStatusCode", 200);

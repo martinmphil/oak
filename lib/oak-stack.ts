@@ -11,7 +11,7 @@ import {
 import { HttpLambdaIntegration } from "@aws-cdk/aws-apigatewayv2-integrations-alpha";
 import { HttpUserPoolAuthorizer } from "@aws-cdk/aws-apigatewayv2-authorizers-alpha";
 import { DatabaseOak } from "./database";
-import { CognitoOak } from "./cognito";
+import { CognitoOak } from "./auth";
 import { lambdaCommonProps } from "./lambdaCommonProps";
 
 export class OakStack extends cdk.Stack {

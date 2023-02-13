@@ -14,14 +14,17 @@ interface IItem {
 const client = new DynamoDBClient({ region: "eu-west-1" });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
 
-const TableName = process.env.DATABASE_NAME_OAK;
-if (typeof TableName != "string" || TableName.length < 1) {
-  throw new Error(` Missing database table-name. `);
+function nameTable() {
+  const TableName = process.env.DATABASE_NAME_OAK;
+  if (typeof TableName != "string" || TableName.length < 1) {
+    throw new Error(` Missing database table-name. `);
+  }
+  return TableName;
 }
 
 export async function getItem(pk: string, sk: string) {
   const getParams = {
-    TableName,
+    TableName: nameTable(),
     Key: {
       pk,
       sk,
@@ -49,13 +52,15 @@ export async function getItem(pk: string, sk: string) {
 
 export async function putItem(Item: IItem) {
   const putParams = {
-    TableName,
+    TableName: nameTable(),
     Item,
   };
   const responce = await ddbDocClient
     .send(new PutCommand(putParams))
     .catch((err) => {
-      throw new Error(`Database failed to put data ${putParams}. Error ${err}`);
+      throw new Error(
+        `Database failed to put data ${JSON.stringify(putParams)}. Error ${err}`
+      );
     });
   return responce;
 }

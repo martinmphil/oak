@@ -12,7 +12,7 @@ import { HttpLambdaIntegration } from "@aws-cdk/aws-apigatewayv2-integrations-al
 import { HttpUserPoolAuthorizer } from "@aws-cdk/aws-apigatewayv2-authorizers-alpha";
 import { DatabaseOak } from "./database";
 import { CognitoOak } from "./auth";
-import { lambdaCommonProps } from "./lambdaCommonProps";
+import { lambdaCommonProps } from "./fixtures/lambdaCommonProps";
 
 export class OakStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -101,7 +101,7 @@ export class OakStack extends cdk.Stack {
     gateway.addRoutes({
       integration: workbookIntegration,
       methods: [HttpMethod.PUT],
-      path: "/workbook/{examId}",
+      path: "/workbook/{workflowId}",
     });
 
     //

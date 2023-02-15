@@ -4,7 +4,7 @@ import { Construct } from "constructs";
 import { UserPool, AccountRecovery } from "aws-cdk-lib/aws-cognito";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
-import { lambdaCommonProps } from "./lambdaCommonProps";
+import { lambdaCommonProps } from "./fixtures/lambdaCommonProps";
 
 export interface ICognitoOakProps {
   tableNameOak: string;

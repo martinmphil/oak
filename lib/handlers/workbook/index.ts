@@ -1,7 +1,7 @@
 // from @types
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 
-import { putItem } from "../database_utils";
+import { putItem } from "../dynamo_utils";
 
 export async function handler(
   event: APIGatewayProxyEventV2

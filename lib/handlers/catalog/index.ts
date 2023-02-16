@@ -5,7 +5,7 @@ import {
   Context,
 } from "aws-lambda";
 
-import { getItem } from "../lambda_utils";
+import { getItem } from "../dynamo_utils";
 
 export async function handler(
   event: APIGatewayProxyEventV2

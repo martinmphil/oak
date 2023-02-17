@@ -4,12 +4,7 @@ import {
   GetCommand,
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
-
-interface IItem {
-  pk: string;
-  sk: string;
-  [key: string]: string | number;
-}
+import { IItem } from "./dynamo_interface";
 
 const client = new DynamoDBClient({ region: "eu-west-1" });
 const ddbDocClient = DynamoDBDocumentClient.from(client);

@@ -1,0 +1,70 @@
+interface IPrimary {
+  pk: string;
+  sk: string;
+  updatedAt: string;
+}
+// pk is partition key
+// sk is sort key
+
+interface IWorksheetData extends IPrimary {
+  entityType: "intro" | "4Multichoice" | "outro";
+  createdAt?: string;
+  markup: string;
+  rubric: { [key: string]: number };
+}
+// pk = sk = worksheetId eg "worksheet1"
+// {entityType:"intro", markup:"<p>Please…", rubric:{intro:0}}
+// {entityType:"4Multichoice", markup:"<p>A,B,C or D?", rubric:{a4:1}}
+// {entityType:"outro", markup:"<p>Thanks…", rubric:{outro:0}}
+
+interface IWorkflowData extends IPrimary {
+  entityType: "workflowData";
+  createdAt?: string;
+  name: string;
+  workflow: string[];
+}
+// pk = sk = workflowId eg "workflow101"
+// workflow:[worksheetId,…] eg
+// workflow: ["worksheet1","worksheet2","worksheet99"]
+
+interface ICatalogData extends IPrimary {
+  entityType: "catalogData";
+  createdAt?: string;
+  catalog: string[];
+}
+// pk = candidateId
+//   ie candidate-cognito-universally-unique-identifier
+//   eg "can333-ff96d547-eae4-4c93-b896-72df92ac2052"
+// sk = "catalog"
+// catalog: [workflowId, …] eg
+// catalog: ["workflow101", "workflow201"]
+
+interface IAssessmentData extends IPrimary {
+  entityType: "assessmentData";
+  createdAt?: string;
+  workProgress: number;
+  workflow: string[];
+  mark: number;
+  outOf: number;
+  grade: "Distinction" | "Merit" | "Pass" | "Near Pass" | "Unclassified";
+}
+// pk = candidateId
+// sk = workflowId eg "workflow101"
+// workProgress: -9000,0,1,…n
+// mark:5, outOf:10, grade:"Pass"
+
+interface ISubmissionData extends IPrimary {
+  entityType: "submissionData";
+  createdAt?: string;
+  candidateAnswer: string;
+}
+// pk = candidateId
+// sk = workflowId--worksheetId eg "workflow101--worksheet2"
+// candidateAnswer: "a3"
+
+export type IItem =
+  | IWorksheetData
+  | IWorkflowData
+  | ICatalogData
+  | IAssessmentData
+  | ISubmissionData;

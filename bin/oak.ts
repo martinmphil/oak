@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { OakStack } from "../lib/oak-stack";
+import { OakStack } from "../lib/oakstack";
 
 const app = new cdk.App();
 new OakStack(app, "OakStack", {

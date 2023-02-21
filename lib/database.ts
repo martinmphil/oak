@@ -19,6 +19,7 @@ export class DatabaseOak extends Construct {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       // pointInTimeRecovery: true,
     });
+    this.tableNameOak = table.tableName;
 
     const requestItemsArr = seedArr.map((x) => {
       return { PutRequest: { Item: x } };
@@ -43,7 +44,6 @@ export class DatabaseOak extends Construct {
         resources: [table.tableArn],
       }),
     });
-    this.tableNameOak = table.tableName;
 
     function grantRead(x: cdk.aws_iam.IGrantable) {
       return table.grantReadData(x);

@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template, Match } from "aws-cdk-lib/assertions";
-import * as Oak from "../lib/oak-stack";
+import * as Oak from "../lib/oakstack";
 
 describe("gateway construct", () => {
   const app = new cdk.App();

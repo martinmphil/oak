@@ -4,7 +4,7 @@ import {
   GetCommand,
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
-import { IItem } from "./dynamo_interface";
+import { IItem } from "./dynamoInterface";
 
 const client = new DynamoDBClient({ region: "eu-west-1" });
 const ddbDocClient = DynamoDBDocumentClient.from(client);

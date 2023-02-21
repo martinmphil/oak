@@ -1,7 +1,7 @@
 // from @types
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 
-import { putItem } from "../dynamo_utils";
+import { putItem } from "../dynamoUtils";
 
 export async function handler(
   event: APIGatewayProxyEventV2
@@ -9,7 +9,6 @@ export async function handler(
   const happyDbResult = await putItem({
     pk: "dummyPk",
     sk: "dummySk",
-    newAttribute: "dummyValue",
   });
 
   const dbItem = JSON.stringify(happyDbResult);

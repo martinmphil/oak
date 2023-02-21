@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template, Match } from "aws-cdk-lib/assertions";
-import * as Oak from "../lib/oak-stack";
+import * as Oak from "../lib/oakstack";
 
 const app = new cdk.App();
 const stack = new Oak.OakStack(app, "OakTestStack");

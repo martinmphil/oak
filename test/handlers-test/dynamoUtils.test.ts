@@ -4,7 +4,7 @@ import {
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
-import { getItem, putItem } from "../../lib/handlers/dynamo_utils";
+import { getItem, putItem } from "../../lib/handlers/dynamoUtils";
 
 describe("get-item function", () => {
   const originalEnv = process.env;
@@ -76,7 +76,7 @@ describe("put-item function", () => {
     dynamoMock.reset();
     dynamoMock
       .on(PutCommand, {
-        Item: { pk: "dummyPk", sk: "dummySk", newAttribute: "dummyValue" },
+        Item: { pk: "dummyPk", sk: "dummySk", updatedAt: "dummyValue" },
       })
       .resolves({
         $metadata: {
@@ -97,7 +97,7 @@ describe("put-item function", () => {
     const response = await putItem({
       pk: "dummyPk",
       sk: "dummySk",
-      newAttribute: "dummyValue",
+      updatedAt: "dummyValue",
     });
     expect(response["$metadata"]).toHaveProperty("httpStatusCode", 200);
   });
@@ -107,7 +107,7 @@ describe("put-item function", () => {
     putItem({
       pk: "dummyPk",
       sk: "dummySk",
-      newAttribute: "dummyValue",
+      updatedAt: "dummyValue",
     }).catch((err) => {
       expect(err).toBeInstanceOf(Error);
       expect(err.message).toMatch("Missing database table-name");
@@ -118,7 +118,12 @@ describe("put-item function", () => {
     dynamoMock
       .on(PutCommand, { Item: { pk: "rejects", sk: "rejects" } })
       .rejects();
-    putItem({ pk: "rejects", sk: "rejects" }).catch((err) => {
+    putItem({
+      pk: "rejects",
+      sk: "rejects",
+      entityType: "intro",
+      updatedAt: "",
+    }).catch((err) => {
       expect(err.message).toMatch(/Database/i);
       expect(err.message).toMatch(/TableName/i);
       expect(err.message).toMatch(/dummy_table_name/i);

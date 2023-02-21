@@ -1,7 +1,6 @@
 interface IPrimary {
   pk: string;
   sk: string;
-  updatedAt: string;
 }
 // pk is partition key
 // sk is sort key
@@ -9,6 +8,7 @@ interface IPrimary {
 interface IWorksheetData extends IPrimary {
   entityType: "intro" | "4Multichoice" | "outro";
   createdAt?: string;
+  updatedAt?: string;
   markup: string;
   rubric: { [key: string]: number };
 }
@@ -20,7 +20,8 @@ interface IWorksheetData extends IPrimary {
 interface IWorkflowData extends IPrimary {
   entityType: "workflowData";
   createdAt?: string;
-  name: string;
+  updatedAt?: string;
+  flowTitle: string;
   workflow: string[];
 }
 // pk = sk = workflowId eg "workflow101"
@@ -30,6 +31,7 @@ interface IWorkflowData extends IPrimary {
 interface ICatalogData extends IPrimary {
   entityType: "catalogData";
   createdAt?: string;
+  updatedAt?: string;
   catalog: string[];
 }
 // pk = candidateId
@@ -42,6 +44,7 @@ interface ICatalogData extends IPrimary {
 interface IAssessmentData extends IPrimary {
   entityType: "assessmentData";
   createdAt?: string;
+  updatedAt?: string;
   workProgress: number;
   workflow: string[];
   mark: number;
@@ -56,6 +59,7 @@ interface IAssessmentData extends IPrimary {
 interface ISubmissionData extends IPrimary {
   entityType: "submissionData";
   createdAt?: string;
+  updatedAt?: string;
   candidateAnswer: string;
 }
 // pk = candidateId
@@ -63,6 +67,7 @@ interface ISubmissionData extends IPrimary {
 // candidateAnswer: "a3"
 
 export type IItem =
+  | IPrimary
   | IWorksheetData
   | IWorkflowData
   | ICatalogData

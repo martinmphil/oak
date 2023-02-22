@@ -1,4 +1,4 @@
-import { getItem } from "../dynamo_utils";
+import { getItem } from "../dynamoUtils";
 
 export async function getStandardCatalog() {
   const data = await getItem("standardCatalog", "standardCatalog");

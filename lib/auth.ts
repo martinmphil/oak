@@ -1,13 +1,39 @@
-import { UserPool, AccountRecovery } from "aws-cdk-lib/aws-cognito";
+import * as path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
+import { UserPool, AccountRecovery } from "aws-cdk-lib/aws-cognito";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
+import { LogGroup } from "aws-cdk-lib/aws-logs";
+import { lambdaCommonProps } from "./fixtures/lambdaCommonProps";
+
+export interface ICognitoOakProps {
+  tableNameOak: string;
+}
 
 export class CognitoOak extends Construct {
   public readonly userPool;
   public readonly userPoolClient;
+  public readonly cognitoPostConfirm;
 
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, props: ICognitoOakProps) {
     super(scope, id);
+
+    const cognitoPostConfirm = new NodejsFunction(
+      this,
+      "CognitoPostConfirmOak",
+      {
+        ...lambdaCommonProps,
+        entry: path.join(__dirname, `/handlers/cognito-post-confirm/index.ts`),
+        environment: {
+          DATABASE_NAME_OAK: props.tableNameOak,
+        },
+      }
+    );
+    new LogGroup(this, "LogGroupCognitoPostConfirmOak", {
+      logGroupName: `/aws/lambda/${cognitoPostConfirm.functionName}`,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+    this.cognitoPostConfirm = cognitoPostConfirm;
 
     const userPool = new UserPool(this, "UserPoolOak", {
       selfSignUpEnabled: true,
@@ -21,6 +47,7 @@ export class CognitoOak extends Construct {
       signInCaseSensitive: false,
       accountRecovery: AccountRecovery.EMAIL_ONLY,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      lambdaTriggers: { postConfirmation: cognitoPostConfirm },
     });
     const domain = userPool.addDomain("CognitoDomainOak", {
       cognitoDomain: { domainPrefix: "greenstem-oak" },

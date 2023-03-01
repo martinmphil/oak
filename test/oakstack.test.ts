@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template, Match } from "aws-cdk-lib/assertions";
-import * as Oak from "../lib/oak-stack";
+import * as Oak from "../lib/oakstack";
 
 describe("oak stack", () => {
   const app = new cdk.App();
@@ -16,8 +16,8 @@ describe("oak stack", () => {
   });
 
   it("has correct number of lambda and log groups", () => {
-    template.resourceCountIs("AWS::Lambda::Function", 5);
-    template.resourceCountIs("AWS::Logs::LogGroup", 3);
+    template.resourceCountIs("AWS::Lambda::Function", 6);
+    template.resourceCountIs("AWS::Logs::LogGroup", 4);
   });
 
   it("deletes all log groups on destroy", () => {

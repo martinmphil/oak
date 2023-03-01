@@ -1,16 +1,16 @@
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb"
-import * as cdk from "aws-cdk-lib"
-import { RetentionDays } from "aws-cdk-lib/aws-logs"
-import { Construct } from "constructs"
-import { seedArr } from "./seed"
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+import * as cdk from "aws-cdk-lib";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
+import { Construct } from "constructs";
+import { seedArr } from "./fixtures/seed";
 
 export class DatabaseOak extends Construct {
-  public readonly tableNameOak
-  public readonly grantRead
-  public readonly grantWrite
+  public readonly tableNameOak;
+  public readonly grantRead;
+  public readonly grantWrite;
 
   constructor(scope: Construct, id: string) {
-    super(scope, id)
+    super(scope, id);
 
     const table = new dynamodb.Table(this, "TableOak", {
       partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
@@ -18,16 +18,17 @@ export class DatabaseOak extends Construct {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       // pointInTimeRecovery: true,
-    })
+    });
+    this.tableNameOak = table.tableName;
 
     const requestItemsArr = seedArr.map((x) => {
-      return { PutRequest: { Item: x } }
-    })
+      return { PutRequest: { Item: x } };
+    });
     const parameters = {
       RequestItems: {
         [table.tableName]: requestItemsArr,
       },
-    }
+    };
     new cdk.custom_resources.AwsCustomResource(this, "DynamoSeedData", {
       logRetention: RetentionDays.FIVE_DAYS,
       installLatestAwsSdk: true,
@@ -42,18 +43,17 @@ export class DatabaseOak extends Construct {
       policy: cdk.custom_resources.AwsCustomResourcePolicy.fromSdkCalls({
         resources: [table.tableArn],
       }),
-    })
-    this.tableNameOak = table.tableName
+    });
 
     function grantRead(x: cdk.aws_iam.IGrantable) {
-      return table.grantReadData(x)
+      return table.grantReadData(x);
     }
-    this.grantRead = grantRead
+    this.grantRead = grantRead;
 
     function grantWrite(x: cdk.aws_iam.IGrantable) {
-      return table.grantReadWriteData(x)
+      return table.grantReadWriteData(x);
     }
-    this.grantWrite = grantWrite
+    this.grantWrite = grantWrite;
 
     //
   }

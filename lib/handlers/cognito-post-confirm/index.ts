@@ -1,11 +1,26 @@
 // from @types
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { PostConfirmationTriggerEvent } from "aws-lambda";
 
-export async function handler(
-  event: APIGatewayProxyEventV2
-): Promise<APIGatewayProxyResultV2> {
-  // console.log("event 👉", event);
-  return {
-    body: "You successfully invoked lambda cognito-post-confrim from oak stack. ",
-  };
+import { getStandardCatalog } from "./getStandardCatalog";
+import { putCatalog } from "./putCatalog";
+
+export async function handler(event: PostConfirmationTriggerEvent) {
+  // TEMP
+  console.log("event 👉", event);
+  //
+  try {
+    // Returning the event continues our hosted-UI sign-up process.
+    // Cognito-attribute "sub" (ie subject) uniquely identifies each user.
+    const username = event?.request?.userAttributes?.sub;
+    const canId = `candidate-${username}`;
+    const standardCatalog = await getStandardCatalog();
+    if (standardCatalog.length < 1) {
+      console.warn(` The standard catalog is empty. `);
+      return event;
+    }
+    await putCatalog(canId, standardCatalog);
+  } catch (err) {
+    console.warn(` Cognito-post-confirm failed:- ${JSON.stringify(err)}. `);
+  }
+  return event;
 }

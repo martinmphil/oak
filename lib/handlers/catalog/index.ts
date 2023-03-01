@@ -1,6 +1,6 @@
 // from @types
 import {
-  APIGatewayProxyEventV2,
+  APIGatewayProxyEventV2WithJWTAuthorizer,
   APIGatewayProxyResultV2,
   Context,
 } from "aws-lambda";
@@ -8,7 +8,7 @@ import {
 import { getItem } from "../dynamoUtils";
 
 export async function handler(
-  event: APIGatewayProxyEventV2
+  event: APIGatewayProxyEventV2WithJWTAuthorizer
 ): Promise<APIGatewayProxyResultV2> {
   const happyDbResult = await getItem("standardCatalog", "standardCatalog");
 

@@ -9,13 +9,13 @@ export async function handler(event: PostConfirmationTriggerEvent) {
   console.log("event 👉", event);
   //
   try {
-    // Returning the event continues our hosted-UI sign-up process.
+    // Returning the event continues AWS hosted-UI sign-up process.
     // Cognito-attribute "sub" (ie subject) uniquely identifies each user.
     const username = event?.request?.userAttributes?.sub;
     const canId = `candidate-${username}`;
     const standardCatalog = await getStandardCatalog();
-    if (standardCatalog.length < 1) {
-      console.warn(` The standard catalog is empty. `);
+    if (standardCatalog[0].length < 1) {
+      console.warn(` Standard catalog is empty. `);
       return event;
     }
     await putCatalog(canId, standardCatalog);

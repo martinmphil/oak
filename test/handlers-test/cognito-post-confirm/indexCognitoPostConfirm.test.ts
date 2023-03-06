@@ -71,7 +71,7 @@ describe("cognito-post-confirm lambda function", () => {
     });
   });
 
-  it("warns the console if standard catalog array is empty", () => {
+  it("warns the console if standard catalog array is an empty array", () => {
     expect.assertions(2);
     console.warn = jest.fn();
     dynamoMock
@@ -106,7 +106,6 @@ describe("cognito-post-confirm lambda function", () => {
 
   it("files standard catalog in database under username", () => {
     expect.assertions(4);
-
     const spy001 = jest.spyOn(putCatalogMod, "putCatalog");
     // @ts-ignore
     handler(dummyCognitoEvent).then((x) => {

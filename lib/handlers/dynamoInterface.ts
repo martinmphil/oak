@@ -21,7 +21,7 @@ interface IWorkflowData extends IPrimary {
   entityType: "workflowData";
   createdAt?: string;
   updatedAt?: string;
-  flowTitle: string;
+  workflowTitle: string;
   workflow: string[];
 }
 // pk = sk = workflowId eg "workflow101"

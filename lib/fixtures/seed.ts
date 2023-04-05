@@ -35,7 +35,7 @@ export const seedArr = [
     entityType: {
       S: "workflowData",
     },
-    flowTitle: {
+    workflowTitle: {
       S: "Sustainable energy",
     },
     workflow: {
@@ -73,9 +73,9 @@ export const seedArr = [
       S: "workflow102",
     },
     entityType: {
-      S: "examData",
+      S: "workflowData",
     },
-    flowTitle: {
+    workflowTitle: {
       S: "Basic science",
     },
     workflow: {
@@ -129,7 +129,7 @@ export const seedArr = [
       S: "outro",
     },
     markup: {
-      S: "<div><p>Thank you for your participation.</p><button id='end_of_exam' class='choices'>OK</button></div>",
+      S: "<div><p>Thank you for your participation.</p><button id='outro' class='choices'>OK</button></div>",
     },
     rubric: {
       M: {

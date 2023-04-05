@@ -75,18 +75,18 @@ describe("cognito client app", () => {
   it("has 3 callback urls for redirecting logged-in candidates", () => {
     template.hasResourceProperties("AWS::Cognito::UserPoolClient", {
       CallbackURLs: [
-        "http://localhost:6100/can",
-        "https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
-        "https://www.greenstem.uk/can",
+        "http://localhost:5173/",
+        "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+        "https://www.greenstem.uk/can/",
       ],
     });
   });
   it("has 3 callback urls for redirecting after candidates log out", () => {
     template.hasResourceProperties("AWS::Cognito::UserPoolClient", {
       LogoutURLs: [
-        "http://localhost:6100/logout.html",
-        "https://main.d3dq4xzxmmo3wf.amplifyapp.com/logout.html",
-        "https://www.greenstem.uk/logout.html",
+        "http://localhost:5173/",
+        "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+        "https://www.greenstem.uk/can/",
       ],
     });
   });

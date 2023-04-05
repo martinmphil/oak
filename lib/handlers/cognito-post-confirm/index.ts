@@ -5,9 +5,6 @@ import { getStandardCatalog } from "./getStandardCatalog";
 import { putCatalog } from "./putCatalog";
 
 export async function handler(event: PostConfirmationTriggerEvent) {
-  // TEMP
-  console.log("event 👉", event);
-  //
   try {
     // Returning the event continues AWS hosted-UI sign-up process.
     // Cognito-attribute "sub" (ie subject) uniquely identifies each user.

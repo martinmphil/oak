@@ -14,7 +14,9 @@ describe("get standard catalog", () => {
       .on(GetCommand, {
         Key: { pk: "standardCatalog", sk: "standardCatalog" },
       })
-      .resolves({ Item: { catalog: ["exam1", "exam2"] } });
+      .resolves({
+        Item: { catalog: ["wflow1", "wflow2", "wflow3", "wflow4"] },
+      });
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -28,7 +30,7 @@ describe("get standard catalog", () => {
     const response = await getStandardCatalog();
     const result = Array.isArray(response) ? response : [];
     expect(Array.isArray(result)).toBe(true);
-    expect(result[1]).toBe("exam2");
+    expect(result[1]).toBe("wflow2");
   });
 
   it("returns [''] and warns the console if data is missing", () => {
@@ -56,10 +58,10 @@ describe("get standard catalog", () => {
       .on(GetCommand, {
         Key: { pk: "standardCatalog", sk: "standardCatalog" },
       })
-      .resolves({ Item: { catalog: "exam2" } });
+      .resolves({ Item: { catalog: "dummy_string" } });
     getStandardCatalog().then((catalog) => {
       expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/database.*failed.*standard.*catalog.*array/i)
+        expect.stringMatching(/databank.*failed.*catalog.*array/i)
       );
       expect(Array.isArray(catalog)).toBe(true);
       expect(typeof catalog[0]).toBe("string");

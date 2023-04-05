@@ -17,17 +17,20 @@ describe("get-item function", () => {
       .on(GetCommand, {
         Key: { pk: "standardCatalog", sk: "standardCatalog" },
       })
-      .resolves({ Item: { catalog: ["exam1", "exam2"] } });
+      .resolves({
+        Item: { catalog: ["wflow1", "wflow2", "wflow3", "wflow4"] },
+      });
   });
   afterEach(() => {
     process.env = originalEnv;
     jest.resetModules();
     dynamoMock.reset();
   });
+
   it("exists", async () => {
     expect.assertions(1);
     const Item = await getItem("standardCatalog", "standardCatalog");
-    expect(Item.catalog[0]).toStrictEqual("exam1");
+    expect(Item.catalog[0]).toStrictEqual("wflow1");
   });
   it("throws an error when missing a table name", () => {
     expect.assertions(2);

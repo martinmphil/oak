@@ -25,8 +25,8 @@ describe("gateway construct", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
       CorsConfiguration: {
         AllowOrigins: [
-          "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-          "http://localhost:6100",
+          "https://main.d3dq4xzxmmo3wf.amplifyapp.com",
+          "http://localhost:5173",
         ],
       },
     });

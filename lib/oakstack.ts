@@ -35,8 +35,8 @@ export class OakStack extends cdk.Stack {
       corsPreflight: {
         allowHeaders: ["Authorization"],
         allowOrigins: [
-          "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-          "http://localhost:6100",
+          "https://main.d3dq4xzxmmo3wf.amplifyapp.com",
+          "http://localhost:5173",
         ],
         allowMethods: [CorsHttpMethod.GET, CorsHttpMethod.PUT],
       },

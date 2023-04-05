@@ -10,6 +10,15 @@ import * as getStandardCatalogMod from "../../../lib/handlers/cognito-post-confi
 import * as putCatalogMod from "../../../lib/handlers/cognito-post-confirm/putCatalog";
 
 const dummyCognitoEvent = {
+  version: "1",
+  region: "eu-west-1",
+  userPoolId: "eu-west-1_dummy_user_pool_id",
+  userName: "dummy-user-name-abc-123",
+  callerContext: {
+    awsSdkVersion: "aws-sdk-unknown-unknown",
+    clientId: "dummy_client_id_123",
+  },
+  triggerSource: "PostConfirmation_ConfirmSignUp",
   request: {
     userAttributes: {
       email: "user@example.com",
@@ -17,12 +26,6 @@ const dummyCognitoEvent = {
       sub: "dummy_username",
     },
   },
-  version: "1",
-  region: "eu-west-1",
-  userPoolId: "dummy",
-  triggerSource: "PostConfirmation_ConfirmSignUp",
-  userName: "dummy",
-  callerContext: "dummy",
   response: {},
 };
 

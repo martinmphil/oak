@@ -1,14 +1,5 @@
 import { handler } from "../../../lib/handlers/candidate-email";
-
-const dummyEvent = {
-  version: "1",
-  routeKey: "dummy_key",
-  rawPath: "dummy_path",
-  rawQueryString: "",
-  headers: { auth: "auth" },
-  requestContext: "dummy_context",
-  isBase64Encoded: "false",
-};
+import { dummyEvent } from "../dummyEvent";
 
 describe("candidate-email handler fn", () => {
   it("returns a promise", async () => {

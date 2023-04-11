@@ -1,0 +1,48 @@
+export const dummyEvent = {
+  version: "2.0",
+  routeKey: "GET /catalog",
+  rawPath: "/catalog",
+  rawQueryString: "",
+  headers: {
+    accept: "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "accept-language": "en-GB,en;q=0.5",
+    authorization:
+      "eyJraWQiOiIwU2dtKzVrUGdlV3lhQzhBaENoRkNWbndUVjFjYXBLTnJmR3Z1eXVFTzNjPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJjOWUyOTM0Ni1mY2Q4LTQ0NWMtYTkxZi0yZmNhNmFjY2RhOWIiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtd2VzdC0xLmFtYXpvbmF3cy5jb21cL2V1LXdlc3QtMV8xb2JuRVdJOTciLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiI0MzZlNG81bHZhdWlqazhvMzY2dnVzN2sxdiIsImV2ZW50X2lkIjoiMzkwZGFiYjUtNWRjYi00NzY1LTlkNGMtYmEyY2U4YTdlMmE1IiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiBwaG9uZSBvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImF1dGhfdGltZSI6MTY4MDA5OTE2MSwiZXhwIjoxNjgwMTcxMTYxLCJpYXQiOjE2ODAwOTkxNjEsImp0aSI6IjU4ZDY2NTJiLWQ0MzQtNDA3Mi1iMGIzLTU3NmNiNzAxMzNkMSIsInVzZXJuYW1lIjoiYzllMjkzNDYtZmNkOC00NDVjLWE5MWYtMmZjYTZhY2NkYTliIn0.Vb-1AYiu8OAhzBxb8k6o2NHr5ARP2O7-_bzeWt_w5tvcdbHjYBM6qdfsTEHljHilHLb9vPD8sHkw0B6s6Ei7wK4DPI0fDEwitnjZNUs9tNBxH4QlxYPs1DyIIeNjmhuKnCIQx8gXl1VmYXx-RufBrrAtpa_m-JqBKoyG5RFgib9LnGnMTrkUfJdK3Rw3-f7-E_xVnH4__Mi46P2MY9XbD6NUiNxeQ5skDaZyRX4yEEpmmPrsv0ebF9-MPwZaGRs3vjnlKRcKGigTyfnm13rA2RwkRalQLervkZEBncU_3fRu7kZk1-9bSwddkqvUXJ7bs_teLq4nYUNDRaN020QaSw",
+    "content-length": "0",
+    dnt: "1",
+    host: "5jjaawclpd.execute-api.eu-west-1.amazonaws.com",
+    origin: "http://localhost:5173",
+    referer: "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "cross-site",
+    "user-agent":
+      "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0",
+    "x-amzn-trace-id": "Root=1-6424475c-78ed74ad6b5f78f27817d4b2",
+    "x-forwarded-for": "86.173.210.37",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https",
+  },
+  requestContext: {
+    accountId: "014764168161",
+    apiId: "5jjaawclpd",
+    authorizer: { jwt: { claims: { username: "dummy_username" } } },
+    domainName: "5jjaawclpd.execute-api.eu-west-1.amazonaws.com",
+    domainPrefix: "5jjaawclpd",
+    http: {
+      method: "GET",
+      path: "/catalog",
+      protocol: "HTTP/1.1",
+      sourceIp: "86.173.210.37",
+      userAgent:
+        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0",
+    },
+    requestId: "CjAWejuKDoEEJ1w=",
+    routeKey: "GET /catalog",
+    stage: "$default",
+    time: "29/Mar/2023:14:12:44 +0000",
+    timeEpoch: 1680099164318,
+  },
+  isBase64Encoded: false,
+};

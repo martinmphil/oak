@@ -25,23 +25,17 @@ export async function getItem(pk: string, sk: string) {
       sk,
     },
   };
+
   const data = await ddbDocClient
     .send(new GetCommand(getParams))
     .catch((err) => {
-      throw new Error(
-        `Database failed to get data ${JSON.stringify(getParams)}. Error ${err}`
-      );
+      const fault = `Database failed to get data ${JSON.stringify(
+        getParams
+      )}. Error ${err}`;
+      throw new Error(fault);
     });
   const itemObj = data?.Item;
-  if (
-    itemObj === undefined ||
-    itemObj === null ||
-    JSON.stringify(itemObj) === "{}"
-  ) {
-    throw new Error(
-      `Database failed to get item ${JSON.stringify(getParams)}.`
-    );
-  }
+
   return itemObj;
 }
 

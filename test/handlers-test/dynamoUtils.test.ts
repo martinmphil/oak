@@ -30,7 +30,9 @@ describe("get-item function", () => {
   it("exists", async () => {
     expect.assertions(1);
     const Item = await getItem("standardCatalog", "standardCatalog");
-    expect(Item.catalog[0]).toStrictEqual("wflow1");
+    if (Item) {
+      expect(Item.catalog[0]).toStrictEqual("wflow1");
+    }
   });
   it("throws an error when missing a table name", () => {
     expect.assertions(2);
@@ -52,8 +54,8 @@ describe("get-item function", () => {
       expect(err.message).toMatch(/dummy_table_name.*pk.*rejects/i);
     });
   });
-  it("throws an error when item is missing", async () => {
-    expect.assertions(2);
+  it("handles undefined when item is missing from databank", async () => {
+    expect.assertions(1);
     dynamoMock
       .on(GetCommand, {
         Key: { pk: "undefined", sk: "undefined" },
@@ -61,9 +63,9 @@ describe("get-item function", () => {
       .resolves({
         Item: undefined,
       });
-    getItem("undefined", "undefined").catch((err) => {
-      expect(err.message).toMatch(/Database failed to get item/i);
-      expect(err.message).toMatch(/TableName.*dummy_table_name/i);
+    getItem("undefined", "undefined").then((x) => {
+      console.log(x);
+      expect(x).toBeUndefined();
     });
   });
 

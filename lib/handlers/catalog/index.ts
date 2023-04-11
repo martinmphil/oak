@@ -1,25 +1,39 @@
 // from @types
-import {
-  APIGatewayProxyEventV2WithJWTAuthorizer,
-  APIGatewayProxyResultV2,
-  Context,
-} from "aws-lambda";
+import { APIGatewayProxyEventV2WithJWTAuthorizer } from "aws-lambda";
 
-import { getItem } from "../dynamoUtils";
+import { getCatalog } from "./getCatalog";
+import { listings } from "./listings";
 
-export async function handler(
-  event: APIGatewayProxyEventV2WithJWTAuthorizer
-): Promise<APIGatewayProxyResultV2> {
-  const happyDbResult = await getItem("standardCatalog", "standardCatalog");
+export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
+  try {
+    const defaultMarkup = `
+    <p>
+    If you expected to find your enrolled subjects here, 
+    then please contact your Administrator. 
+    </p>
+    `;
+    const username = event.requestContext.authorizer.jwt.claims.username;
+    const candidateId = `candidate-${username}`;
 
-  const dbItem = JSON.stringify(happyDbResult);
+    const catalog = await getCatalog(candidateId);
 
-  return {
-    body: `
-You successfully invoked the catalog lambda from oak stack. 
-With datbase name ${process.env.DATABASE_NAME_OAK}, 
-and datbase item ${dbItem}} 
-and catalog ${happyDbResult?.obj.catalog[0]}. 
-    `,
-  };
+    if (catalog.length === 1 && catalog[0] === "") {
+      return { body: defaultMarkup };
+    }
+
+    const markup = await listings(candidateId, catalog);
+
+    if (typeof markup === "string" && markup.length > 0) {
+      return { body: markup };
+    }
+
+    return { body: defaultMarkup };
+  } catch (err) {
+    let fault = ` The index catalog lambda function failed. `;
+
+    if (err) {
+      fault += ` ${err.toString()} `;
+    }
+    return { fault };
+  }
 }

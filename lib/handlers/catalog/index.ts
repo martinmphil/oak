@@ -3,37 +3,45 @@ import { APIGatewayProxyEventV2WithJWTAuthorizer } from "aws-lambda";
 
 import { getCatalog } from "./getCatalog";
 import { listings } from "./listings";
+import { validString } from "../validString";
 
 export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
+  let fault = ` The index catalog lambda function failed. `;
+  let body = `
+<p>
+If you expected to find your enrolled subjects here, 
+then either refresh this page, try again later, 
+or tell your administrator an error occurred at ${new Date().toUTCString()}.
+</p>
+  `;
+
   try {
-    const defaultMarkup = `
-    <p>
-    If you expected to find your enrolled subjects here, 
-    then please contact your Administrator. 
-    </p>
-    `;
-    const username = event.requestContext.authorizer.jwt.claims.username;
+    const username = event?.requestContext?.authorizer?.jwt?.claims?.username;
     const candidateId = `candidate-${username}`;
+
+    if (!validString(username)) {
+      fault += " Missing username. ";
+      console.warn(fault);
+      return { body };
+    }
 
     const catalog = await getCatalog(candidateId);
 
     if (catalog.length === 1 && catalog[0] === "") {
-      return { body: defaultMarkup };
+      return { body };
     }
 
     const markup = await listings(candidateId, catalog);
-
     if (typeof markup === "string" && markup.length > 0) {
-      return { body: markup };
+      body = markup;
     }
 
-    return { body: defaultMarkup };
+    return { body };
   } catch (err) {
-    let fault = ` The index catalog lambda function failed. `;
-
     if (err) {
       fault += ` ${err.toString()} `;
     }
+    console.warn(fault);
     return { fault };
   }
 }

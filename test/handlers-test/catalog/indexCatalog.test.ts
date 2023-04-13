@@ -80,12 +80,6 @@ describe("index catalog lambda function", () => {
         Key: { pk: candidateId, sk: "wflow4" },
       })
       .resolves({});
-
-    // dynamoMock
-    //   .on(GetCommand, {
-    //     Key: { pk: candidateId, sk: "wflow4" },
-    //   })
-    //   .rejects();
   });
   afterEach(() => {
     process.env = originalEnv;
@@ -104,14 +98,17 @@ describe("index catalog lambda function", () => {
   });
 
   it("handles catalog with empty string", () => {
-    expect.assertions(1);
+    expect.assertions(2);
     const getCatalogSpy = jest.spyOn(getCatalogModule, "getCatalog");
     getCatalogSpy.mockImplementationOnce(async () => {
       return [""];
     });
     // @ts-ignore
     handler(dummyEvent).then((response) => {
-      expect(response?.body).toMatch(/please contact your Administrator/i);
+      expect(response?.body).toMatch(/refresh this page.*try again later/i);
+      expect(response?.body).toMatch(
+        /tell your administrator an error occurred/i
+      );
     });
     getCatalogSpy.mockRestore();
   });

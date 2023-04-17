@@ -1,7 +1,7 @@
 import { mockClient } from "aws-sdk-client-mock";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 
-import { getCatalog } from "../../../lib/handlers/catalog/getCatalog";
+import { getCatalog } from "../../../lib/handlers/listings/getCatalog";
 
 const candidateId = "candidate-dummy_username";
 

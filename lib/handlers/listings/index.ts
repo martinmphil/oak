@@ -2,8 +2,7 @@
 import { APIGatewayProxyEventV2WithJWTAuthorizer } from "aws-lambda";
 
 import { getCatalog } from "./getCatalog";
-import { listings } from "./listings";
-import { validString } from "../validString";
+import { listingsMarkup } from "./listingsMarkup";
 
 export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
   let fault = ` The index catalog lambda function failed. `;
@@ -19,7 +18,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
     const username = event?.requestContext?.authorizer?.jwt?.claims?.username;
     const candidateId = `candidate-${username}`;
 
-    if (!validString(username)) {
+    if (typeof username !== "string" || username.length === 0) {
       fault += " Missing username. ";
       console.warn(fault);
       return { body };
@@ -31,7 +30,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
       return { body };
     }
 
-    const markup = await listings(candidateId, catalog);
+    const markup = await listingsMarkup(candidateId, catalog);
     if (typeof markup === "string" && markup.length > 0) {
       body = markup;
     }

@@ -64,7 +64,6 @@ describe("get-item function", () => {
         Item: undefined,
       });
     getItem("undefined", "undefined").then((x) => {
-      console.log(x);
       expect(x).toBeUndefined();
     });
   });

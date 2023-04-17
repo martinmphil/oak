@@ -6,11 +6,11 @@ const app = new cdk.App();
 const stack = new Oak.OakStack(app, "OakTestStack");
 const template = Template.fromStack(stack);
 
-describe("catalog lambda function", () => {
+describe("listings lambda function", () => {
   it("integrates with gateway", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Integration", {
       IntegrationUri: {
-        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("Catalog")]),
+        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("Listings")]),
       },
     });
   });
@@ -20,7 +20,7 @@ describe("catalog lambda function", () => {
         "Fn::Join": Match.arrayWith([
           Match.arrayWith([
             Match.objectLike({
-              Ref: Match.stringLikeRegexp("^CatalogOak"),
+              Ref: Match.stringLikeRegexp("^ListingsOak"),
             }),
           ]),
         ]),
@@ -30,7 +30,7 @@ describe("catalog lambda function", () => {
   it("sees database table-name", () => {
     template.hasResourceProperties("AWS::Lambda::Function", {
       Role: Match.objectLike({
-        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("CatalogOak")]),
+        "Fn::GetAtt": Match.arrayWith([Match.stringLikeRegexp("ListingsOak")]),
       }),
       Environment: Match.objectLike({
         Variables: Match.objectLike({
@@ -53,7 +53,7 @@ describe("catalog lambda function", () => {
       },
       Roles: Match.arrayWith([
         {
-          Ref: Match.stringLikeRegexp("CatalogOak"),
+          Ref: Match.stringLikeRegexp("ListingsOak"),
         },
       ]),
     });

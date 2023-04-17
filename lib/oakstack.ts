@@ -60,26 +60,26 @@ export class OakStack extends cdk.Stack {
       path: "/candidate-email",
     });
 
-    const catalog = new NodejsFunction(this, "CatalogOak", {
+    const listings = new NodejsFunction(this, "ListingsOak", {
       ...lambdaCommonProps,
-      entry: path.join(__dirname, `/handlers/catalog/index.ts`),
+      entry: path.join(__dirname, `/handlers/listings/index.ts`),
       environment: {
         DATABASE_NAME_OAK: database.tableNameOak,
       },
     });
-    database.grantRead(catalog);
-    const catalogIntegration = new HttpLambdaIntegration(
-      "CatalogIntegrationOak",
-      catalog
+    database.grantRead(listings);
+    const listingsIntegration = new HttpLambdaIntegration(
+      "ListingsIntegrationOak",
+      listings
     );
-    new LogGroup(this, "LogGroupCatalogOak", {
-      logGroupName: `/aws/lambda/${catalog.functionName}`,
+    new LogGroup(this, "LogGroupListingsOak", {
+      logGroupName: `/aws/lambda/${listings.functionName}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     gateway.addRoutes({
-      integration: catalogIntegration,
+      integration: listingsIntegration,
       methods: [HttpMethod.GET],
-      path: "/catalog",
+      path: "/listings",
     });
 
     const workbook = new NodejsFunction(this, "WorkbookOak", {

@@ -1,7 +1,7 @@
 import { mockClient } from "aws-sdk-client-mock";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 
-import { getWorkflowTitle } from "../../../lib/handlers/catalog/getWorkflowTitle";
+import { getWorkflowTitle } from "../../../lib/handlers/listings/getWorkflowTitle";
 
 describe("get works=flow title modukle", () => {
   const originalEnv = process.env;

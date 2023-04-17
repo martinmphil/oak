@@ -1,7 +1,7 @@
 import { mockClient } from "aws-sdk-client-mock";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 
-import { getWorkflowProgress } from "../../../lib/handlers/catalog/getWorkflowProgress";
+import { getWorkflowProgress } from "../../../lib/handlers/listings/getWorkflowProgress";
 
 describe("get work progress", () => {
   const candidateId = "candidate-dummy_username";

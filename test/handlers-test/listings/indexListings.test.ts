@@ -1,11 +1,11 @@
 import { mockClient } from "aws-sdk-client-mock";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 
-import { handler } from "../../../lib/handlers/catalog/index";
-import { dummyEvent } from "../dummyEvent";
+import { handler } from "../../../lib/handlers/listings/index";
+import { dummyEvent } from "./dummyEvent";
 
-import * as getCatalogModule from "../../../lib/handlers/catalog/getCatalog";
-import * as getWorkflowProgressModule from "../../../lib/handlers/catalog/getWorkflowProgress";
+import * as getCatalogModule from "../../../lib/handlers/listings/getCatalog";
+import * as getWorkflowProgressModule from "../../../lib/handlers/listings/getWorkflowProgress";
 
 describe("index catalog lambda function", () => {
   const candidateId = "candidate-dummy_username";

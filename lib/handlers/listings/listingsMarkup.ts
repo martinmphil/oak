@@ -2,13 +2,13 @@ import { getCatalog } from "./getCatalog";
 import { getWorkflowProgress } from "./getWorkflowProgress";
 import { getWorkflowTitle } from "./getWorkflowTitle";
 
-interface IListings {
+interface IListingsObj {
   workflowId: string;
   title: string;
   progress: number;
 }
 
-export async function listings(candidateId: string, catalog: string[]) {
+export async function listingsMarkup(candidateId: string, catalog: string[]) {
   if (
     candidateId === undefined ||
     candidateId === null ||
@@ -54,10 +54,10 @@ export async function listings(candidateId: string, catalog: string[]) {
   const listingsArr = await createListingsArr(candidateId);
 
   function buttonMarkup(workflowId: string, title: string) {
-    return `<button type="button" class="catalog" id="${workflowId}">${title}</button>`;
+    return `<button type="button" data-workflow-id="${workflowId}">${title}</button>`;
   }
 
-  function ongoing(arr: IListings[]) {
+  function ongoing(arr: IListingsObj[]) {
     const articleArr = arr.filter((x) => x?.progress > 0);
     if (articleArr.length === 0) {
       return "";
@@ -71,7 +71,7 @@ export async function listings(candidateId: string, catalog: string[]) {
     `;
   }
 
-  function upcoming(arr: IListings[]) {
+  function upcoming(arr: IListingsObj[]) {
     const articleArr = arr.filter((x) => x?.progress === 0);
     if (articleArr.length === 0) {
       return "";
@@ -85,7 +85,7 @@ export async function listings(candidateId: string, catalog: string[]) {
     `;
   }
 
-  function achieved(arr: IListings[]) {
+  function achieved(arr: IListingsObj[]) {
     const articleArr = arr.filter((x) => x?.progress < 0);
     if (articleArr.length === 0) {
       return "";
@@ -99,7 +99,7 @@ export async function listings(candidateId: string, catalog: string[]) {
     `;
   }
 
-  function listingsMarkup(arr: IListings[]) {
+  function listingsMarkup(arr: IListingsObj[]) {
     return ongoing(arr) + upcoming(arr) + achieved(arr);
   }
 

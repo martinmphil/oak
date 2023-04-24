@@ -1,89 +1,78 @@
-import { mockClient } from "aws-sdk-client-mock";
-import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
-
 import { getStandardCatalog } from "../../../lib/handlers/cognito-post-confirm/getStandardCatalog";
 
+import * as dynamoUtilsMod from "../../../lib/handlers/dynamoUtils";
+
 describe("get standard catalog", () => {
-  const originalEnv = process.env;
-  const dynamoMock = mockClient(DynamoDBDocumentClient);
-  beforeEach(() => {
-    process.env.DATABASE_NAME_OAK = "dummy_table_name";
-    jest.resetModules();
-    dynamoMock.reset();
-    dynamoMock
-      .on(GetCommand, {
-        Key: { pk: "standardCatalog", sk: "standardCatalog" },
-      })
-      .resolves({
-        Item: { catalog: ["wflow1", "wflow2", "wflow3", "wflow4"] },
-      });
-  });
-  afterEach(() => {
-    jest.clearAllMocks();
-    process.env = originalEnv;
-    jest.resetModules();
-    dynamoMock.reset();
+  const getItemSpy = jest.spyOn(dynamoUtilsMod, "getItem");
+
+  it("exists", () => {
+    expect(getStandardCatalog).toBeDefined();
   });
 
-  it("asychronously returns a standard catalog array of workflow IDs", async () => {
+  it("asychronously returns a standard catalog array of workflow IDs", () => {
     expect.assertions(2);
-    const response = await getStandardCatalog();
-    const result = Array.isArray(response) ? response : [];
-    expect(Array.isArray(result)).toBe(true);
-    expect(result[1]).toBe("wflow2");
-  });
-
-  it("returns [''] and warns the console if data is missing", () => {
-    expect.assertions(4);
-    console.warn = jest.fn();
-    dynamoMock
-      .on(GetCommand, {
-        Key: { pk: "standardCatalog", sk: "standardCatalog" },
-      })
-      .resolves({ Item: { message: "Internal server error" } });
-    getStandardCatalog().then((catalog) => {
-      expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/failed.*catalog/i)
-      );
-      expect(Array.isArray(catalog)).toBe(true);
-      expect(typeof catalog[0]).toBe("string");
-      expect(catalog[0].length).toBe(0);
+    getItemSpy.mockResolvedValueOnce({
+      catalog: ["wflow1", "wflow2", "wflow3", "wflow4"],
+    });
+    getStandardCatalog().then((response) => {
+      expect(Array.isArray(response)).toBe(true);
+      expect(response[1]).toBe("wflow2");
     });
   });
 
-  it("returns [''] and warns the console if data is not array", () => {
-    expect.assertions(4);
+  it("throws a meaningful error if get item rejects", async () => {
+    expect.assertions(6);
     console.warn = jest.fn();
-    dynamoMock
-      .on(GetCommand, {
-        Key: { pk: "standardCatalog", sk: "standardCatalog" },
-      })
-      .resolves({ Item: { catalog: "dummy_string" } });
-    getStandardCatalog().then((catalog) => {
+    getItemSpy.mockRejectedValueOnce(new Error("dummy_error"));
+
+    await getStandardCatalog().catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(/We failed to get the standard catalog/i);
+      expect(err.message).toMatch(/dummy_error/i);
+      expect(console.warn).toHaveBeenCalled();
       expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/databank.*failed.*catalog.*array/i)
+        expect.stringMatching(/We failed to get the standard catalog/i)
       );
-      expect(Array.isArray(catalog)).toBe(true);
-      expect(typeof catalog[0]).toBe("string");
-      expect(catalog[0].length).toBe(0);
+      expect(console.warn).toBeCalledWith(
+        expect.stringMatching(/dummy_error/i)
+      );
     });
   });
 
-  it("returns [''] and warns the console if data is an empty array", () => {
-    expect.assertions(4);
-    console.warn = jest.fn();
-    dynamoMock
-      .on(GetCommand, {
-        Key: { pk: "standardCatalog", sk: "standardCatalog" },
-      })
-      .resolves({ Item: { catalog: [] } });
-    getStandardCatalog().then((catalog) => {
-      expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/empty array/i)
+  it("throws an error if data is missing", () => {
+    expect.assertions(2);
+    getItemSpy.mockResolvedValueOnce({});
+
+    getStandardCatalog().catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(
+        "Our databank supplied a malformed array of strings"
       );
-      expect(Array.isArray(catalog)).toBe(true);
-      expect(typeof catalog[0]).toBe("string");
-      expect(catalog[0].length).toBe(0);
+    });
+  });
+
+  it("throws an error if data is not an array", () => {
+    expect.assertions(3);
+    getItemSpy.mockResolvedValueOnce({ catalog: "dummy_string" });
+
+    getStandardCatalog().catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(
+        /Our databank supplied a malformed array of strings/i
+      );
+      expect(err.message).toMatch(/dummy_string/i);
+    });
+  });
+
+  it("throws an error if data is an empty array", () => {
+    expect.assertions(2);
+    getItemSpy.mockResolvedValueOnce({ catalog: [] });
+
+    getStandardCatalog().catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(
+        /Our databank supplied a malformed array of strings/i
+      );
     });
   });
 

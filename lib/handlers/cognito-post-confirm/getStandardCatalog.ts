@@ -1,13 +1,16 @@
 import { getItem } from "../dynamoUtils";
-import { validCatalog } from "../validCatalog";
+import { validStringArray } from "../validStringArray";
 
-export async function getStandardCatalog(): Promise<string[]> {
-  const data = await getItem("standardCatalog", "standardCatalog");
-  const standardCatalog = data?.catalog;
+export async function getStandardCatalog() {
+  const data = await getItem("standardCatalog", "standardCatalog").catch(
+    (err) => {
+      const fault = `We failed to get the standard catalog:- ${err} `;
+      console.warn(fault);
+      throw new Error(fault);
+    }
+  );
 
-  if (validCatalog(standardCatalog)) {
-    return standardCatalog;
-  }
+  const standardCatalog = validStringArray(data?.catalog);
 
-  return [""];
+  return standardCatalog;
 }

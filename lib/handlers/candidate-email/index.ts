@@ -22,17 +22,16 @@ export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
             return email;
           }
         }
-        throw new Error(
-          " Our databank failed to find candidate email address. "
-        );
+        throw new Error("Cognito failed to find candidate email address. ");
+      })
+      .catch((err) => {
+        throw new Error(`Cognito get-user-command failed:- ${err} `);
       });
 
     return { body };
   } catch (err) {
-    let fault = ` The candidate-email lambda function failed. `;
-    if (err) {
-      fault += ` ${err.toString()} `;
-    }
-    return { fault };
+    const error = `The candidate-email lambda function failed:- ${err} `;
+    console.warn(error);
+    return { error };
   }
 }

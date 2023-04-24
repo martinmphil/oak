@@ -41,6 +41,9 @@ export class OakStack extends cdk.Stack {
         allowMethods: [CorsHttpMethod.GET, CorsHttpMethod.PUT],
       },
     });
+    new cdk.CfnOutput(this, "GatewayUrl", {
+      value: gateway.apiEndpoint,
+    });
 
     const candidateEmail = new NodejsFunction(this, "CandidateEmailOak", {
       ...lambdaCommonProps,

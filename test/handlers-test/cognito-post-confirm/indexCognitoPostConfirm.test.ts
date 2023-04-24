@@ -8,6 +8,7 @@ import {
 import { handler } from "../../../lib/handlers/cognito-post-confirm/index";
 import * as getStandardCatalogMod from "../../../lib/handlers/cognito-post-confirm/getStandardCatalog";
 import * as putCatalogMod from "../../../lib/handlers/cognito-post-confirm/putCatalog";
+import { dummyEvent } from "../listings/dummyEvent";
 
 const dummyCognitoEvent = {
   version: "1",
@@ -29,12 +30,18 @@ const dummyCognitoEvent = {
   response: {},
 };
 
+const originalWarn = console.warn;
+
 describe("cognito-post-confirm lambda function", () => {
   const originalEnv = process.env;
   const dynamoMock = mockClient(DynamoDBDocumentClient);
   beforeEach(() => {
     process.env.DATABASE_NAME_OAK = "dummy_table_name";
+    jest.restoreAllMocks();
     jest.resetModules();
+
+    console.warn = jest.fn();
+
     dynamoMock.reset();
     dynamoMock
       .on(GetCommand, {
@@ -60,6 +67,9 @@ describe("cognito-post-confirm lambda function", () => {
       });
   });
   afterEach(() => {
+    () => (console.warn = originalWarn);
+    console.warn = originalWarn;
+    jest.restoreAllMocks();
     jest.clearAllMocks();
     process.env = originalEnv;
     jest.resetModules();
@@ -74,9 +84,41 @@ describe("cognito-post-confirm lambda function", () => {
     });
   });
 
+  it('returns event but throws an error if the "sub" property is missing', () => {
+    expect.assertions(3);
+    const badCognitoEvent = JSON.parse(JSON.stringify(dummyCognitoEvent));
+    badCognitoEvent.request.userAttributes.sub = "";
+    // @ts-ignore
+    handler(badCognitoEvent).then((x) => {
+      expect(x).toEqual(badCognitoEvent);
+      expect(console.warn).toBeCalledWith(
+        expect.stringMatching(/Cognito-post-confirm lambda failed/i)
+      );
+      expect(console.warn).toBeCalledWith(
+        expect.stringMatching(/Missing username/i)
+      );
+    });
+  });
+
+  it('returns event but throws an error if the "sub" property is a number', () => {
+    expect.assertions(3);
+    const badCognitoEvent = JSON.parse(JSON.stringify(dummyCognitoEvent));
+    // @ts-ignore
+    badCognitoEvent.request.userAttributes.sub = 1;
+    // @ts-ignore
+    handler(badCognitoEvent).then((x) => {
+      expect(x).toEqual(badCognitoEvent);
+      expect(console.warn).toBeCalledWith(
+        expect.stringMatching(/Cognito-post-confirm lambda failed/i)
+      );
+      expect(console.warn).toBeCalledWith(
+        expect.stringMatching(/Missing username/i)
+      );
+    });
+  });
+
   it("warns the console if standard catalog array is an empty array", () => {
     expect.assertions(2);
-    console.warn = jest.fn();
     dynamoMock
       .on(GetCommand, {
         Key: { pk: "standardCatalog", sk: "standardCatalog" },
@@ -85,7 +127,7 @@ describe("cognito-post-confirm lambda function", () => {
     // @ts-ignore
     handler(dummyCognitoEvent).then((x) => {
       expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/standard.*catalog.*empty/i)
+        expect.stringMatching(/catalog.*empty/i)
       );
       expect(x).toEqual(dummyCognitoEvent);
     });
@@ -93,7 +135,6 @@ describe("cognito-post-confirm lambda function", () => {
 
   it("warns when handler try-catch errors", () => {
     expect.assertions(1);
-    console.warn = jest.fn();
     jest
       .spyOn(getStandardCatalogMod, "getStandardCatalog")
       .mockRejectedValueOnce("dummy_error_message");
@@ -101,7 +142,7 @@ describe("cognito-post-confirm lambda function", () => {
     handler(dummyCognitoEvent).then(() => {
       expect(console.warn).toBeCalledWith(
         expect.stringMatching(
-          /cognito-post-confirm failed.*dummy_error_message/i
+          /cognito-post-confirm.*failed.*dummy_error_message/i
         )
       );
     });
@@ -109,16 +150,34 @@ describe("cognito-post-confirm lambda function", () => {
 
   it("files standard catalog in database under username", () => {
     expect.assertions(4);
-    const spy001 = jest.spyOn(putCatalogMod, "putCatalog");
+    const putCatalogSpy = jest.spyOn(putCatalogMod, "putCatalog");
     // @ts-ignore
     handler(dummyCognitoEvent).then((x) => {
-      expect(spy001).toBeCalled();
-      expect(spy001).toBeCalledTimes(1);
-      expect(spy001).toBeCalledWith("candidate-dummy_username", [
+      expect(putCatalogSpy).toBeCalled();
+      expect(putCatalogSpy).toBeCalledTimes(1);
+      expect(putCatalogSpy).toBeCalledWith("candidate-dummy_username", [
         "workflow101",
         "workflow201",
       ]);
       expect(x).toEqual(dummyCognitoEvent);
+    });
+  });
+
+  it("returns event but throws an errror if put catalog fails", () => {
+    expect.assertions(6);
+    const putCatalogSpy = jest.spyOn(putCatalogMod, "putCatalog");
+    putCatalogSpy.mockRejectedValueOnce("dummy_error_message");
+    // @ts-ignore
+    handler(dummyCognitoEvent).then((x) => {
+      expect(putCatalogSpy).toBeCalled();
+      expect(putCatalogSpy).toBeCalledTimes(1);
+      expect(x).toEqual(dummyCognitoEvent);
+
+      expect(x).toEqual(dummyCognitoEvent);
+      expect(console.warn).toBeCalledWith(
+        expect.stringMatching(/failed to put standard catalog/i)
+      );
+      expect(console.warn).toBeCalledWith(expect.stringMatching(/databank/i));
     });
   });
 

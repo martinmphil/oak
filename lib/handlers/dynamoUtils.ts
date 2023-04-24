@@ -25,17 +25,18 @@ export async function getItem(pk: string, sk: string) {
       sk,
     },
   };
-
   const data = await ddbDocClient
     .send(new GetCommand(getParams))
     .catch((err) => {
-      const fault = `Database failed to get data ${JSON.stringify(
+      let fault = `Database failed to get data:- ${JSON.stringify(
         getParams
-      )}. Error ${err}`;
+      )}. `;
+      if (err) {
+        fault += `Get-command error:- ${err} `;
+      }
       throw new Error(fault);
     });
   const itemObj = data?.Item;
-
   return itemObj;
 }
 
@@ -47,9 +48,13 @@ export async function putItem(Item: IItem) {
   const responce = await ddbDocClient
     .send(new PutCommand(putParams))
     .catch((err) => {
-      throw new Error(
-        `Database failed to put data ${JSON.stringify(putParams)}. Error ${err}`
-      );
+      let fault = `Database failed to put data:- ${JSON.stringify(
+        putParams
+      )}. `;
+      if (err) {
+        fault += `Put-command error:- ${err} `;
+      }
+      throw new Error(fault);
     });
   return responce;
 }

@@ -1,4 +1,3 @@
-import { getCatalog } from "./getCatalog";
 import { getWorkflowProgress } from "./getWorkflowProgress";
 import { getWorkflowTitle } from "./getWorkflowTitle";
 
@@ -17,41 +16,29 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
   ) {
     return "";
   }
-  if (catalog.length === 1 && catalog[0] === "") {
-    return "";
-  }
 
-  async function createListingsArr(candidateId: string) {
-    return getCatalog(candidateId)
-      .then((catalog) => {
-        return Promise.all(
-          catalog.map(async (workflowId) => {
-            let title = workflowId;
-            const workflowTitle = await getWorkflowTitle(workflowId);
-            if (workflowTitle) {
-              title = workflowTitle;
-            }
-
-            let progress = 0;
-            const workflowProgress = await getWorkflowProgress(
-              candidateId,
-              workflowId
-            );
-            if (typeof workflowProgress === "number") {
-              progress = workflowProgress;
-            }
-
-            return { workflowId, title, progress };
-          })
-        );
-      })
-      .catch((err) => {
-        throw new Error(
-          ` We failed to create listings array:- ${err.toString()} `
-        );
-      });
-  }
-  const listingsArr = await createListingsArr(candidateId);
+  const listingsArr = await Promise.all(
+    catalog.map(async (workflowId) => {
+      let title = workflowId;
+      const workflowTitle = await getWorkflowTitle(workflowId);
+      if (workflowTitle) {
+        title = workflowTitle;
+      }
+      let progress = 0;
+      const workflowProgress = await getWorkflowProgress(
+        candidateId,
+        workflowId
+      );
+      if (typeof workflowProgress === "number") {
+        progress = workflowProgress;
+      }
+      return { workflowId, title, progress };
+    })
+  ).catch((err) => {
+    throw new Error(
+      `Listings-markup function failed to create listings array:- ${err} `
+    );
+  });
 
   function buttonMarkup(workflowId: string, title: string) {
     return `<button type="button" data-workflow-id="${workflowId}">${title}</button>`;
@@ -99,9 +86,5 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
     `;
   }
 
-  function listingsMarkup(arr: IListingsObj[]) {
-    return ongoing(arr) + upcoming(arr) + achieved(arr);
-  }
-
-  return listingsMarkup(listingsArr);
+  return ongoing(listingsArr) + upcoming(listingsArr) + achieved(listingsArr);
 }

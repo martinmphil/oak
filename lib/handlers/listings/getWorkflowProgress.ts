@@ -3,8 +3,10 @@ import { getItem } from "../dynamoUtils";
 export async function getWorkflowProgress(
   candidateId: string,
   workflowId: string
-): Promise<number> {
-  const data = await getItem(candidateId, workflowId);
+) {
+  const data = await getItem(candidateId, workflowId).catch((err) => {
+    console.warn(`In get-workflow-progress, get-item failed:- ${err} `);
+  });
   const workProgress = Number(data?.workProgress);
 
   if (typeof workProgress === "number" && !Number.isNaN(workProgress)) {

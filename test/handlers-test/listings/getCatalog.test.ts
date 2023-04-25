@@ -27,65 +27,60 @@ describe("get standard catalog", () => {
     dynamoMock.reset();
   });
 
-  it("asychronously returns a catalog array of workflow IDs", async () => {
-    expect.assertions(2);
-    const response = await getCatalog(candidateId);
-    const result = Array.isArray(response) ? response : [];
-    expect(Array.isArray(result)).toBe(true);
-    expect(result[1]).toBe("wflow2");
+  it("exists", () => {
+    expect(getCatalog).toBeDefined();
   });
 
-  it("returns [''] and warns the console if data is missing", () => {
-    expect.assertions(4);
+  it("asychronously returns a catalog as workflow id array", () => {
+    expect.assertions(2);
+    getCatalog(candidateId).then((response) => {
+      expect(Array.isArray(response)).toBe(true);
+      expect(response[1]).toBe("wflow2");
+    });
+  });
+
+  it("throws an error if data is missing", () => {
+    expect.assertions(2);
     console.warn = jest.fn();
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "catalog" },
       })
-      .resolves({ Item: { message: "Internal server error" } });
-    getCatalog(candidateId).then((catalog) => {
-      expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/failed.*catalog/i)
-      );
-      expect(Array.isArray(catalog)).toBe(true);
-      expect(typeof catalog[0]).toBe("string");
-      expect(catalog[0].length).toBe(0);
+      .resolves({ Item: {} });
+
+    getCatalog(candidateId).catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(/malformed array of strings/i);
     });
   });
 
-  it("returns [''] and warns the console if data is not array", () => {
-    expect.assertions(4);
+  it("throws an error if data is not array", () => {
+    expect.assertions(2);
     console.warn = jest.fn();
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "catalog" },
       })
       .resolves({ Item: { catalog: "dummy_string" } });
-    getCatalog(candidateId).then((catalog) => {
-      expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/databank.*failed.*catalog.*array/i)
-      );
-      expect(Array.isArray(catalog)).toBe(true);
-      expect(typeof catalog[0]).toBe("string");
-      expect(catalog[0].length).toBe(0);
+
+    getCatalog(candidateId).catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(/malformed array of strings/i);
     });
   });
 
-  it("returns [''] and warns the console if data is an empty array", () => {
-    expect.assertions(4);
+  it("throws an error if data is an empty array", () => {
+    expect.assertions(2);
     console.warn = jest.fn();
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "catalog" },
       })
       .resolves({ Item: { catalog: [] } });
-    getCatalog(candidateId).then((catalog) => {
-      expect(console.warn).toBeCalledWith(
-        expect.stringMatching(/empty array/i)
-      );
-      expect(Array.isArray(catalog)).toBe(true);
-      expect(typeof catalog[0]).toBe("string");
-      expect(catalog[0].length).toBe(0);
+
+    getCatalog(candidateId).catch((err) => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.message).toMatch(/malformed array of strings/i);
     });
   });
 

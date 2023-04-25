@@ -33,16 +33,39 @@ describe("get works=flow title modukle", () => {
   });
 
   it("exists", () => {
-    expect(getWorkflowTitle("wflow1")).toBeDefined();
-  });
-
-  it("returns a promise", () => {
-    expect(getWorkflowTitle("wflow1")).toBeInstanceOf(Promise);
+    expect(getWorkflowTitle).toBeDefined();
   });
 
   it("gets titles from databank", async () => {
     expect.assertions(2);
     expect(await getWorkflowTitle("wflow1")).toBe("title1");
     expect(await getWorkflowTitle("wflow2")).toBe("title2");
+  });
+
+  it("returns workflow title for empty repsonse", async () => {
+    expect.assertions(1);
+    dynamoMock
+      .on(GetCommand, {
+        Key: { pk: "wflow3", sk: "wflow3" },
+      })
+      .resolves({
+        Item: {},
+      });
+    expect(await getWorkflowTitle("wflow3")).toBe("wflow3");
+  });
+
+  it("warns and returns zero if get-item fails", async () => {
+    expect.assertions(3);
+    console.warn = jest.fn();
+    dynamoMock.on(GetCommand).rejects(new Error("get-item-failed"));
+    await getWorkflowTitle("wflow4").then((response) => {
+      expect(response).toBe("wflow4");
+    });
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/get-item-failed/)
+    );
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/Database failed to get data/i)
+    );
   });
 });

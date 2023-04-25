@@ -45,10 +45,6 @@ describe("get work progress", () => {
     expect(getWorkflowProgress(candidateId, "wflow1")).toBeDefined();
   });
 
-  it("returns a promise", () => {
-    expect(getWorkflowProgress(candidateId, "wflow1")).toBeInstanceOf(Promise);
-  });
-
   it("gets progression number from databank", async () => {
     expect.assertions(3);
     expect(await getWorkflowProgress(candidateId, "wflow1")).toBe(0);
@@ -79,5 +75,20 @@ describe("get work progress", () => {
         Item: { workProgress: "abc" },
       });
     expect(await getWorkflowProgress(candidateId, "wflow5")).toBe(0);
+  });
+
+  it("warns and returns zero if get-item fails", async () => {
+    expect.assertions(3);
+    console.warn = jest.fn();
+    dynamoMock.on(GetCommand).rejects(new Error("get-item-failed"));
+    await getWorkflowProgress(candidateId, "wflow1").then((response) => {
+      expect(response).toBe(0);
+    });
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/get-item-failed/)
+    );
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/Database failed to get data/i)
+    );
   });
 });

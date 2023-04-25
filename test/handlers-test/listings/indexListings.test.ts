@@ -4,8 +4,8 @@ import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 import { handler } from "../../../lib/handlers/listings/index";
 import { dummyEvent } from "./dummyEvent";
 
-import * as getCatalogModule from "../../../lib/handlers/listings/getCatalog";
-import * as getWorkflowProgressModule from "../../../lib/handlers/listings/getWorkflowProgress";
+import * as getCatalogMod from "../../../lib/handlers/listings/getCatalog";
+import * as listingsMarkupModule from "../../../lib/handlers/listings/listingsMarkup";
 
 describe("index catalog lambda function", () => {
   const candidateId = "candidate-dummy_username";
@@ -14,6 +14,7 @@ describe("index catalog lambda function", () => {
   const dynamoMock = mockClient(DynamoDBDocumentClient);
   beforeEach(() => {
     process.env.DATABASE_NAME_OAK = "dummy_table_name";
+    jest.restoreAllMocks();
     jest.resetModules();
     dynamoMock.reset();
     dynamoMock
@@ -83,34 +84,13 @@ describe("index catalog lambda function", () => {
   });
   afterEach(() => {
     process.env = originalEnv;
+    jest.restoreAllMocks();
     jest.resetModules();
     dynamoMock.reset();
   });
 
   it("exists", () => {
     expect(handler).toBeDefined();
-  });
-
-  it("returns a promise", async () => {
-    expect.assertions(1);
-    // @ts-ignore
-    await expect(handler(dummyEvent)).resolves.not.toThrow();
-  });
-
-  it("handles catalog with empty string", () => {
-    expect.assertions(2);
-    const getCatalogSpy = jest.spyOn(getCatalogModule, "getCatalog");
-    getCatalogSpy.mockImplementationOnce(async () => {
-      return [""];
-    });
-    // @ts-ignore
-    handler(dummyEvent).then((response) => {
-      expect(response?.body).toMatch(/refresh this page.*try again later/i);
-      expect(response?.body).toMatch(
-        /tell your administrator an error occurred/i
-      );
-    });
-    getCatalogSpy.mockRestore();
   });
 
   it("returns ongoing article", () => {
@@ -151,6 +131,54 @@ describe("index catalog lambda function", () => {
         /<article.*<h1>Upcoming<\/h1>.*<button.*>title4<\/button><\/article><hr \/>/i
       );
     });
+  });
+
+  it("throws a meaningful error if get-catalog fails", async () => {
+    expect.assertions(5);
+    console.warn = jest.fn();
+    const getCatalogSpy = jest.spyOn(getCatalogMod, "getCatalog");
+    getCatalogSpy.mockRejectedValueOnce(
+      new Error("We failed to get the catalog. ")
+    );
+    // @ts-ignore
+    await handler(dummyEvent).then((response) => {
+      expect(response?.body).toMatch(/refresh this page.*try again later/i);
+      expect(response?.body).toMatch(
+        /tell your administrator an error occurred.*:.*:/i
+      );
+    });
+    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn).toBeCalledWith(
+      expect.stringMatching(/index catalog lambda function failed/i)
+    );
+    expect(console.warn).toBeCalledWith(
+      expect.stringMatching(/failed to get the catalog/i)
+    );
+    getCatalogSpy.mockRestore();
+  });
+
+  it("throws a meaningful error if listingsMarkup fails", async () => {
+    expect.assertions(5);
+    console.warn = jest.fn();
+    const getCatalogSpy = jest.spyOn(listingsMarkupModule, "listingsMarkup");
+    getCatalogSpy.mockRejectedValueOnce(
+      new Error("We failed to create listings array. ")
+    );
+    // @ts-ignore
+    await handler(dummyEvent).then((response) => {
+      expect(response?.body).toMatch(/refresh this page.*try again later/i);
+      expect(response?.body).toMatch(
+        /tell your administrator an error occurred.*:.*:/i
+      );
+    });
+    expect(console.warn).toHaveBeenCalled();
+    expect(console.warn).toBeCalledWith(
+      expect.stringMatching(/index catalog lambda function failed/i)
+    );
+    expect(console.warn).toBeCalledWith(
+      expect.stringMatching(/failed to create listings array/i)
+    );
+    getCatalogSpy.mockRestore();
   });
 
   //

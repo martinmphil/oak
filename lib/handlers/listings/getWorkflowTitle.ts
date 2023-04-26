@@ -1,4 +1,4 @@
-import { getItem } from "../dynamoUtils";
+import { getItem } from "../getItem";
 
 export async function getWorkflowTitle(workflowId: string): Promise<string> {
   const data = await getItem(workflowId, workflowId).catch((err) => {

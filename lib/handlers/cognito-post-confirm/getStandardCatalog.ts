@@ -1,4 +1,4 @@
-import { getItem } from "../dynamoUtils";
+import { getItem } from "../getItem";
 import { validStringArray } from "../validStringArray";
 
 export async function getStandardCatalog() {

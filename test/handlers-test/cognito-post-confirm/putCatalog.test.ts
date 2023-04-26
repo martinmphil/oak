@@ -1,9 +1,9 @@
 import { putCatalog } from "../../../lib/handlers/cognito-post-confirm/putCatalog";
 
-import * as dynamoUtilsMod from "../../../lib/handlers/dynamoUtils";
+import * as putItemMod from "../../../lib/handlers/putItem";
 
 describe("put catalog module", () => {
-  const putItemSpy = jest.spyOn(dynamoUtilsMod, "putItem");
+  const putItemSpy = jest.spyOn(putItemMod, "putItem");
 
   const canId = "can333";
   const standardCatalog = ["workflow101", "workflow201"];

@@ -1,4 +1,4 @@
-import { getItem } from "../dynamoUtils";
+import { getItem } from "../getItem";
 
 export async function getWorkflowProgress(
   candidateId: string,

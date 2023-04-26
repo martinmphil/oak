@@ -1,9 +1,9 @@
 import { getStandardCatalog } from "../../../lib/handlers/cognito-post-confirm/getStandardCatalog";
 
-import * as dynamoUtilsMod from "../../../lib/handlers/dynamoUtils";
+import * as getItemMod from "../../../lib/handlers/getItem";
 
 describe("get standard catalog", () => {
-  const getItemSpy = jest.spyOn(dynamoUtilsMod, "getItem");
+  const getItemSpy = jest.spyOn(getItemMod, "getItem");
 
   it("exists", () => {
     expect(getStandardCatalog).toBeDefined();

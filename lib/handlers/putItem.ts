@@ -1,10 +1,6 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import {
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-} from "@aws-sdk/lib-dynamodb";
-import { IItem } from "./dynamoInterface";
+import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { IItem, IPutParams } from "./dynamoInterface";
 
 const client = new DynamoDBClient({ region: "eu-west-1" });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
@@ -17,34 +13,20 @@ function nameTable() {
   return TableName;
 }
 
-export async function getItem(pk: string, sk: string) {
-  const getParams = {
-    TableName: nameTable(),
-    Key: {
-      pk,
-      sk,
-    },
-  };
-  const data = await ddbDocClient
-    .send(new GetCommand(getParams))
-    .catch((err) => {
-      let fault = `Database failed to get data:- ${JSON.stringify(
-        getParams
-      )}. `;
-      if (err) {
-        fault += `Get-command error:- ${err} `;
-      }
-      throw new Error(fault);
-    });
-  const itemObj = data?.Item;
-  return itemObj;
-}
-
-export async function putItem(Item: IItem) {
-  const putParams = {
+export async function putItem(Item: IItem, ConditionExpression?: string) {
+  const putParams: IPutParams = {
     TableName: nameTable(),
     Item,
   };
+
+  if (
+    ConditionExpression &&
+    typeof ConditionExpression === "string" &&
+    ConditionExpression.length > 0
+  ) {
+    putParams.ConditionExpression = ConditionExpression;
+  }
+
   const responce = await ddbDocClient
     .send(new PutCommand(putParams))
     .catch((err) => {

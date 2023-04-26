@@ -1,4 +1,4 @@
-import { putItem } from "../dynamoUtils";
+import { putItem } from "../putItem";
 
 export async function putCatalog(candidateId: string, catalog: string[]) {
   const Item = {

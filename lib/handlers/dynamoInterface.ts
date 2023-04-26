@@ -73,3 +73,9 @@ export type IItem =
   | ICatalogData
   | IAssessmentData
   | ISubmissionData;
+
+export interface IPutParams {
+  TableName: string;
+  Item: IItem;
+  ConditionExpression?: string;
+}

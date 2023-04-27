@@ -9,6 +9,7 @@ describe("get work progress", () => {
   const originalEnv = process.env;
   const dynamoMock = mockClient(DynamoDBDocumentClient);
   beforeEach(() => {
+    console.warn = jest.fn();
     process.env.DATABASE_NAME_OAK = "dummy_table_name";
     jest.resetModules();
     dynamoMock.reset();
@@ -17,21 +18,21 @@ describe("get work progress", () => {
         Key: { pk: candidateId, sk: "wflow1" },
       })
       .resolves({
-        Item: { workProgress: 0 },
+        Item: { workflowProgress: 0 },
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow2" },
       })
       .resolves({
-        Item: { workProgress: 3 },
+        Item: { workflowProgress: 3 },
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow3" },
       })
       .resolves({
-        Item: { workProgress: -1 },
+        Item: { workflowProgress: -1 },
       });
   });
   afterEach(() => {
@@ -45,7 +46,7 @@ describe("get work progress", () => {
     expect(getWorkflowProgress(candidateId, "wflow1")).toBeDefined();
   });
 
-  it("gets progression number from databank", async () => {
+  it("gets workflowProgress number from databank", async () => {
     expect.assertions(3);
     expect(await getWorkflowProgress(candidateId, "wflow1")).toBe(0);
     expect(await getWorkflowProgress(candidateId, "wflow2")).toBe(3);
@@ -59,7 +60,7 @@ describe("get work progress", () => {
         Key: { pk: candidateId, sk: "wflow4" },
       })
       .resolves({
-        Item: { workProgress: "4" },
+        Item: { workflowProgress: "4" },
       });
 
     expect(await getWorkflowProgress(candidateId, "wflow4")).toBe(4);
@@ -72,20 +73,22 @@ describe("get work progress", () => {
         Key: { pk: candidateId, sk: "wflow5" },
       })
       .resolves({
-        Item: { workProgress: "abc" },
+        Item: { workflowProgress: "abc" },
       });
     expect(await getWorkflowProgress(candidateId, "wflow5")).toBe(0);
   });
 
   it("warns and returns zero if get-item fails", async () => {
-    expect.assertions(3);
-    console.warn = jest.fn();
-    dynamoMock.on(GetCommand).rejects(new Error("get-item-failed"));
+    expect.assertions(4);
+    dynamoMock.on(GetCommand).rejects(new Error("getItem failed"));
     await getWorkflowProgress(candidateId, "wflow1").then((response) => {
       expect(response).toBe(0);
     });
     expect(console.warn).toHaveBeenCalledWith(
-      expect.stringMatching(/get-item-failed/)
+      expect.stringMatching(/getWorkflowProgress/)
+    );
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/getItem failed/)
     );
     expect(console.warn).toHaveBeenCalledWith(
       expect.stringMatching(/Database failed to get data/i)

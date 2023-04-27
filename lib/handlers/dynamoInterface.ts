@@ -45,7 +45,7 @@ interface IAssessmentData extends IPrimary {
   entityType: "assessmentData";
   createdAt?: string;
   updatedAt?: string;
-  workProgress: number;
+  workflowProgress: number;
   workflow: string[];
   mark: number;
   outOf: number;
@@ -53,7 +53,7 @@ interface IAssessmentData extends IPrimary {
 }
 // pk = candidateId
 // sk = workflowId eg "workflow101"
-// workProgress: -9000,0,1,…n
+// workflowProgress: -9000,0,1,…n
 // mark:5, outOf:10, grade:"Pass"
 
 interface ISubmissionData extends IPrimary {

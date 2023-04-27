@@ -5,12 +5,14 @@ export async function getWorkflowProgress(
   workflowId: string
 ) {
   const data = await getItem(candidateId, workflowId).catch((err) => {
-    console.warn(`In get-workflow-progress, get-item failed:- ${err} `);
+    console.warn(
+      `In getWorkflowProgress, getItem failed with arguments ${candidateId} and ${workflowId}:- ${err} `
+    );
   });
-  const workProgress = Number(data?.workProgress);
+  const workflowProgress = Number(data?.workflowProgress);
 
-  if (typeof workProgress === "number" && !Number.isNaN(workProgress)) {
-    return workProgress;
+  if (typeof workflowProgress === "number" && !Number.isNaN(workflowProgress)) {
+    return workflowProgress;
   }
 
   return 0;

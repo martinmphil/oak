@@ -15,6 +15,7 @@ describe("index catalog lambda function", () => {
   beforeEach(() => {
     process.env.DATABASE_NAME_OAK = "dummy_table_name";
     jest.restoreAllMocks();
+    console.warn = jest.fn();
     jest.resetModules();
     dynamoMock.reset();
     dynamoMock
@@ -59,21 +60,21 @@ describe("index catalog lambda function", () => {
         Key: { pk: candidateId, sk: "wflow1" },
       })
       .resolves({
-        Item: { workProgress: 0 },
+        Item: { workflowProgress: 0 },
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow2" },
       })
       .resolves({
-        Item: { workProgress: 3 },
+        Item: { workflowProgress: 3 },
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow3" },
       })
       .resolves({
-        Item: { workProgress: -1 },
+        Item: { workflowProgress: -1 },
       });
 
     dynamoMock

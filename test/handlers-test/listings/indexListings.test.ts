@@ -60,21 +60,21 @@ describe("index catalog lambda function", () => {
         Key: { pk: candidateId, sk: "wflow1" },
       })
       .resolves({
-        Item: { workflowProgress: 0 },
+        Item: {},
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow2" },
       })
       .resolves({
-        Item: { workflowProgress: 3 },
+        Item: { workflowIndex: 3 },
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow3" },
       })
       .resolves({
-        Item: { workflowProgress: -1 },
+        Item: { workflowIndex: -1 },
       });
 
     dynamoMock

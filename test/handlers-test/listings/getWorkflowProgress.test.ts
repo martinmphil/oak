@@ -18,21 +18,21 @@ describe("get work progress", () => {
         Key: { pk: candidateId, sk: "wflow1" },
       })
       .resolves({
-        Item: { workflowProgress: 0 },
+        Item: {},
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow2" },
       })
       .resolves({
-        Item: { workflowProgress: 3 },
+        Item: { workflowIndex: 3 },
       });
     dynamoMock
       .on(GetCommand, {
         Key: { pk: candidateId, sk: "wflow3" },
       })
       .resolves({
-        Item: { workflowProgress: -1 },
+        Item: { workflowIndex: -1 },
       });
   });
   afterEach(() => {
@@ -46,11 +46,11 @@ describe("get work progress", () => {
     expect(getWorkflowProgress(candidateId, "wflow1")).toBeDefined();
   });
 
-  it("gets workflowProgress number from databank", async () => {
+  it("gets workflowIndex string from databank", async () => {
     expect.assertions(3);
-    expect(await getWorkflowProgress(candidateId, "wflow1")).toBe(0);
-    expect(await getWorkflowProgress(candidateId, "wflow2")).toBe(3);
-    expect(await getWorkflowProgress(candidateId, "wflow3")).toBe(-1);
+    expect(await getWorkflowProgress(candidateId, "wflow1")).toBe("upcoming");
+    expect(await getWorkflowProgress(candidateId, "wflow2")).toBe("ongoing");
+    expect(await getWorkflowProgress(candidateId, "wflow3")).toBe("achieved");
   });
 
   it("converts a strings to numbers", async () => {
@@ -60,10 +60,10 @@ describe("get work progress", () => {
         Key: { pk: candidateId, sk: "wflow4" },
       })
       .resolves({
-        Item: { workflowProgress: "4" },
+        Item: { workflowIndex: "4" },
       });
 
-    expect(await getWorkflowProgress(candidateId, "wflow4")).toBe(4);
+    expect(await getWorkflowProgress(candidateId, "wflow4")).toBe("upcoming");
   });
 
   it("returns zero for non-number strings", async () => {
@@ -73,16 +73,16 @@ describe("get work progress", () => {
         Key: { pk: candidateId, sk: "wflow5" },
       })
       .resolves({
-        Item: { workflowProgress: "abc" },
+        Item: { workflowIndex: "abc" },
       });
-    expect(await getWorkflowProgress(candidateId, "wflow5")).toBe(0);
+    expect(await getWorkflowProgress(candidateId, "wflow5")).toBe("upcoming");
   });
 
   it("warns and returns zero if get-item fails", async () => {
     expect.assertions(4);
     dynamoMock.on(GetCommand).rejects(new Error("getItem failed"));
     await getWorkflowProgress(candidateId, "wflow1").then((response) => {
-      expect(response).toBe(0);
+      expect(response).toBe("upcoming");
     });
     expect(console.warn).toHaveBeenCalledWith(
       expect.stringMatching(/getWorkflowProgress/)

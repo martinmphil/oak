@@ -5,15 +5,20 @@ export async function getWorkflowProgress(
   workflowId: string
 ) {
   const data = await getItem(candidateId, workflowId).catch((err) => {
-    console.warn(
-      `In getWorkflowProgress, getItem failed with arguments ${candidateId} and ${workflowId}:- ${err} `
-    );
+    console.warn(`
+In getWorkflowProgress(${candidateId}, ${workflowId}), getItem failed:- ${err} 
+`);
   });
-  const workflowProgress = Number(data?.workflowProgress);
 
-  if (typeof workflowProgress === "number" && !Number.isNaN(workflowProgress)) {
-    return workflowProgress;
+  const maybeIndex = data?.workflowIndex;
+
+  if (typeof maybeIndex === "number" && maybeIndex < 0) {
+    return "achieved";
   }
 
-  return 0;
+  if (typeof maybeIndex === "number") {
+    return "ongoing";
+  }
+
+  return "upcoming";
 }

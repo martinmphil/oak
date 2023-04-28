@@ -13,7 +13,7 @@ describe("listings mark up", () => {
 
   const getWorkflowProgressSpy = jest
     .spyOn(getWorkflowProgressMod, "getWorkflowProgress")
-    .mockImplementation(async () => 0);
+    .mockImplementation(async () => "upcoming");
 
   const getWorkflowTitleSpy = jest
     .spyOn(getWorkflowTitleMod, "getWorkflowTitle")
@@ -46,14 +46,14 @@ describe("listings mark up", () => {
 
   it("can return achieved", async () => {
     expect.assertions(1);
-    getWorkflowProgressSpy.mockImplementationOnce(async () => -1);
+    getWorkflowProgressSpy.mockImplementationOnce(async () => "achieved");
     const result = await listingsMarkup(candidateId, catalog);
     expect(result).toMatch(/<h1>Achieved<\/h1>/i);
   });
 
   it("can return ongoing", async () => {
     expect.assertions(1);
-    getWorkflowProgressSpy.mockImplementationOnce(async () => 9);
+    getWorkflowProgressSpy.mockImplementationOnce(async () => "ongoing");
     const result = await listingsMarkup(candidateId, catalog);
     expect(result).toMatch(/<h1>Onging<\/h1>/i);
   });

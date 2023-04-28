@@ -1,10 +1,12 @@
 import { getWorkflowProgress } from "./getWorkflowProgress";
 import { getWorkflowTitle } from "./getWorkflowTitle";
 
+type TProgress = "achieved" | "ongoing" | "upcoming";
+
 interface IListingsObj {
   workflowId: string;
   title: string;
-  progress: number;
+  progress: TProgress;
 }
 
 export async function listingsMarkup(candidateId: string, catalog: string[]) {
@@ -19,19 +21,11 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
 
   const listingsArr = await Promise.all(
     catalog.map(async (workflowId) => {
-      let title = workflowId;
-      const workflowTitle = await getWorkflowTitle(workflowId);
-      if (workflowTitle) {
-        title = workflowTitle;
-      }
-      let progress = 0;
-      const workflowProgress = await getWorkflowProgress(
+      const title = await getWorkflowTitle(workflowId);
+      const progress: TProgress = await getWorkflowProgress(
         candidateId,
         workflowId
       );
-      if (typeof workflowProgress === "number") {
-        progress = workflowProgress;
-      }
       return { workflowId, title, progress };
     })
   ).catch((err) => {
@@ -45,7 +39,7 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
   }
 
   function ongoing(arr: IListingsObj[]) {
-    const articleArr = arr.filter((x) => x?.progress > 0);
+    const articleArr = arr.filter((x) => x?.progress === "ongoing");
     if (articleArr.length === 0) {
       return "";
     }
@@ -59,7 +53,7 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
   }
 
   function upcoming(arr: IListingsObj[]) {
-    const articleArr = arr.filter((x) => x?.progress === 0);
+    const articleArr = arr.filter((x) => x?.progress === "upcoming");
     if (articleArr.length === 0) {
       return "";
     }
@@ -73,7 +67,7 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
   }
 
   function achieved(arr: IListingsObj[]) {
-    const articleArr = arr.filter((x) => x?.progress < 0);
+    const articleArr = arr.filter((x) => x?.progress === "achieved");
     if (articleArr.length === 0) {
       return "";
     }

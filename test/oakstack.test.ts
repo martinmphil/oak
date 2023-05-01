@@ -16,8 +16,8 @@ describe("oak stack", () => {
   });
 
   it("has correct number of lambda and log groups", () => {
-    template.resourceCountIs("AWS::Lambda::Function", 6);
-    template.resourceCountIs("AWS::Logs::LogGroup", 4);
+    template.resourceCountIs("AWS::Lambda::Function", 7);
+    template.resourceCountIs("AWS::Logs::LogGroup", 5);
   });
 
   it("deletes all log groups on destroy", () => {

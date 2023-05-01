@@ -107,6 +107,19 @@ export class OakStack extends cdk.Stack {
       path: "/workbook/{workflowId}",
     });
 
+    const clearTest001 = new NodejsFunction(this, "clearTest001Oak", {
+      ...lambdaCommonProps,
+      entry: path.join(__dirname, `/handlers/clear-test001/index.ts`),
+      environment: {
+        DATABASE_NAME_OAK: database.tableNameOak,
+      },
+    });
+    database.grantWrite(clearTest001);
+    new LogGroup(this, "LogGroupClearTest001", {
+      logGroupName: `/aws/lambda/${clearTest001.functionName}`,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+
     //
   }
 }

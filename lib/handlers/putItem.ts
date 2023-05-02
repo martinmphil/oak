@@ -8,7 +8,7 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 function nameTable() {
   const TableName = process.env.DATABASE_NAME_OAK;
   if (typeof TableName != "string" || TableName.length < 1) {
-    throw new Error(` Missing database table-name. `);
+    throw new Error(` Missing database TableName. `);
   }
   return TableName;
 }
@@ -27,7 +27,7 @@ export async function putItem(Item: IItem, ConditionExpression?: string) {
     putParams.ConditionExpression = ConditionExpression;
   }
 
-  const responce = await ddbDocClient
+  const response = await ddbDocClient
     .send(new PutCommand(putParams))
     .catch((err) => {
       let fault = `Database failed to put data:- ${JSON.stringify(
@@ -38,5 +38,5 @@ export async function putItem(Item: IItem, ConditionExpression?: string) {
       }
       throw new Error(fault);
     });
-  return responce;
+  return response;
 }

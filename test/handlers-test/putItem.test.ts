@@ -1,8 +1,4 @@
-import {
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-} from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { mockClient } from "aws-sdk-client-mock";
 import { putItem } from "../../lib/handlers/putItem";
 
@@ -49,7 +45,7 @@ describe("put-item function", () => {
       updatedAt: "dummyValue",
     }).catch((err) => {
       expect(err).toBeInstanceOf(Error);
-      expect(err.message).toMatch("Missing database table-name");
+      expect(err.message).toMatch("Missing database TableName");
     });
   });
   it("throws a meaningful error when promise rejects", async () => {

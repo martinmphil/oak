@@ -50,29 +50,20 @@ interface IAssessmentData extends IPrimary {
   mark: number;
   outOf: number;
   grade: "Distinction" | "Merit" | "Pass" | "Near Pass" | "Unclassified";
+  submissionsArr: { [key: string]: number }[];
 }
 // pk = candidateId
 // sk = workflowId eg "workflow101"
 // workflowIndex: -9000,0,1,…n
 // mark:5, outOf:10, grade:"Pass"
-
-interface ISubmissionData extends IPrimary {
-  entityType: "submissionData";
-  createdAt?: string;
-  updatedAt?: string;
-  candidateAnswer: string;
-}
-// pk = candidateId
-// sk = workflowId--worksheetId eg "workflow101--worksheet2"
-// candidateAnswer: "a3"
+// submissionsArr: [{wsheet1: a3}, {wsheet2: a4}…]
 
 export type IItem =
   | IPrimary
   | IWorksheetData
   | IWorkflowData
   | ICatalogData
-  | IAssessmentData
-  | ISubmissionData;
+  | IAssessmentData;
 
 export interface IPutParams {
   TableName: string;

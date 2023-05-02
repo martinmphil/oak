@@ -7,7 +7,7 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 function nameTable() {
   const TableName = process.env.DATABASE_NAME_OAK;
   if (typeof TableName != "string" || TableName.length < 1) {
-    throw new Error(` Missing database table-name. `);
+    throw new Error(` Missing database TableName. `);
   }
   return TableName;
 }

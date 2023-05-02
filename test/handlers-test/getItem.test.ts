@@ -39,7 +39,7 @@ describe("get-item function", () => {
     process.env.DATABASE_NAME_OAK = "";
     getItem("standardCatalog", "standardCatalog").catch((err) => {
       expect(err).toBeInstanceOf(Error);
-      expect(err.message).toMatch("Missing database table-name");
+      expect(err.message).toMatch("Missing database TableName");
     });
   });
   it("throws a meaningful error when promise rejects", async () => {

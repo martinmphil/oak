@@ -22,27 +22,27 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.306.0",
-    "@aws-sdk/client-dynamodb": "^3.306.0",
-    "@aws-sdk/lib-dynamodb": "^3.306.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.321.1",
+    "@aws-sdk/client-dynamodb": "^3.321.1",
+    "@aws-sdk/lib-dynamodb": "^3.321.1",
     "@types/aws-lambda": "^8.10.114",
     "@types/jest": "^27.5.2",
-    "@types/node": "18.15.11",
+    "@types/node": "18.16.1",
     "@types/prettier": "2.7.1",
-    "aws-cdk": "2.72.1",
+    "aws-cdk": "2.77.0",
     "aws-sdk-client-mock": "^2.1.1",
-    "esbuild": "^0.17.15",
+    "esbuild": "^0.17.18",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
     "typescript": "~4.9.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "^2.72.1-alpha.0",
-    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.72.1-alpha.0",
-    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.72.1-alpha.0",
-    "aws-cdk-lib": "^2.72.1",
-    "constructs": "^10.1.302",
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.77.0-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.77.0-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.77.0-alpha.0",
+    "aws-cdk-lib": "^2.77.0",
+    "constructs": "^10.2.8",
     "source-map-support": "^0.5.21"
   }
 }

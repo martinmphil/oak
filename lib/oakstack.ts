@@ -38,7 +38,7 @@ export class OakStack extends cdk.Stack {
           "https://main.d3dq4xzxmmo3wf.amplifyapp.com",
           "http://localhost:5173",
         ],
-        allowMethods: [CorsHttpMethod.GET, CorsHttpMethod.PUT],
+        allowMethods: [CorsHttpMethod.GET, CorsHttpMethod.POST],
       },
     });
     new cdk.CfnOutput(this, "GatewayUrl", {
@@ -103,7 +103,7 @@ export class OakStack extends cdk.Stack {
     });
     gateway.addRoutes({
       integration: workbookIntegration,
-      methods: [HttpMethod.PUT],
+      methods: [HttpMethod.POST],
       path: "/workbook/{workflowId}",
     });
 

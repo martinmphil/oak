@@ -1,6 +1,6 @@
 export const dummyDebutEvent = {
   version: "2.0",
-  routeKey: "PUT /workbook/{workflowId}",
+  routeKey: "POST /workbook/{workflowId}",
   rawPath: "/workbook/workflow101",
   rawQueryString: "",
   headers: {
@@ -31,7 +31,7 @@ export const dummyDebutEvent = {
     domainName: "5jjaawclpd.execute-api.eu-west-1.amazonaws.com",
     domainPrefix: "5jjaawclpd",
     http: {
-      method: "PUT",
+      method: "POST",
       path: "/workbook/workflow101",
       protocol: "HTTP/1.1",
       sourceIp: "86.173.210.37",
@@ -39,7 +39,7 @@ export const dummyDebutEvent = {
         "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/112.0",
     },
     requestId: "DbDPSjUkjoEEJcg=",
-    routeKey: "PUT /workbook/{workflowId}",
+    routeKey: "POST /workbook/{workflowId}",
     stage: "$default",
     time: "15/Apr/2023:14:19:13 +0000",
     timeEpoch: 1681568353505,

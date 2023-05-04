@@ -35,7 +35,7 @@ describe("gateway construct", () => {
   it("allows specified methods", () => {
     template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
       CorsConfiguration: {
-        AllowMethods: ["GET", "PUT"],
+        AllowMethods: ["GET", "POST"],
       },
     });
   });

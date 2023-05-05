@@ -17,6 +17,8 @@ export function validStringArray(x: unknown): string[] {
   }
 
   throw new Error(
-    `Our databank supplied a malformed array of strings:- ${JSON.stringify(x)} `
+    ` Our databank supplied a malformed array of strings:- ${JSON.stringify(
+      x
+    )} `
   );
 }

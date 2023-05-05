@@ -1,26 +1,27 @@
 interface IPrimary {
   pk: string;
   sk: string;
-}
-// pk is partition key
-// sk is sort key
-
-interface IWorksheetData extends IPrimary {
-  entityType: "intro" | "4Multichoice" | "outro";
   createdAt?: string;
   updatedAt?: string;
-  markup: string;
-  rubric: { [key: string]: number };
+}
+
+export interface IMultichoiceObj {
+  scenario: string;
+  choicesArr: string[];
+  rubric: {
+    answer: string;
+    mark: number;
+  };
+}
+// Potentially, in addition to multichoice, add worksheet types.
+interface IWorksheetData extends IPrimary {
+  entityType: "multichoice";
+  worksheetObj: IMultichoiceObj;
 }
 // pk = sk = worksheetId eg "worksheet1"
-// {entityType:"intro", markup:"<p>Please…", rubric:{intro:0}}
-// {entityType:"4Multichoice", markup:"<p>A,B,C or D?", rubric:{a4:1}}
-// {entityType:"outro", markup:"<p>Thanks…", rubric:{outro:0}}
 
 interface IWorkflowData extends IPrimary {
   entityType: "workflowData";
-  createdAt?: string;
-  updatedAt?: string;
   workflowTitle: string;
   workflow: string[];
 }
@@ -30,8 +31,6 @@ interface IWorkflowData extends IPrimary {
 
 interface ICatalogData extends IPrimary {
   entityType: "catalogData";
-  createdAt?: string;
-  updatedAt?: string;
   catalog: string[];
 }
 // pk = candidateId
@@ -41,16 +40,15 @@ interface ICatalogData extends IPrimary {
 // catalog: [workflowId, …] eg
 // catalog: ["workflow101", "workflow201"]
 
-interface IAssessmentData extends IPrimary {
+export interface IAssessmentData extends IPrimary {
   entityType: "assessmentData";
-  createdAt?: string;
-  updatedAt?: string;
-  workflowIndex: number;
   workflow: string[];
+  workflowIndex: number;
+  revealDatesArr: { worksheetId: string; revealDate: string }[];
   mark: number;
   outOf: number;
   grade: "Distinction" | "Merit" | "Pass" | "Near Pass" | "Unclassified";
-  submissionsArr: { [key: string]: number }[];
+  submissionsArr: { wsheetId: string; candidateAnswer: string }[];
 }
 // pk = candidateId
 // sk = workflowId eg "workflow101"
@@ -58,7 +56,7 @@ interface IAssessmentData extends IPrimary {
 // mark:5, outOf:10, grade:"Pass"
 // submissionsArr: [{wsheet1: a3}, {wsheet2: a4}…]
 
-export type IItem =
+export type TItem =
   | IPrimary
   | IWorksheetData
   | IWorkflowData
@@ -67,6 +65,6 @@ export type IItem =
 
 export interface IPutParams {
   TableName: string;
-  Item: IItem;
+  Item: TItem;
   ConditionExpression?: string;
 }

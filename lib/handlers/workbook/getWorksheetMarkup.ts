@@ -1,22 +1,23 @@
 import { getItem } from "../getItem";
+import { multichoice } from "./multichoice";
 
-export async function getWorksheetMarkup(worksheetId: string) {
-  let fault = `We failed to get the markup for worksheet ${worksheetId}. `;
+export async function getWorksheetMarkup(
+  workflowId: string,
+  worksheetId: string
+) {
+  let fault = ` getWorksheetMarkup(${worksheetId}) failed. `;
 
-  const maybeItem = await getItem(worksheetId, worksheetId).catch((err) => {
-    fault += `We failed to get Item:- ${err}`;
+  try {
+    const maybeItem = await getItem(worksheetId, worksheetId);
+
+    if (maybeItem?.entityType === "multichoice") {
+      return multichoice(workflowId, maybeItem.worksheetObj);
+    }
+
+    fault += ` Malformed entityType:- ${maybeItem?.entityType} `;
+
     throw new Error(fault);
-  });
-
-  const maybeMarkup = maybeItem?.markup;
-
-  if (
-    maybeMarkup &&
-    typeof maybeMarkup === "string" &&
-    maybeMarkup.length > 0
-  ) {
-    return maybeMarkup;
+  } catch (err) {
+    throw new Error(`${fault}:- ${err} `);
   }
-
-  throw new Error(fault);
 }

@@ -56,7 +56,7 @@ describe("put-item function", () => {
     putItem({
       pk: "rejects",
       sk: "rejects",
-      entityType: "intro",
+      entityType: "multichoice",
       updatedAt: "",
     }).catch((err) => {
       expect(err.message).toMatch(/Database/i);

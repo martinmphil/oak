@@ -1,7 +1,7 @@
 import { putItem } from "../putItem";
 const timestamp = new Date().toISOString();
 
-export async function debutAssessmentData(
+export async function putDebutAssessmentData(
   candidateId: string,
   workflowId: string,
   workflow: string[]
@@ -11,13 +11,14 @@ export async function debutAssessmentData(
     sk: workflowId,
     entityType: "assessmentData",
     workflow,
-    workflowIndex: 0,
     createdAt: timestamp,
+    updatedAt: timestamp,
+    submissionsArr: [],
   };
 
   const result = await putItem(Item).catch((err) => {
     throw new Error(
-      `debutAssessmentData failed to put Item ${JSON.stringify(
+      ` putDebutAssessmentData failed to put Item ${JSON.stringify(
         Item
       )}}:- ${err} `
     );

@@ -1,7 +1,7 @@
 import { debutWorkbook } from "../../../lib/handlers/workbook/debutWorkbook";
 import * as getWorkflowMod from "../../../lib/handlers/workbook/getWorkflow";
 import * as getWorksheetMarkupMod from "../../../lib/handlers/workbook/getWorksheetMarkup";
-import * as debutAssessmentDataMod from "../../../lib/handlers/workbook/debutAssessmentData";
+import * as putDebutAssessmentDataMod from "../../../lib/handlers/workbook/putDebutAssessmentData";
 
 describe("debutWorkbook", () => {
   const candidateId = "can333";
@@ -14,8 +14,8 @@ describe("debutWorkbook", () => {
     "getWorksheetMarkup"
   );
   const debutAssessmentDataSpy = jest.spyOn(
-    debutAssessmentDataMod,
-    "debutAssessmentData"
+    putDebutAssessmentDataMod,
+    "putDebutAssessmentData"
   );
 
   beforeEach(() => {
@@ -66,7 +66,7 @@ describe("debutWorkbook", () => {
     expect(repsonse).toMatch(dummyHtml);
     expect(getWorksheetMarkupSpy).toHaveBeenCalled();
     expect(getWorksheetMarkupSpy).toHaveBeenCalledTimes(1);
-    expect(getWorksheetMarkupSpy).toHaveBeenCalledWith(workflow[0]);
+    expect(getWorksheetMarkupSpy).toHaveBeenCalledWith(workflowId, workflow[0]);
   });
 
   it("throws an error if the getWorksheetMarkup fails", async () => {

@@ -40,6 +40,11 @@ interface ICatalogData extends IPrimary {
 // catalog: [workflowId, …] eg
 // catalog: ["workflow101", "workflow201"]
 
+export interface ISubmissions {
+  worksheetId: string;
+  candidateAnswer: string;
+}
+
 export interface IAssessmentData extends IPrimary {
   entityType: "assessmentData";
   workflow: string[];
@@ -48,7 +53,7 @@ export interface IAssessmentData extends IPrimary {
   mark: number;
   outOf: number;
   grade: "Distinction" | "Merit" | "Pass" | "Near Pass" | "Unclassified";
-  submissionsArr: { wsheetId: string; candidateAnswer: string }[];
+  submissionsArr: ISubmissions[];
 }
 // pk = candidateId
 // sk = workflowId eg "workflow101"

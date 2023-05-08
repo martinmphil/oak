@@ -1,6 +1,6 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
-import { IItem, IPutParams } from "./dynamoInterface";
+import { TItem, IPutParams } from "./dynamoInterface";
 
 const client = new DynamoDBClient({ region: "eu-west-1" });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
@@ -13,7 +13,7 @@ function nameTable() {
   return TableName;
 }
 
-export async function putItem(Item: IItem, ConditionExpression?: string) {
+export async function putItem(Item: TItem, ConditionExpression?: string) {
   const putParams: IPutParams = {
     TableName: nameTable(),
     Item,

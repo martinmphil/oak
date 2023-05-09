@@ -107,7 +107,7 @@ export class OakStack extends cdk.Stack {
       path: "/workbook/{workflowId}",
     });
 
-    const clearTest001 = new NodejsFunction(this, "clearTest001Oak", {
+    const clearTest001 = new NodejsFunction(this, "ClearTest001Oak", {
       ...lambdaCommonProps,
       entry: path.join(__dirname, `/handlers/clear-test001/index.ts`),
       environment: {

@@ -12,10 +12,6 @@ function nameTable() {
   return TableName;
 }
 
-// also remove
-// {pk: 'candidate-5639c5de-84d1-48b2-86b6-f39e3f359bd8', sk: 'workflow102'}
-//
-
 export async function handler(event: APIGatewayProxyEventV2) {
   const client = new DynamoDBClient({ region: "eu-west-1" });
   const ddbDocClient = DynamoDBDocumentClient.from(client);
@@ -23,9 +19,10 @@ export async function handler(event: APIGatewayProxyEventV2) {
   const deleteCommand = new DeleteCommand({
     TableName: nameTable(),
     Key: {
-      pk: "candidate-5639c5de-84d1-48b2-86b6-f39e3f359bd8",
+      pk: "candidate-1283281f-1f92-4bf9-9c4b-e83172def5cf",
       sk: "workflow101",
     },
+    ReturnValues: "ALL_OLD",
   });
 
   const result = await ddbDocClient.send(deleteCommand);

@@ -5,13 +5,13 @@ export async function getWorksheetMarkup(
   workflowId: string,
   worksheetId: string
 ) {
-  let fault = ` getWorksheetMarkup(${worksheetId}) failed. `;
+  let fault = ` getWorksheetMarkup(${workflowId}, ${worksheetId}) failed. `;
 
   try {
     const maybeItem = await getItem(worksheetId, worksheetId);
 
     if (maybeItem?.entityType === "multichoice") {
-      return multichoice(workflowId, maybeItem.worksheetObj);
+      return multichoice(workflowId, worksheetId, maybeItem.worksheetObj);
     }
 
     fault += ` Malformed entityType:- ${maybeItem?.entityType} `;

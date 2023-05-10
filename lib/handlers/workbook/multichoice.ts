@@ -1,14 +1,18 @@
 import { IMultichoiceObj } from "../dynamoInterface";
 import { validStringArray } from "../validStringArray";
 
-export function multichoice(workflowId: string, obj: IMultichoiceObj) {
+export function multichoice(
+  workflowId: string,
+  worksheetId: string,
+  obj: IMultichoiceObj
+) {
   let fault = ` multichoice(${JSON.stringify(obj)}) failed. `;
 
   function choicesMarkup(workflowId: string, choicesArr: string[]) {
     const buttonsMarkup = choicesArr.map((choice, index) => {
-      const result = `<button type="button" data-submission="a${
+      const result = `<button type="button" data-candidate-answer="a${
         index + 1
-      }" data-workflow-id="${workflowId}">${choice}</button>`;
+      }" data-workflow-id="${workflowId}" data-worksheet-id="${worksheetId}">${choice}</button>`;
       return result;
     });
     return `<div class=choices>${buttonsMarkup.join(" ")}</div>`;

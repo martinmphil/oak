@@ -95,7 +95,7 @@ export const seedArr = [
       ],
     },
   },
-  // intro worksheet001
+  // worksheet001
   {
     pk: {
       S: "worksheet001",
@@ -104,20 +104,34 @@ export const seedArr = [
       S: "worksheet001",
     },
     entityType: {
-      S: "intro",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>Please answer every question.</p><button id='intro' class='choices'>Continue</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        intro: {
-          N: "0",
+        scenario: {
+          S: "<div><p>Please answer every question.</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "Continue",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "intro",
+            },
+            mark: {
+              N: "0",
+            },
+          },
         },
       },
     },
   },
-  // outro worksheet099
+  // worksheet099
   {
     pk: {
       S: "worksheet099",
@@ -126,15 +140,29 @@ export const seedArr = [
       S: "worksheet099",
     },
     entityType: {
-      S: "outro",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>Thank you for your participation.</p><button id='outro' class='choices'>OK</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        outro: {
-          N: "0",
+        scenario: {
+          S: "<div><p>Thank you for your participation.</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "OK",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "outro",
+            },
+            mark: {
+              N: "0",
+            },
+          },
         },
       },
     },
@@ -148,15 +176,38 @@ export const seedArr = [
       S: "worksheet002",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>If you raise up a 100g apple through 1m from a low table to your mouth, how many people would need to raise up similar apples in 1s to expend power at a rate of 1 killowatt? Where: Force due to gravity, F = 10 newtons per kilogramme; x = distance in metres; Work done in joules, W = F.x; Power in watts, P= dW/dt</p><button id='a1' class='choices'>One</button><button id='a2' class='choices'>Ten</button><button id='a3' class='choices'>One hundred</button><button id='a4' class='choices'>One thousand</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a4: {
-          N: "1",
+        scenario: {
+          S: "<div><p>If you raise up a 100g apple through 1m from a low table to your mouth, how many people would need to raise up similar apples in 1s to expend power at a rate of 1 kilowatt? Where: Force due to gravity, F = 10 newtons per kilogram; x = distance in metres; Work done in joules, W = F.x; Power in watts, P= dW/dt</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "One",
+            },
+            {
+              S: "Ten",
+            },
+            {
+              S: "One hundred",
+            },
+            {
+              S: "One thousand",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a4",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },
@@ -170,15 +221,38 @@ export const seedArr = [
       S: "worksheet003",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>For domestic ventilation systems, which of the following statements is NOT true?</p><button id='a1' class='choices'>Ventilation systems minimise energy consumption.</button><button id='a2' class='choices'>Ventilation systems remove water vapour.</button><button id='a3' class='choices'>Ventilation systems dilute pollutants.</button><button id='a4' class='choices'>Ventilation systems minimise mould growth.</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a1: {
-          N: "1",
+        scenario: {
+          S: "<div><p>For domestic ventilation systems, which of the following statements is NOT true?</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "Ventilation systems minimise energy consumption.",
+            },
+            {
+              S: "Ventilation systems remove water vapour.",
+            },
+            {
+              S: "Ventilation systems dilute pollutants.",
+            },
+            {
+              S: "Ventilation systems minimise mould growth.",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a1",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },
@@ -192,15 +266,38 @@ export const seedArr = [
       S: "worksheet004",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>What ventilation effectiveness number indicates that supply air mixes fully with room air before occupants breathe it in?</p><button id='a1' class='choices'>Zero</button><button id='a2' class='choices'>One</button><button id='a3' class='choices'>Ten</button><button id='a4' class='choices'>Infinity</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a2: {
-          N: "1",
+        scenario: {
+          S: "<div><p>What ventilation effectiveness number indicates that supply air mixes fully with room air before occupants breathe it in?</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "Zero",
+            },
+            {
+              S: "One",
+            },
+            {
+              S: "Ten",
+            },
+            {
+              S: "Infinity",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a2",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },
@@ -214,15 +311,38 @@ export const seedArr = [
       S: "worksheet005",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>What is the maximum average A-weighted sound pressure level in noise sensitive rooms, such as bedrooms and living rooms, allowed for ventilation systems?</p><button id='a1' class='choices'>25 dB L(Aeq,1 min)</button><button id='a2' class='choices'>30 dB L(Aeq,1 min)</button><button id='a3' class='choices'>35 dB L(Aeq,1 min)</button><button id='a4' class='choices'>40 dB L(Aeq,1 min)</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a2: {
-          N: "1",
+        scenario: {
+          S: "<div><p>What is the maximum average A-weighted sound pressure level in noise sensitive rooms, such as bedrooms and living rooms, allowed for ventilation systems?</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "25 dB L(Aeq,1 min)",
+            },
+            {
+              S: "30 dB L(Aeq,1 min)",
+            },
+            {
+              S: "35 dB L(Aeq,1 min)",
+            },
+            {
+              S: "40 dB L(Aeq,1 min)",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a2",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },
@@ -236,15 +356,38 @@ export const seedArr = [
       S: "worksheet006",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>According to UK government 2010 building regulations for whole dwelling ventilation rates, what is the recommended minimum ventilation rate per square metre of internal floor area?</p><button id='a1' class='choices'>0.1 l/s per m²</button><button id='a2' class='choices'>0.2 l/s per m²</button><button id='a3' class='choices'>0.3 l/s per m²</button><button id='a4' class='choices'>0.4 l/s per m²</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a3: {
-          N: "1",
+        scenario: {
+          S: "<div><p>According to UK government 2010 building regulations for whole dwelling ventilation rates, what is the recommended minimum ventilation rate per square metre of internal floor area?</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "0.1 l/s per m²",
+            },
+            {
+              S: "0.2 l/s per m²",
+            },
+            {
+              S: "0.3 l/s per m²",
+            },
+            {
+              S: "0.4 l/s per m²",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a3",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },
@@ -258,15 +401,38 @@ export const seedArr = [
       S: "worksheet010",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>Which is the lightest element?</p><button id='a1' class='choices'>Oxygen</button><button id='a2' class='choices'>Nitrogen</button><button id='a3' class='choices'>Hydrogen</button><button id='a4' class='choices'>Helium</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a3: {
-          N: "1",
+        scenario: {
+          S: "<div><p>Which is the lightest element?</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "Oxygen",
+            },
+            {
+              S: "Nitrogen",
+            },
+            {
+              S: "Hydrogen",
+            },
+            {
+              S: "Helium",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a3",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },
@@ -280,15 +446,38 @@ export const seedArr = [
       S: "worksheet011",
     },
     entityType: {
-      S: "4Multichoice",
+      S: "multichoice",
     },
-    markup: {
-      S: "<div><p>Which planet orbits furthest from the sun?</p><button id='a1' class='choices'>Uranus</button><button id='a2' class='choices'>Neptune</button><button id='a3' class='choices'>Saturn</button><button id='a4' class='choices'>Jupiter</button></div>",
-    },
-    rubric: {
+    worksheetObj: {
       M: {
-        a2: {
-          N: "1",
+        scenario: {
+          S: "<div><p>Which planet orbits furthest from the sun?</p></div>",
+        },
+        choicesArr: {
+          L: [
+            {
+              S: "Uranus",
+            },
+            {
+              S: "Neptune",
+            },
+            {
+              S: "Saturn",
+            },
+            {
+              S: "Jupiter",
+            },
+          ],
+        },
+        rubric: {
+          M: {
+            answer: {
+              S: "a2",
+            },
+            mark: {
+              N: "1",
+            },
+          },
         },
       },
     },

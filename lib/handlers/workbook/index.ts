@@ -5,7 +5,7 @@ import { getAssessmentData } from "./getAssessmentData";
 import { achievedWorkbook } from "./achievedWorkbook";
 import { ongoingWorkbook } from "./ongoingWorkbook";
 import { debutWorkbook } from "./debutWorkbook";
-import { unanswered } from "./unanswered";
+import { unansweredWorksheetArr } from "../unansweredWorksheetArr";
 
 export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
   let fault = `The index-workbook lambda function failed. `;
@@ -48,7 +48,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
       assessmentData &&
       Array.isArray(workflow) &&
       Array.isArray(submissionsArr) &&
-      unanswered(workflow, submissionsArr).length === 0
+      unansweredWorksheetArr(workflow, submissionsArr).length === 0
     ) {
       const achievedMarkup = await achievedWorkbook(candidateId, workflowId);
       return { body: achievedMarkup };
@@ -57,7 +57,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
     if (
       assessmentData &&
       Array.isArray(workflow) &&
-      unanswered(workflow, submissionsArr).length > 0
+      unansweredWorksheetArr(workflow, submissionsArr).length > 0
     ) {
       const ongoingMarkup = await ongoingWorkbook(
         assessmentData,

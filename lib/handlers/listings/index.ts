@@ -18,7 +18,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
     const candidateId = `candidate-${username}`;
 
     if (typeof username !== "string" || username.length === 0) {
-      throw new Error("Missing username. ");
+      throw new Error(" Missing username. ");
     }
 
     const catalog = await getCatalog(candidateId);
@@ -31,7 +31,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
 
     return { body };
   } catch (err) {
-    console.warn(`The index catalog lambda function failed:- ${err} `);
+    console.warn(` The index listings lambda function failed:- ${err} `);
     return { body };
   }
 }

@@ -1,8 +1,10 @@
-import { getItem } from "../getItem";
+import { getItem } from "./getItem";
 
 export async function getWorkflowTitle(workflowId: string): Promise<string> {
   const data = await getItem(workflowId, workflowId).catch((err) => {
-    console.warn(`In get-workflow-title, get-item failed:- ${err} `);
+    console.warn(
+      ` In getWorkflowTitle(${workflowId}), get-item failed:- ${err} `
+    );
   });
 
   const title = data?.workflowTitle;

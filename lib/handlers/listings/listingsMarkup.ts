@@ -1,5 +1,5 @@
 import { getWorkflowProgress } from "./getWorkflowProgress";
-import { getWorkflowTitle } from "./getWorkflowTitle";
+import { getWorkflowTitle } from "../getWorkflowTitle";
 
 type TProgress = "achieved" | "ongoing" | "upcoming";
 

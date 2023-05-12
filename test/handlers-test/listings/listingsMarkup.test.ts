@@ -1,11 +1,15 @@
 import { listingsMarkup } from "../../../lib/handlers/listings/listingsMarkup";
 
 import * as getWorkflowProgressMod from "../../../lib/handlers/listings/getWorkflowProgress";
-import * as getWorkflowTitleMod from "../../../lib/handlers/listings/getWorkflowTitle";
+import * as getWorkflowTitleMod from "../../../lib/handlers/getWorkflowTitle";
 
 describe("listings mark up", () => {
   afterAll(() => {
     jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   const candidateId = "candidate-dummy_username";
@@ -56,6 +60,12 @@ describe("listings mark up", () => {
     getWorkflowProgressSpy.mockImplementationOnce(async () => "ongoing");
     const result = await listingsMarkup(candidateId, catalog);
     expect(result).toMatch(/<h1>Onging<\/h1>/i);
+  });
+
+  it("calls getWorkflowTitle for each catalog element", async () => {
+    expect.assertions(1);
+    await listingsMarkup(candidateId, catalog);
+    expect(getWorkflowTitleSpy).toBeCalledTimes(4);
   });
 
   //

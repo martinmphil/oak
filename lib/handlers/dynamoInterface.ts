@@ -5,15 +5,17 @@ interface IPrimary {
   updatedAt?: string;
 }
 
+export interface IAnswerMark {
+  answer: string;
+  mark: number;
+}
+
 export interface IMultichoiceObj {
   scenario: string;
   choicesArr: string[];
-  rubric: {
-    answer: string;
-    mark: number;
-  };
+  rubricArr: IAnswerMark[];
 }
-// Potentially, in addition to multichoice, add worksheet types.
+// Potentially, in addition to multichoice, add other worksheet types.
 interface IWorksheetData extends IPrimary {
   entityType: "multichoice";
   worksheetObj: IMultichoiceObj;
@@ -40,26 +42,19 @@ interface ICatalogData extends IPrimary {
 // catalog: [workflowId, …] eg
 // catalog: ["workflow101", "workflow201"]
 
-export interface ISubmissions {
+export interface ISubmission {
   worksheetId: string;
   candidateAnswer: string;
+  score?: number;
+  outOf?: number;
 }
 
 export interface IAssessmentData extends IPrimary {
   entityType: "assessmentData";
   workflow: string[];
-  workflowIndex: number;
-  revealDatesArr: { worksheetId: string; revealDate: string }[];
-  mark: number;
-  outOf: number;
   grade: "Distinction" | "Merit" | "Pass" | "Near Pass" | "Unclassified";
-  submissionsArr: ISubmissions[];
+  submissionsArr: ISubmission[];
 }
-// pk = candidateId
-// sk = workflowId eg "workflow101"
-// workflowIndex: -9000,0,1,…n
-// mark:5, outOf:10, grade:"Pass"
-// submissionsArr: [{wsheet1: a3}, {wsheet2: a4}…]
 
 export type TItem =
   | IPrimary

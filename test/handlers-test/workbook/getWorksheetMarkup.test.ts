@@ -10,10 +10,12 @@ describe("getWorksheet", () => {
   const dummyMultichoiceObj: IMultichoiceObj = {
     scenario: "string",
     choicesArr: ["dummyChoice1", "dummyChoice2", "dummyChoice3"],
-    rubric: {
-      answer: "dummyAnswer",
-      mark: 1,
-    },
+    rubricArr: [
+      {
+        answer: "dummyAnswer",
+        mark: 1,
+      },
+    ],
   };
 
   beforeEach(() => {

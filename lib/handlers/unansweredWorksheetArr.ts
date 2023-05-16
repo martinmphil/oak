@@ -1,8 +1,8 @@
-import { ISubmissions } from "./dynamoInterface";
+import { ISubmission } from "./dynamoInterface";
 
 export function unansweredWorksheetArr(
   workflow: string[],
-  submissionsArr: ISubmissions[]
+  submissionsArr: ISubmission[]
 ) {
   if (
     Boolean(workflow) === false ||

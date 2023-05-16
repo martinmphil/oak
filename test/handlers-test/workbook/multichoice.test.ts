@@ -7,10 +7,12 @@ describe("multichoice function", () => {
   const dummyMultichoiceObj: IMultichoiceObj = {
     scenario: "<p>dummy_scenario</p>",
     choicesArr: ["dummyChoice1", "dummyChoice2", "dummyChoice3"],
-    rubric: {
-      answer: "dummyAnswer",
-      mark: 1,
-    },
+    rubricArr: [
+      {
+        answer: "dummyAnswer",
+        mark: 1,
+      },
+    ],
   };
 
   it("exists", () => {

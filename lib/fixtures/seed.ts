@@ -36,7 +36,7 @@ export const seedArr = [
       S: "workflowData",
     },
     workflowTitle: {
-      S: "Sustainable energy",
+      S: "Sustainable Energy",
     },
     workflow: {
       L: [
@@ -76,7 +76,7 @@ export const seedArr = [
       S: "workflowData",
     },
     workflowTitle: {
-      S: "Basic science",
+      S: "Basic Science",
     },
     workflow: {
       L: [
@@ -118,15 +118,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "intro",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "intro",
+                },
+                mark: {
+                  N: "0",
+                },
+              },
             },
-            mark: {
-              N: "0",
-            },
-          },
+          ],
         },
       },
     },
@@ -154,15 +158,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "outro",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "outro",
+                },
+                mark: {
+                  N: "0",
+                },
+              },
             },
-            mark: {
-              N: "0",
-            },
-          },
+          ],
         },
       },
     },
@@ -199,15 +207,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a4",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a4",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },
@@ -244,15 +256,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a1",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a1",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },
@@ -289,15 +305,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a2",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a2",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },
@@ -334,15 +354,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a2",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a2",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },
@@ -379,15 +403,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a3",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a3",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },
@@ -424,15 +452,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a3",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a3",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },
@@ -469,15 +501,19 @@ export const seedArr = [
             },
           ],
         },
-        rubric: {
-          M: {
-            answer: {
-              S: "a2",
+        rubricArr: {
+          L: [
+            {
+              M: {
+                answer: {
+                  S: "a2",
+                },
+                mark: {
+                  N: "1",
+                },
+              },
             },
-            mark: {
-              N: "1",
-            },
-          },
+          ],
         },
       },
     },

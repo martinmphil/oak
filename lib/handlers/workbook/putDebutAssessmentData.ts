@@ -1,28 +1,34 @@
+import { getWorkflowTitle } from "../getWorkflowTitle";
 import { putItem } from "../putItem";
 const timestamp = new Date().toISOString();
 
 export async function putDebutAssessmentData(
   candidateId: string,
   workflowId: string,
-  workflow: string[]
+  workflow: string[],
+  candidateEmailAdrr: string
 ) {
-  const Item = {
-    pk: candidateId,
-    sk: workflowId,
-    entityType: "assessmentData",
-    workflow,
-    createdAt: timestamp,
-    updatedAt: timestamp,
-    submissionsArr: [],
-  };
+  try {
+    const workflowTitle = await getWorkflowTitle(workflowId);
 
-  const result = await putItem(Item).catch((err) => {
+    const Item = {
+      pk: candidateId,
+      sk: workflowId,
+      entityType: "assessmentData",
+      workflowTitle,
+      workflow,
+      candidateEmailAdrr,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      submissionsArr: [],
+    };
+
+    const result = await putItem(Item);
+
+    return result;
+  } catch (err) {
     throw new Error(
-      ` putDebutAssessmentData failed to put Item ${JSON.stringify(
-        Item
-      )}}:- ${err} `
+      ` putDebutAssessmentData(${candidateId}, ${workflowId}, ${workflow}) failed:- ${err} `
     );
-  });
-
-  return result;
+  }
 }

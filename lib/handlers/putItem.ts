@@ -30,11 +30,11 @@ export async function putItem(Item: TItem, ConditionExpression?: string) {
   const response = await ddbDocClient
     .send(new PutCommand(putParams))
     .catch((err) => {
-      let fault = `Database failed to put data:- ${JSON.stringify(
+      let fault = ` Database failed to put data:- ${JSON.stringify(
         putParams
       )}. `;
       if (err) {
-        fault += `Put-command error:- ${err} `;
+        fault += ` Put-command error:- ${err} `;
       }
       throw new Error(fault);
     });

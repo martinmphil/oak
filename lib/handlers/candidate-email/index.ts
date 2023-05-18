@@ -8,6 +8,9 @@ import {
 
 export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
   try {
+    if (!event?.headers?.authorization) {
+      throw new Error(` Missing authorization header. `);
+    }
     const AccessToken = event?.headers?.authorization;
     const client = new CognitoIdentityProviderClient({ region: "eu-west-1" });
     const body = await client
@@ -22,15 +25,15 @@ export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
             return email;
           }
         }
-        throw new Error("Cognito failed to find candidate email address. ");
+        throw new Error(" Cognito failed to find candidate email address. ");
       })
       .catch((err) => {
-        throw new Error(`Cognito get-user-command failed:- ${err} `);
+        throw new Error(` Cognito GetUserCommand failed:- ${err} `);
       });
 
     return { body };
   } catch (err) {
-    const error = `The candidate-email lambda function failed:- ${err} `;
+    const error = ` The index candidate-email lambda function failed:- ${err} `;
     console.warn(error);
     return { error };
   }

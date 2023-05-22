@@ -2,6 +2,8 @@
 
 Assessing candidates online
 
+![sun_and_cloud_dev_kit](https://github.com/martinmphil/oak/assets/37618836/305f650f-0ba0-4206-ac07-b8cb5e4feebe)
+
 ## Amazon Web Services (AWS) Cloud Development Kit (CDK) TypeScript project
 
 The `cdk.json` file tells the CDK Toolkit how to execute this app.
@@ -16,15 +18,15 @@ The `cdk.json` file tells the CDK Toolkit how to execute this app.
 
 ## Naming conventions
 
-- `specialism` eg discipline or subject
-- `listings` eg list of specialisms
-- `worksheet` eg exam question or instruction
-- `workflow` eg list of worksheets
-- `achieved` eg completed workflow with marks and grade
+- `specialism` discipline or subject
+- `listings` list of specialisms
+- `worksheet` eg multiple choice question or instruction
+- `workflow` list of worksheets
+- `achieved` completed workflow with grade
 
 ## Candidate APIs
 
-In general endpoints return either `{error:'string'}` or `{body:'string'}`
+In general endpoints return `{body:'string'}`
 
 ### /candidate-email
 
@@ -37,3 +39,7 @@ Returns `specialisms` (upcoming, ongoing and achieved)
 ### /workbook/{workflowId}
 
 Returns either `achieved` or next `worksheet`
+
+## User interface state diagram
+![oak_ui_state_chart](https://github.com/martinmphil/oak/assets/37618836/8bbd85fa-2f84-48ea-adcb-35b15eb9b75d)
+

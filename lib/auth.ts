@@ -61,12 +61,10 @@ export class CognitoOak extends Construct {
         callbackUrls: [
           "http://localhost:5173/",
           "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-          "https://www.greenstem.uk/can/",
         ],
         logoutUrls: [
           "http://localhost:5173/",
           "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-          "https://www.greenstem.uk/can/",
         ],
       },
       preventUserExistenceErrors: true,
@@ -78,7 +76,7 @@ export class CognitoOak extends Construct {
     this.userPoolClient = userPoolClient;
 
     const signInUrl = domain.signInUrl(userPoolClient, {
-      redirectUri: "https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
+      redirectUri: "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
     });
     new cdk.CfnOutput(this, "CognitoSignInUrl", {
       value: signInUrl,

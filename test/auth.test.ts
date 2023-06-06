@@ -77,7 +77,6 @@ describe("cognito client app", () => {
       CallbackURLs: [
         "http://localhost:5173/",
         "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-        "https://www.greenstem.uk/can/",
       ],
     });
   });
@@ -86,7 +85,6 @@ describe("cognito client app", () => {
       LogoutURLs: [
         "http://localhost:5173/",
         "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
-        "https://www.greenstem.uk/can/",
       ],
     });
   });

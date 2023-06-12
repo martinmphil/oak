@@ -15,7 +15,7 @@ export interface IMultichoiceObj {
   choicesArr: string[];
   rubricArr: IAnswerMark[];
 }
-// Potentially, in addition to multichoice, add other worksheet types.
+// Potentially add other worksheet types in addition to multichoice.
 interface IWorksheetData extends IPrimary {
   entityType: "multichoice";
   worksheetObj: IMultichoiceObj;

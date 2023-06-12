@@ -5,9 +5,9 @@ export async function getAssessmentData(
   workflowId: string
 ) {
   const data = await getItem(candidateId, workflowId).catch((err) => {
-    throw new Error(`
-In getAssessmentData(${candidateId}, ${workflowId}), getItem failed:- ${err} 
-    `);
+    throw new Error(
+      ` In getAssessmentData(${candidateId}, ${workflowId}), getItem failed:- ${err} `
+    );
   });
 
   return data;

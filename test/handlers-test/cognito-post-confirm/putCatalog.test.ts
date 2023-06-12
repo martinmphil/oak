@@ -5,7 +5,7 @@ import * as putItemMod from "../../../lib/handlers/putItem";
 describe("put catalog module", () => {
   const putItemSpy = jest.spyOn(putItemMod, "putItem");
 
-  const canId = "can333";
+  const candidataId = "can333";
   const standardCatalog = ["workflow101", "workflow201"];
 
   it("exists", () => {
@@ -22,7 +22,7 @@ describe("put catalog module", () => {
         totalRetryDelay: 0,
       },
     });
-    const result = await putCatalog(canId, standardCatalog);
+    const result = await putCatalog(candidataId, standardCatalog);
     expect(result?.$metadata.httpStatusCode).toEqual(200);
   });
 
@@ -31,7 +31,7 @@ describe("put catalog module", () => {
     console.warn = jest.fn();
     putItemSpy.mockRejectedValueOnce(new Error("dummy_error"));
 
-    await putCatalog(canId, standardCatalog).catch((err) => {
+    await putCatalog(candidataId, standardCatalog).catch((err) => {
       expect(err).toBeInstanceOf(Error);
       expect(err.message).toMatch(/failed to put the standard catalog/i);
       expect(err.message).toMatch(/dummy_error/i);

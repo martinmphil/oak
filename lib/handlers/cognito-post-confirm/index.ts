@@ -12,7 +12,7 @@ export async function handler(event: PostConfirmationTriggerEvent) {
     // Returning the event continues AWS hosted-UI sign-up process.
     // Cognito-attribute "sub" (ie subject) uniquely identifies each user.
     const username = event?.request?.userAttributes?.sub;
-    const canId = `candidate-${username}`;
+    const candidateId = `candidate-${username}`;
 
     if (typeof username !== "string" || username.length === 0) {
       fault += " Missing username. ";
@@ -26,11 +26,13 @@ export async function handler(event: PostConfirmationTriggerEvent) {
       return event;
     });
 
-    await putCatalog(canId, validStringArray(standardCatalog)).catch((err) => {
-      fault += `We failed to put standard catalog into our databank. ${err} `;
-      console.warn(fault);
-      return event;
-    });
+    await putCatalog(candidateId, validStringArray(standardCatalog)).catch(
+      (err) => {
+        fault += `We failed to put standard catalog into our databank. ${err} `;
+        console.warn(fault);
+        return event;
+      }
+    );
   } catch (err) {
     console.warn(`${fault}:- ${err}`);
     return event;

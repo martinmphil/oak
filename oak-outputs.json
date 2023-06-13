@@ -1,6 +1,6 @@
 {
   "OakStack": {
-    "CognitoOakCognitoSignInUrl50D2A639": "https://greenstem-oak.auth.eu-west-1.amazoncognito.com/login?client_id=1cmjrne0v32jrqbvm29gaur1nt&response_type=token&redirect_uri=https://main.d3dq4xzxmmo3wf.amplifyapp.com/can",
-    "GatewayUrl": "https://lv9knl3xok.execute-api.eu-west-1.amazonaws.com"
+    "CognitoOakCognitoSignInUrl50D2A639": "https://greenstem-oak.auth.eu-west-1.amazoncognito.com/login?client_id=2n0iq9la1qvgviigvp9g2lm63m&response_type=token&redirect_uri=https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+    "GatewayUrl": "https://jwdqdupcfi.execute-api.eu-west-1.amazonaws.com"
   }
 }

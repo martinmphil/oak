@@ -16,18 +16,30 @@ export async function handler(event: APIGatewayProxyEventV2) {
   const client = new DynamoDBClient({ region: "eu-west-1" });
   const ddbDocClient = DynamoDBDocumentClient.from(client);
 
-  const deleteCommand = new DeleteCommand({
+  const deleteCommand101 = new DeleteCommand({
     TableName: nameTable(),
     Key: {
-      pk: "candidate-1283281f-1f92-4bf9-9c4b-e83172def5cf",
+      pk: "candidate-294ea85a-3764-4061-8d57-0933fdcea18b",
       sk: "workflow101",
     },
     ReturnValues: "ALL_OLD",
   });
 
-  const result = await ddbDocClient.send(deleteCommand);
+  const deleteCommand102 = new DeleteCommand({
+    TableName: nameTable(),
+    Key: {
+      pk: "candidate-294ea85a-3764-4061-8d57-0933fdcea18b",
+      sk: "workflow102",
+    },
+    ReturnValues: "ALL_OLD",
+  });
+
+  const result101 = await ddbDocClient.send(deleteCommand101);
+  const result102 = await ddbDocClient.send(deleteCommand102);
 
   return {
-    body: `clear-test001 returned:- ${JSON.stringify(result)}`,
+    body: `clear-test001 returned:- ${JSON.stringify(
+      result101
+    )} and ${JSON.stringify(result102)}`,
   };
 }

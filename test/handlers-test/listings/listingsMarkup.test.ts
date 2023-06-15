@@ -45,21 +45,21 @@ describe("listings mark up", () => {
   it("returns upcoming", async () => {
     expect.assertions(1);
     const result = await listingsMarkup(candidateId, catalog);
-    expect(result).toMatch(/<h1>Upcoming<\/h1>/i);
+    expect(result).toMatch(/<h2>Upcoming<\/h2>/i);
   });
 
   it("can return achieved", async () => {
     expect.assertions(1);
     getWorkflowProgressSpy.mockImplementationOnce(async () => "achieved");
     const result = await listingsMarkup(candidateId, catalog);
-    expect(result).toMatch(/<h1>Achieved<\/h1>/i);
+    expect(result).toMatch(/<h2>Achieved<\/h2>/i);
   });
 
   it("can return ongoing", async () => {
     expect.assertions(1);
     getWorkflowProgressSpy.mockImplementationOnce(async () => "ongoing");
     const result = await listingsMarkup(candidateId, catalog);
-    expect(result).toMatch(/<h1>Onging<\/h1>/i);
+    expect(result).toMatch(/<h2>Onging<\/h2>/i);
   });
 
   it("calls getWorkflowTitle for each catalog element", async () => {

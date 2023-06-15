@@ -30,12 +30,12 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
     })
   ).catch((err) => {
     throw new Error(
-      `Listings-markup function failed to create listings array:- ${err} `
+      ` ListingsMarkup(${candidateId}, ${catalog}) failed to create listings array:- ${err} `
     );
   });
 
   function buttonMarkup(workflowId: string, title: string) {
-    return `<button type="button" data-workflow-id="${workflowId}">${title}</button>`;
+    return `<p><button type="button" data-workflow-id="${workflowId}">${title}</button></p>`;
   }
 
   function ongoing(arr: IListingsObj[]) {
@@ -46,7 +46,7 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
     const buttonsArr = articleArr.map((el) => {
       return buttonMarkup(el?.workflowId, el?.title);
     });
-    return `<article class="ongoing"><h1>Onging</h1>${buttonsArr.join(
+    return `<article class="ongoing"><h2>Onging</h2>${buttonsArr.join(
       " "
     )}</article><hr />
     `;
@@ -60,7 +60,7 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
     const buttonsArr = articleArr.map((el) => {
       return buttonMarkup(el?.workflowId, el?.title);
     });
-    return `<article class="upcoming"><h1>Upcoming</h1>${buttonsArr.join(
+    return `<article class="upcoming"><h2>Upcoming</h2>${buttonsArr.join(
       " "
     )}</article><hr />
     `;
@@ -74,7 +74,7 @@ export async function listingsMarkup(candidateId: string, catalog: string[]) {
     const buttonsArr = articleArr.map((el) => {
       return buttonMarkup(el?.workflowId, el?.title);
     });
-    return `<article class="achieved"><h1>Achieved</h1>${buttonsArr.join(
+    return `<article class="achieved"><h2>Achieved</h2>${buttonsArr.join(
       " "
     )}</article><hr />
     `;

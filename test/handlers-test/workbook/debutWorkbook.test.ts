@@ -1,4 +1,5 @@
 import { debutWorkbook } from "../../../lib/handlers/workbook/debutWorkbook";
+import * as getEmailAddrMod from "../../../lib/handlers/workbook/getEmailAddr";
 import * as getWorkflowMod from "../../../lib/handlers/workbook/getWorkflow";
 import * as getWorksheetMarkupMod from "../../../lib/handlers/workbook/getWorksheetMarkup";
 import * as putDebutAssessmentDataMod from "../../../lib/handlers/workbook/putDebutAssessmentData";
@@ -6,22 +7,29 @@ import * as putDebutAssessmentDataMod from "../../../lib/handlers/workbook/putDe
 describe("debutWorkbook", () => {
   const candidateId = "can333";
   const workflowId = "wflow101";
-  const workflow = ["wsheet001", "wsheet002"];
+  const workflow = ["worksheet1", "worksheet2"];
   const dummyHtml = `<div>dummy</div>`;
+  const candidateEmailAdrr = "dummy@example.com";
+
   const getWorkflowSpy = jest.spyOn(getWorkflowMod, "getWorkflow");
+
   const getWorksheetMarkupSpy = jest.spyOn(
     getWorksheetMarkupMod,
     "getWorksheetMarkup"
   );
-  const debutAssessmentDataSpy = jest.spyOn(
+
+  const putDebutAssessmentDataSpy = jest.spyOn(
     putDebutAssessmentDataMod,
     "putDebutAssessmentData"
   );
+
+  const getEmailAddrSpy = jest.spyOn(getEmailAddrMod, "getEmailAddr");
 
   beforeEach(() => {
     jest.clearAllMocks();
     getWorkflowSpy.mockResolvedValue(workflow);
     getWorksheetMarkupSpy.mockResolvedValue(dummyHtml);
+    getEmailAddrSpy.mockResolvedValue(candidateEmailAdrr);
   });
 
   afterEach(() => {
@@ -62,7 +70,11 @@ describe("debutWorkbook", () => {
 
   it("calls getWorksheetMarkup with correct arguments", async () => {
     expect.assertions(4);
-    const repsonse = await debutWorkbook(candidateId, workflowId);
+    const repsonse = await debutWorkbook(
+      candidateId,
+      workflowId,
+      "dummyAccessToken"
+    );
     expect(repsonse).toMatch(dummyHtml);
     expect(getWorksheetMarkupSpy).toHaveBeenCalled();
     expect(getWorksheetMarkupSpy).toHaveBeenCalledTimes(1);
@@ -81,22 +93,36 @@ describe("debutWorkbook", () => {
     });
   });
 
+  it("calls getEmailAdrr with correct argument", async () => {
+    expect.assertions(4);
+    const repsonse = await debutWorkbook(
+      candidateId,
+      workflowId,
+      "dummyAccessToken"
+    );
+    expect(repsonse).toMatch(dummyHtml);
+    expect(getEmailAddrSpy).toBeCalled();
+    expect(getEmailAddrSpy).toBeCalledTimes(1);
+    expect(getEmailAddrSpy).toBeCalledWith("dummyAccessToken");
+  });
+
   it("calls debutAssessmentData with correct arguments", async () => {
     expect.assertions(4);
     const repsonse = await debutWorkbook(candidateId, workflowId);
     expect(repsonse).toMatch(dummyHtml);
-    expect(debutAssessmentDataSpy).toHaveBeenCalled();
-    expect(debutAssessmentDataSpy).toHaveBeenCalledTimes(1);
-    expect(debutAssessmentDataSpy).toHaveBeenCalledWith(
+    expect(putDebutAssessmentDataSpy).toHaveBeenCalled();
+    expect(putDebutAssessmentDataSpy).toHaveBeenCalledTimes(1);
+    expect(putDebutAssessmentDataSpy).toHaveBeenCalledWith(
       candidateId,
       workflowId,
-      workflow
+      workflow,
+      candidateEmailAdrr
     );
   });
 
   it("throws an error if the debutAssessmentData fails", async () => {
     expect.assertions(3);
-    debutAssessmentDataSpy.mockRejectedValueOnce(
+    putDebutAssessmentDataSpy.mockRejectedValueOnce(
       "debutAssessmentData failed" as any
     );
     await debutWorkbook(candidateId, workflowId).catch((err) => {

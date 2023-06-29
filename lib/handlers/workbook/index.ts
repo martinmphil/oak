@@ -8,7 +8,7 @@ import { debutWorkbook } from "./debutWorkbook";
 import { unansweredWorksheetArr } from "../unansweredWorksheetArr";
 
 export async function handler(event: APIGatewayProxyEventV2WithJWTAuthorizer) {
-  let fault = `The index-workbook lambda function failed. `;
+  let fault = `The index workbook lambda function failed. `;
   let body = `
 <p>
 Sorry we encountered a fault. Either refresh this page, try again later, 
@@ -31,7 +31,7 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
       typeof event?.pathParameters?.workflowId !== "string" ||
       event?.pathParameters?.workflowId.length === 0
     ) {
-      fault += `Missing workflowId for ${candidateId}. `;
+      fault += ` Missing workflowId for ${candidateId}. `;
       console.warn(fault);
       return { body };
     }
@@ -66,11 +66,15 @@ or tell your administrator an error occurred at ${new Date().toUTCString()}.
       return { body: ongoingMarkup };
     }
 
-    const debutMarkup = await debutWorkbook(candidateId, workflowId);
+    const debutMarkup = await debutWorkbook(
+      candidateId,
+      workflowId,
+      event?.headers?.authorization
+    );
     return { body: debutMarkup };
     //
   } catch (err) {
-    console.warn(`${fault}:- ${err}`);
+    console.warn(` ${fault}:- ${err} `);
     return { body };
   }
 }

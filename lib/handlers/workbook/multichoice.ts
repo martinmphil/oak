@@ -10,9 +10,9 @@ export function multichoice(
 
   function choicesMarkup(workflowId: string, choicesArr: string[]) {
     const buttonsMarkup = choicesArr.map((choice, index) => {
-      const result = `<button type="button" data-candidate-answer="a${
+      const result = `<p><button type="button" data-candidate-answer="a${
         index + 1
-      }" data-workflow-id="${workflowId}" data-worksheet-id="${worksheetId}">${choice}</button>`;
+      }" data-workflow-id="${workflowId}" data-worksheet-id="${worksheetId}">${choice}</button></p>`;
       return result;
     });
     return `<div class=choices>${buttonsMarkup.join(" ")}</div>`;
@@ -32,7 +32,7 @@ export function multichoice(
 
     const choicesArr = validStringArray(obj.choicesArr);
 
-    return obj.scenario + choicesMarkup(workflowId, choicesArr);
+    return "<hr>" + obj.scenario + choicesMarkup(workflowId, choicesArr);
   } catch (err) {
     throw new Error(` ${fault}:- ${err} `);
   }

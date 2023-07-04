@@ -1,0 +1,1441 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`oak stack reproduces snapshot 1`] = `
+Object {
+  "Mappings": Object {
+    "DefaultCrNodeVersionMap": Object {
+      "af-south-1": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-east-1": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-northeast-1": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-northeast-2": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-northeast-3": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-south-1": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-south-2": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-southeast-1": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-southeast-2": Object {
+        "value": "nodejs16.x",
+      },
+      "ap-southeast-3": Object {
+        "value": "nodejs16.x",
+      },
+      "ca-central-1": Object {
+        "value": "nodejs16.x",
+      },
+      "cn-north-1": Object {
+        "value": "nodejs16.x",
+      },
+      "cn-northwest-1": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-central-1": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-central-2": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-north-1": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-south-1": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-south-2": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-west-1": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-west-2": Object {
+        "value": "nodejs16.x",
+      },
+      "eu-west-3": Object {
+        "value": "nodejs16.x",
+      },
+      "me-central-1": Object {
+        "value": "nodejs16.x",
+      },
+      "me-south-1": Object {
+        "value": "nodejs16.x",
+      },
+      "sa-east-1": Object {
+        "value": "nodejs16.x",
+      },
+      "us-east-1": Object {
+        "value": "nodejs16.x",
+      },
+      "us-east-2": Object {
+        "value": "nodejs16.x",
+      },
+      "us-gov-east-1": Object {
+        "value": "nodejs16.x",
+      },
+      "us-gov-west-1": Object {
+        "value": "nodejs16.x",
+      },
+      "us-iso-east-1": Object {
+        "value": "nodejs14.x",
+      },
+      "us-iso-west-1": Object {
+        "value": "nodejs14.x",
+      },
+      "us-isob-east-1": Object {
+        "value": "nodejs14.x",
+      },
+      "us-west-1": Object {
+        "value": "nodejs16.x",
+      },
+      "us-west-2": Object {
+        "value": "nodejs16.x",
+      },
+    },
+  },
+  "Outputs": Object {
+    "CognitoOakCognitoSignInUrl50D2A639": Object {
+      "Description": "cognito sign in url",
+      "Export": Object {
+        "Name": "signInUrl",
+      },
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "https://",
+            Object {
+              "Ref": "CognitoOakUserPoolOakCognitoDomainOakF424CADE",
+            },
+            ".auth.",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            ".amazoncognito.com/login?client_id=",
+            Object {
+              "Ref": "CognitoOakUserPoolOakUserPoolClientOak7479A23F",
+            },
+            "&response_type=token&redirect_uri=https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+          ],
+        ],
+      },
+    },
+    "GatewayUrl": Object {
+      "Value": Object {
+        "Fn::GetAtt": Array [
+          "GatewayOakBA4776D8",
+          "ApiEndpoint",
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "f9346b940b724b094a16ca051c017799995fa93df6da38a0539bf7c000fee50a.zip",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
+          ],
+        },
+        "Runtime": Object {
+          "Fn::FindInMap": Array [
+            "DefaultCrNodeVersionMap",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            "value",
+          ],
+        },
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287LogRetentionCE72797A": Object {
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 5,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CandidateEmailOak3A967B11": Object {
+      "DependsOn": Array [
+        "CandidateEmailOakServiceRole802E1B09",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "4212e6b6fef46b58b699988bea1c76ce1d2c2bfcf92347fa8e18aaa4286514a4.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CandidateEmailOakServiceRole802E1B09",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CandidateEmailOakServiceRole802E1B09": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ClearTest001OakAB5E4EF8": Object {
+      "DependsOn": Array [
+        "ClearTest001OakServiceRoleDefaultPolicy6A0E10F4",
+        "ClearTest001OakServiceRole1587457A",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "ea2792c8b92705781c4cf1a2a5d9982f9a12e9cfaa2db87c79be94d86fe62a0e.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DATABASE_NAME_OAK": Object {
+              "Ref": "DatabaseOakTableOak1FEE3FAA",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "ClearTest001OakServiceRole1587457A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "ClearTest001OakServiceRole1587457A": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ClearTest001OakServiceRoleDefaultPolicy6A0E10F4": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "DatabaseOakTableOak1FEE3FAA",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ClearTest001OakServiceRoleDefaultPolicy6A0E10F4",
+        "Roles": Array [
+          Object {
+            "Ref": "ClearTest001OakServiceRole1587457A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CognitoOakCognitoPostConfirmOak20776E64": Object {
+      "DependsOn": Array [
+        "CognitoOakCognitoPostConfirmOakServiceRoleDefaultPolicy998EB9F5",
+        "CognitoOakCognitoPostConfirmOakServiceRole19C0C890",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "d553507b41229c2c7e09757b32074680bd34776c5dd66dff3470b22d5e0641f1.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DATABASE_NAME_OAK": Object {
+              "Ref": "DatabaseOakTableOak1FEE3FAA",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CognitoOakCognitoPostConfirmOakServiceRole19C0C890",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CognitoOakCognitoPostConfirmOakServiceRole19C0C890": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CognitoOakCognitoPostConfirmOakServiceRoleDefaultPolicy998EB9F5": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "DatabaseOakTableOak1FEE3FAA",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CognitoOakCognitoPostConfirmOakServiceRoleDefaultPolicy998EB9F5",
+        "Roles": Array [
+          Object {
+            "Ref": "CognitoOakCognitoPostConfirmOakServiceRole19C0C890",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "CognitoOakLogGroupCognitoPostConfirmOak7C9C20CB": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "CognitoOakCognitoPostConfirmOak20776E64",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CognitoOakUserPoolOakABBC9CBB": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "AccountRecoverySetting": Object {
+          "RecoveryMechanisms": Array [
+            Object {
+              "Name": "verified_email",
+              "Priority": 1,
+            },
+          ],
+        },
+        "AdminCreateUserConfig": Object {
+          "AllowAdminCreateUserOnly": false,
+        },
+        "AutoVerifiedAttributes": Array [
+          "email",
+        ],
+        "EmailVerificationMessage": "The verification code to your new account is {####}",
+        "EmailVerificationSubject": "Verify your new account",
+        "LambdaConfig": Object {
+          "PostConfirmation": Object {
+            "Fn::GetAtt": Array [
+              "CognitoOakCognitoPostConfirmOak20776E64",
+              "Arn",
+            ],
+          },
+        },
+        "Policies": Object {
+          "PasswordPolicy": Object {
+            "MinimumLength": 8,
+            "RequireLowercase": false,
+            "RequireNumbers": false,
+            "RequireSymbols": false,
+            "RequireUppercase": false,
+          },
+        },
+        "SmsVerificationMessage": "The verification code to your new account is {####}",
+        "UsernameAttributes": Array [
+          "email",
+        ],
+        "UsernameConfiguration": Object {
+          "CaseSensitive": false,
+        },
+        "VerificationMessageTemplate": Object {
+          "DefaultEmailOption": "CONFIRM_WITH_CODE",
+          "EmailMessage": "The verification code to your new account is {####}",
+          "EmailSubject": "Verify your new account",
+          "SmsMessage": "The verification code to your new account is {####}",
+        },
+      },
+      "Type": "AWS::Cognito::UserPool",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CognitoOakUserPoolOakCognitoDomainOakF424CADE": Object {
+      "Properties": Object {
+        "Domain": "greenstem-oak",
+        "UserPoolId": Object {
+          "Ref": "CognitoOakUserPoolOakABBC9CBB",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolDomain",
+    },
+    "CognitoOakUserPoolOakPostConfirmationCognito6B503FB5": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "CognitoOakCognitoPostConfirmOak20776E64",
+            "Arn",
+          ],
+        },
+        "Principal": "cognito-idp.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::GetAtt": Array [
+            "CognitoOakUserPoolOakABBC9CBB",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "CognitoOakUserPoolOakUserPoolClientOak7479A23F": Object {
+      "Properties": Object {
+        "AccessTokenValidity": 1200,
+        "AllowedOAuthFlows": Array [
+          "implicit",
+        ],
+        "AllowedOAuthFlowsUserPoolClient": true,
+        "AllowedOAuthScopes": Array [
+          "profile",
+          "phone",
+          "email",
+          "openid",
+          "aws.cognito.signin.user.admin",
+        ],
+        "CallbackURLs": Array [
+          "http://localhost:5173/",
+          "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+        ],
+        "IdTokenValidity": 1200,
+        "LogoutURLs": Array [
+          "http://localhost:5173/",
+          "https://main.d3dq4xzxmmo3wf.amplifyapp.com/",
+        ],
+        "PreventUserExistenceErrors": "ENABLED",
+        "SupportedIdentityProviders": Array [
+          "COGNITO",
+        ],
+        "TokenValidityUnits": Object {
+          "AccessToken": "minutes",
+          "IdToken": "minutes",
+        },
+        "UserPoolId": Object {
+          "Ref": "CognitoOakUserPoolOakABBC9CBB",
+        },
+      },
+      "Type": "AWS::Cognito::UserPoolClient",
+    },
+    "DatabaseOakDynamoSeedDataA213EFDC": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "DatabaseOakDynamoSeedDataCustomResourcePolicy9E907632",
+      ],
+      "Properties": Object {
+        "Create": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"DynamoDB\\",\\"action\\":\\"batchWriteItem\\",\\"parameters\\":{\\"RequestItems\\":{\\"",
+              Object {
+                "Ref": "DatabaseOakTableOak1FEE3FAA",
+              },
+              "\\":[{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"standardCatalog\\"},\\"sk\\":{\\"S\\":\\"standardCatalog\\"},\\"entityType\\":{\\"S\\":\\"catalog\\"},\\"catalog\\":{\\"L\\":[{\\"S\\":\\"workflow101\\"},{\\"S\\":\\"workflow102\\"}]}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"workflow101\\"},\\"sk\\":{\\"S\\":\\"workflow101\\"},\\"entityType\\":{\\"S\\":\\"workflowData\\"},\\"workflowTitle\\":{\\"S\\":\\"Sustainable Energy\\"},\\"workflow\\":{\\"L\\":[{\\"S\\":\\"worksheet001\\"},{\\"S\\":\\"worksheet002\\"},{\\"S\\":\\"worksheet003\\"},{\\"S\\":\\"worksheet004\\"},{\\"S\\":\\"worksheet005\\"},{\\"S\\":\\"worksheet006\\"},{\\"S\\":\\"worksheet099\\"}]}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"workflow102\\"},\\"sk\\":{\\"S\\":\\"workflow102\\"},\\"entityType\\":{\\"S\\":\\"workflowData\\"},\\"workflowTitle\\":{\\"S\\":\\"Basic Science\\"},\\"workflow\\":{\\"L\\":[{\\"S\\":\\"worksheet001\\"},{\\"S\\":\\"worksheet010\\"},{\\"S\\":\\"worksheet011\\"},{\\"S\\":\\"worksheet099\\"}]}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet001\\"},\\"sk\\":{\\"S\\":\\"worksheet001\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>Please answer every question.</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"Continue\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"intro\\"},\\"mark\\":{\\"N\\":\\"0\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet099\\"},\\"sk\\":{\\"S\\":\\"worksheet099\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>Thank you for your participation.</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"OK\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"outro\\"},\\"mark\\":{\\"N\\":\\"0\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet002\\"},\\"sk\\":{\\"S\\":\\"worksheet002\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>If you raise up a 100g apple through 1m from a low table to your mouth, how many people would need to raise up similar apples in 1s to expend power at a rate of 1 kilowatt? Where: Force due to gravity, F = 10 newtons per kilogram; x = distance in metres; Work done in joules, W = F.x; Power in watts, P= dW/dt</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"One\\"},{\\"S\\":\\"Ten\\"},{\\"S\\":\\"One hundred\\"},{\\"S\\":\\"One thousand\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a4\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet003\\"},\\"sk\\":{\\"S\\":\\"worksheet003\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>For domestic ventilation systems, which of the following statements is NOT true?</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"Ventilation systems minimise energy consumption.\\"},{\\"S\\":\\"Ventilation systems remove water vapour.\\"},{\\"S\\":\\"Ventilation systems dilute pollutants.\\"},{\\"S\\":\\"Ventilation systems minimise mould growth.\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a1\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet004\\"},\\"sk\\":{\\"S\\":\\"worksheet004\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>What ventilation effectiveness number indicates that supply air mixes fully with room air before occupants breathe it in?</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"Zero\\"},{\\"S\\":\\"One\\"},{\\"S\\":\\"Ten\\"},{\\"S\\":\\"Infinity\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a2\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet005\\"},\\"sk\\":{\\"S\\":\\"worksheet005\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>What is the maximum average A-weighted sound pressure level in noise sensitive rooms, such as bedrooms and living rooms, allowed for ventilation systems?</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"25 dB L(Aeq,1 min)\\"},{\\"S\\":\\"30 dB L(Aeq,1 min)\\"},{\\"S\\":\\"35 dB L(Aeq,1 min)\\"},{\\"S\\":\\"40 dB L(Aeq,1 min)\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a2\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet006\\"},\\"sk\\":{\\"S\\":\\"worksheet006\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>According to UK government 2010 building regulations for whole dwelling ventilation rates, what is the recommended minimum ventilation rate per square metre of internal floor area?</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"0.1 l/s per m²\\"},{\\"S\\":\\"0.2 l/s per m²\\"},{\\"S\\":\\"0.3 l/s per m²\\"},{\\"S\\":\\"0.4 l/s per m²\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a3\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet010\\"},\\"sk\\":{\\"S\\":\\"worksheet010\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>Which is the lightest element?</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"Oxygen\\"},{\\"S\\":\\"Nitrogen\\"},{\\"S\\":\\"Hydrogen\\"},{\\"S\\":\\"Helium\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a3\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}},{\\"PutRequest\\":{\\"Item\\":{\\"pk\\":{\\"S\\":\\"worksheet011\\"},\\"sk\\":{\\"S\\":\\"worksheet011\\"},\\"entityType\\":{\\"S\\":\\"multichoice\\"},\\"worksheetObj\\":{\\"M\\":{\\"scenario\\":{\\"S\\":\\"<div><p>Which planet orbits furthest from the sun?</p></div>\\"},\\"choicesArr\\":{\\"L\\":[{\\"S\\":\\"Uranus\\"},{\\"S\\":\\"Neptune\\"},{\\"S\\":\\"Saturn\\"},{\\"S\\":\\"Jupiter\\"}]},\\"rubricArr\\":{\\"L\\":[{\\"M\\":{\\"answer\\":{\\"S\\":\\"a2\\"},\\"mark\\":{\\"N\\":\\"1\\"}}}]}}}}}}]}},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "DatabaseOakTableOak1FEE3FAA",
+              },
+              " seeded}\\"}}",
+            ],
+          ],
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "DatabaseOakDynamoSeedDataCustomResourcePolicy9E907632": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "dynamodb:BatchWriteItem",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "DatabaseOakTableOak1FEE3FAA",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "DatabaseOakDynamoSeedDataCustomResourcePolicy9E907632",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "DatabaseOakTableOak1FEE3FAA": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "AttributeDefinitions": Array [
+          Object {
+            "AttributeName": "pk",
+            "AttributeType": "S",
+          },
+          Object {
+            "AttributeName": "sk",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": Array [
+          Object {
+            "AttributeName": "pk",
+            "KeyType": "HASH",
+          },
+          Object {
+            "AttributeName": "sk",
+            "KeyType": "RANGE",
+          },
+        ],
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "GatewayOakBA4776D8": Object {
+      "Properties": Object {
+        "CorsConfiguration": Object {
+          "AllowHeaders": Array [
+            "Authorization",
+          ],
+          "AllowMethods": Array [
+            "GET",
+            "POST",
+          ],
+          "AllowOrigins": Array [
+            "https://main.d3dq4xzxmmo3wf.amplifyapp.com",
+            "http://localhost:5173",
+          ],
+        },
+        "Name": "GatewayOak",
+        "ProtocolType": "HTTP",
+      },
+      "Type": "AWS::ApiGatewayV2::Api",
+    },
+    "GatewayOakDefaultStage961D321E": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "AutoDeploy": true,
+        "StageName": "$default",
+      },
+      "Type": "AWS::ApiGatewayV2::Stage",
+    },
+    "GatewayOakGETcandidateemail2E68030C": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": Object {
+          "Ref": "GatewayOakdefaultAuthorizer424678D8",
+        },
+        "RouteKey": "GET /candidate-email",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GatewayOakGETcandidateemailCandidateEmailIntegrationOak9B14E0D6",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GatewayOakGETcandidateemailCandidateEmailIntegrationOak9B14E0D6": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "CandidateEmailOak3A967B11",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GatewayOakGETcandidateemailCandidateEmailIntegrationOakPermission0E320F6E": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "CandidateEmailOak3A967B11",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GatewayOakBA4776D8",
+              },
+              "/*/*/candidate-email",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayOakGETlistings11C0A914": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": Object {
+          "Ref": "GatewayOakdefaultAuthorizer424678D8",
+        },
+        "RouteKey": "GET /listings",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GatewayOakGETlistingsListingsIntegrationOak7335A752",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GatewayOakGETlistingsListingsIntegrationOak7335A752": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "ListingsOak815E17FB",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GatewayOakGETlistingsListingsIntegrationOakPermission591E427C": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "ListingsOak815E17FB",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GatewayOakBA4776D8",
+              },
+              "/*/*/listings",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayOakPOSTworkbookworkflowId2508608E": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "AuthorizationType": "JWT",
+        "AuthorizerId": Object {
+          "Ref": "GatewayOakdefaultAuthorizer424678D8",
+        },
+        "RouteKey": "POST /workbook/{workflowId}",
+        "Target": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "integrations/",
+              Object {
+                "Ref": "GatewayOakPOSTworkbookworkflowIdWorkbookIntegrationOakD46AC67E",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::ApiGatewayV2::Route",
+    },
+    "GatewayOakPOSTworkbookworkflowIdWorkbookIntegrationOakD46AC67E": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": Object {
+          "Fn::GetAtt": Array [
+            "WorkbookOakC06C7FF0",
+            "Arn",
+          ],
+        },
+        "PayloadFormatVersion": "2.0",
+      },
+      "Type": "AWS::ApiGatewayV2::Integration",
+    },
+    "GatewayOakPOSTworkbookworkflowIdWorkbookIntegrationOakPermission67DDACF5": Object {
+      "Properties": Object {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": Object {
+          "Fn::GetAtt": Array [
+            "WorkbookOakC06C7FF0",
+            "Arn",
+          ],
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "arn:",
+              Object {
+                "Ref": "AWS::Partition",
+              },
+              ":execute-api:",
+              Object {
+                "Ref": "AWS::Region",
+              },
+              ":",
+              Object {
+                "Ref": "AWS::AccountId",
+              },
+              ":",
+              Object {
+                "Ref": "GatewayOakBA4776D8",
+              },
+              "/*/*/workbook/{workflowId}",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "GatewayOakdefaultAuthorizer424678D8": Object {
+      "Properties": Object {
+        "ApiId": Object {
+          "Ref": "GatewayOakBA4776D8",
+        },
+        "AuthorizerType": "JWT",
+        "IdentitySource": Array [
+          "$request.header.Authorization",
+        ],
+        "JwtConfiguration": Object {
+          "Audience": Array [
+            Object {
+              "Ref": "CognitoOakUserPoolOakUserPoolClientOak7479A23F",
+            },
+          ],
+          "Issuer": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "https://cognito-idp.",
+                Object {
+                  "Ref": "AWS::Region",
+                },
+                ".amazonaws.com/",
+                Object {
+                  "Ref": "CognitoOakUserPoolOakABBC9CBB",
+                },
+              ],
+            ],
+          },
+        },
+        "Name": "defaultAuthorizer",
+      },
+      "Type": "AWS::ApiGatewayV2::Authorizer",
+    },
+    "ListingsOak815E17FB": Object {
+      "DependsOn": Array [
+        "ListingsOakServiceRoleDefaultPolicy70393B56",
+        "ListingsOakServiceRole939A436D",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "536b15058f34593d43a5b8ecfd816603f40169d1d5be52060199ff9c5fe050aa.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DATABASE_NAME_OAK": Object {
+              "Ref": "DatabaseOakTableOak1FEE3FAA",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "ListingsOakServiceRole939A436D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "ListingsOakServiceRole939A436D": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ListingsOakServiceRoleDefaultPolicy70393B56": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "DatabaseOakTableOak1FEE3FAA",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ListingsOakServiceRoleDefaultPolicy70393B56",
+        "Roles": Array [
+          Object {
+            "Ref": "ListingsOakServiceRole939A436D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogGroupCandidateEmailOak874225EA": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "CandidateEmailOak3A967B11",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogGroupClearTest001CE28ED45": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "ClearTest001OakAB5E4EF8",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogGroupListingsOak18982428": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "ListingsOak815E17FB",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogGroupWorkbookOak46821D62": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "WorkbookOakC06C7FF0",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": Object {
+      "DependsOn": Array [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "5fa1330271b8967d9254ba2d4a07144f8acefe8b77e6d6bba38261373a50d5f8.zip",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn",
+          ],
+        },
+        "Runtime": Object {
+          "Fn::FindInMap": Array [
+            "DefaultCrNodeVersionMap",
+            Object {
+              "Ref": "AWS::Region",
+            },
+            "value",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": Array [
+          Object {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "WorkbookOakC06C7FF0": Object {
+      "DependsOn": Array [
+        "WorkbookOakServiceRoleDefaultPolicyB81FA423",
+        "WorkbookOakServiceRole37843166",
+      ],
+      "Properties": Object {
+        "Architectures": Array [
+          "arm64",
+        ],
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "0d28d990326f2ee13bc0df136350ce8899e778fc824ddab27273324b83ae6b2b.zip",
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "DATABASE_NAME_OAK": Object {
+              "Ref": "DatabaseOakTableOak1FEE3FAA",
+            },
+          },
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "WorkbookOakServiceRole37843166",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "WorkbookOakServiceRole37843166": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "WorkbookOakServiceRoleDefaultPolicyB81FA423": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "DatabaseOakTableOak1FEE3FAA",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "WorkbookOakServiceRoleDefaultPolicyB81FA423",
+        "Roles": Array [
+          Object {
+            "Ref": "WorkbookOakServiceRole37843166",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

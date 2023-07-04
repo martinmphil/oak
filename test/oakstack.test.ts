@@ -7,9 +7,9 @@ describe("oak stack", () => {
   const stack = new Oak.OakStack(app, "OakTestStack");
   const template = Template.fromStack(stack);
 
-  // it("reproduces snapshot", () => {
-  //   expect(template.toJSON()).toMatchSnapshot();
-  // });
+  it("reproduces snapshot", () => {
+    expect(template.toJSON()).toMatchSnapshot();
+  });
 
   it("synthesises a cloud-formation template", () => {
     template.templateMatches(Match.anyValue());

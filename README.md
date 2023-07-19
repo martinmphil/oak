@@ -2,7 +2,7 @@
 
 Assessing candidates online
 
-![sun_and_cloud_dev_kit](https://github.com/martinmphil/oak/assets/37618836/305f650f-0ba0-4206-ac07-b8cb5e4feebe)
+[![sun and cloud dev kit logo](https://github.com/martinmphil/oak/assets/37618836/56017750-f0c4-4873-ac6b-076ae4ee4936)](https://www.greenstem.uk/)
 
 ## Amazon Web Services (AWS) Cloud Development Kit (CDK) TypeScript project
 

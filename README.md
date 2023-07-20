@@ -2,7 +2,7 @@
 
 Assessing candidates online
 
-[![sun and cloud dev kit logo](https://github.com/martinmphil/oak/assets/37618836/56017750-f0c4-4873-ac6b-076ae4ee4936)](https://www.greenstem.uk/)
+![sun and cloud dev kit logo](https://github.com/martinmphil/oak/assets/37618836/56017750-f0c4-4873-ac6b-076ae4ee4936)
 
 ## Amazon Web Services (AWS) Cloud Development Kit (CDK) TypeScript project
 
@@ -41,5 +41,30 @@ Returns `specialisms` (upcoming, ongoing and achieved)
 Returns either `achieved` or next `worksheet`
 
 ## User interface state diagram
-![oak_ui_state_chart](https://github.com/martinmphil/oak/assets/37618836/8bbd85fa-2f84-48ea-adcb-35b15eb9b75d)
+![Oak UI state diagram](https://github.com/martinmphil/oak/assets/37618836/524660d4-a5ca-49ed-82a1-b7cdacc00b26)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

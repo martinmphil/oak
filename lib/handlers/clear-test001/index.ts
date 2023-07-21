@@ -19,7 +19,7 @@ export async function handler(event: APIGatewayProxyEventV2) {
   const deleteCommand101 = new DeleteCommand({
     TableName: nameTable(),
     Key: {
-      pk: "candidate-294ea85a-3764-4061-8d57-0933fdcea18b",
+      pk: "candidate-dc3f7580-b3cd-45f6-a6fd-321f992f1390",
       sk: "workflow101",
     },
     ReturnValues: "ALL_OLD",
@@ -28,7 +28,7 @@ export async function handler(event: APIGatewayProxyEventV2) {
   const deleteCommand102 = new DeleteCommand({
     TableName: nameTable(),
     Key: {
-      pk: "candidate-294ea85a-3764-4061-8d57-0933fdcea18b",
+      pk: "candidate-dc3f7580-b3cd-45f6-a6fd-321f992f1390",
       sk: "workflow102",
     },
     ReturnValues: "ALL_OLD",
